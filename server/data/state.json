@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "arcsData": [],
+  "goalsData": [],
+  "calendarEvents": [],
+  "narratives": [],
+  "mediaAssets": [
+    {
+      "platform": "YouTube",
+      "id": "media-youtube",
+      "icon": "fa-youtube",
+      "handle": "CINDY",
+      "strategy": "Long-form VODs, High-budget Arc recaps",
+      "goal": "10M Subs by 2027",
+      "management": [
+        "Dedicated editor for long-form content",
+        "Thumbnail A/B testing on all major uploads",
+        "Publishing every Sunday at 3PM EST",
+        "Establish Vlog channel for secondary content"
+      ],
+      "creation": [
+        "Streaming VODs",
+        "Weekly recaps",
+        "Monthly recaps"
+      ],
+      "weeklyRecapLinks": [],
+      "monthlyRecapLinks": []
+    },
+    {
+      "platform": "Instagram",
+      "id": "media-ig",
+      "icon": "fa-instagram",
+      "handle": "@cindy",
+      "strategy": "Grid for trailers, Stories for posters, Reels for highlights and arcs",
+      "goal": "Stay top-of-mind and aligned with main streams and storylines",
+      "management": [
+        "Put stories in highlights so people can go back"
+      ],
+      "creation": [
+        "Stories: Posters of upcoming streams",
+        "Reels: Trailers and arc moments",
+        "Posts: High production dumps"
+      ]
+    },
+    {
+      "platform": "TikTok",
+      "id": "media-tiktok",
+      "icon": "fa-tiktok",
+      "handle": "@cindy",
+      "strategy": "Viral live-pushing and fast-paced stream clips",
+      "goal": "Maximize live stream traffic & virality",
+      "management": [
+        "Manage a team of clippers",
+        "Have trends saved for immediate execution"
+      ],
+      "creation": [
+        "Trends",
+        "On stream TikTok with the collabs so people can go like and boost it in the algorithm real time"
+      ],
+      "tiktokSoloTrendLinks": [],
+      "tiktokCollabTrendLinks": []
+    },
+    {
+      "platform": "X / Twitter",
+      "id": "media-x",
+      "icon": "fa-x-twitter",
+      "handle": "@CINDY",
+      "strategy": "\"People forget that they forget.\" Run Weekly/Monthly recaps to maintain narrative memory.",
+      "goal": "Dominate daily trending",
+      "management": [
+        "Weekly recap threads posted every Monday morning",
+        "Monthly \"Season Recap\" videos posted on the 1st of the month"
+      ],
+      "creation": [
+        "Posters",
+        "Trailers",
+        "Weekly recaps",
+        "Monthly recaps"
+      ]
+    },
+    {
+      "platform": "Snapchat",
+      "id": "media-snapchat",
+      "icon": "fa-snapchat",
+      "handle": "cindy",
+      "strategy": "Raw behind-the-scenes and day-in-the-life moments",
+      "goal": "Daily touchpoints with people who already follow the story",
+      "management": [
+        "Post 10-15 snaps daily to stay at the top of feeds",
+        "Point back to streams and arcs when it fits naturally"
+      ],
+      "creation": [
+        "Workout",
+        "Eating",
+        "Self-care",
+        "Traveling",
+        "Behind the scenes",
+        "Funny moments",
+        "On stream"
+      ]
+    }
+  ],
+  "networkData": [],
+  "reachOutContactsData": []
+}
