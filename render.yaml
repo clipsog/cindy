@@ -16,3 +16,5 @@ services:
         value: "true"
       - key: KEEP_ALIVE_INTERVAL_MS
         value: "480000"
+      - key: KEEP_ALIVE_URL
+        value: "https://cindy-platform.onrender.com"
