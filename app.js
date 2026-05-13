@@ -30,7 +30,7 @@ function normalizeDateInputValue(v) {
 const SEED_ARCS = [
     {
         id: 'arc-health',
-        title: 'CINDY Health & Fitness: The Build Up',
+        title: 'Cindy Health & Fitness: The Build Up',
         status: 'active',
         type: 'Arc',
         date: 'Spring 2026',
@@ -43,18 +43,18 @@ const SEED_ARCS = [
             'Diet and meal prep streams'
         ],
         prompts: [
-            'Reacting to his own lack of stamina',
+            'Reacting to her own lack of stamina',
             'Trying weird fitness trends'
         ],
-        narrative: 'Before he can take on the intense travel schedule of the NBA and NFL arena tours, CINDY needs to get in shape. This arc focuses on his physical and mental transformation, proving he can commit to the grind.',
-        clippingNarrative: 'Show the struggle and the progress. Funny moments of him failing at workouts, mixed with genuine growth and hype moments.',
-        trailerIdeas: 'Rocky-style training montage but heavily comedic. Cutting between him dying on a treadmill and hyping himself up in the mirror.',
+        narrative: 'Before she can take on the intense travel schedule of the NBA and NFL arena tours, Cindy needs to get in shape. This arc focuses on her physical and mental transformation, proving she can commit to the grind.',
+        clippingNarrative: 'Show the struggle and the progress. Funny moments of her failing at workouts, mixed with genuine growth and hype moments.',
+        trailerIdeas: 'Rocky-style training montage but heavily comedic. Cutting between her on a treadmill and hyping herself up in the mirror.',
         posterIdeas: 'Before/After graphic style, but the "After" is just slightly more confident.',
         budget: '$50,000 (Trainers & Nutritionists)'
     },
     {
         id: 'arc-nhl',
-        title: 'CINDY x NHL: The Ultimate Arena Tour',
+        title: 'Cindy x NHL: The Ultimate Arena Tour',
         status: 'planning',
         type: 'Arc',
         date: 'Winter 2026',
@@ -73,15 +73,15 @@ const SEED_ARCS = [
             'Trying to ice skate for the first time',
             'Chirping with the enforcers'
         ],
-        narrative: 'Hockey has a reputation for being traditional. CINDY is coming in to see which arena truly has the best vibes, food, and fans, bridging the gap between streaming culture and the ice.',
-        clippingNarrative: 'Focus on CINDY reacting to the cold, his attempts at skating, and his brutal honesty when rating stadium food.',
-        trailerIdeas: 'Fast-paced cuts of hockey hits, sirens sounding, mixed with CINDY screaming in the stands holding a giant pretzel. Text: "THE COLDEST ARC YET".',
-        posterIdeas: 'CINDY in a half-unzipped custom hockey jersey, missing a tooth (edited), holding a glowing neon hockey stick.',
+        narrative: 'Hockey has a reputation for being traditional. Cindy is coming in to see which arena truly has the best vibes, food, and fans, bridging the gap between streaming culture and the ice.',
+        clippingNarrative: 'Focus on Cindy reacting to the cold, her attempts at skating, and her brutal honesty when rating stadium food.',
+        trailerIdeas: 'Fast-paced cuts of hockey hits, sirens sounding, mixed with Cindy screaming in the stands holding a giant pretzel. Text: "THE COLDEST ARC YET".',
+        posterIdeas: 'Cindy in a half-unzipped custom hockey jersey, missing a tooth (edited), holding a glowing neon hockey stick.',
         budget: '$120,000'
     },
     {
         id: 'arc-nba',
-        title: 'CINDY x NBA: The Season Opener Stadium Tour',
+        title: 'Cindy x NBA: The Season Opener Stadium Tour',
         status: 'planning',
         type: 'Arc',
         date: 'Oct 2026 (Next Season)',
@@ -99,16 +99,16 @@ const SEED_ARCS = [
             'Asking players who has the best drip in the league',
             'Rating fans shoes on the street outside the arena'
         ],
-        narrative: "When the season starts next year, CINDY is going on a massive tour to every team's stadium to definitively rank who has the best food, ambiance, players, fans, and most comfortable seats.",
+        narrative: "When the season starts next year, Cindy is going on a massive tour to every team's stadium to definitively rank who has the best food, ambiance, players, fans, and most comfortable seats.",
         clippingNarrative: 'Show the scale of the tour. Highlight interactions with massive NBA stars, showcasing mutual respect and funny courtside antics.',
-        trailerIdeas: "Dramatic sports documentary style. Black and white footage of empty arenas, lighting up neon green one by one as CINDY walks in.",
-        posterIdeas: 'Split face graphic: Half CINDY, Half an NBA superstar, with a neon basketball bridging the gap.',
+        trailerIdeas: "Dramatic sports documentary style. Black and white footage of empty arenas, lighting up neon green one by one as Cindy walks in.",
+        posterIdeas: 'Split face graphic: Half Cindy, Half an NBA superstar, with a neon basketball bridging the gap.',
         budget: '$300,000 (Production & Travel)',
         linkedStreams: []
     },
     {
         id: 'arc-nfl',
-        title: 'CINDY x NFL: Tailgate Takeovers',
+        title: 'Cindy x NFL: Tailgate Takeovers',
         status: 'planning',
         type: 'Arc',
         date: 'Fall 2026',
@@ -124,15 +124,15 @@ const SEED_ARCS = [
             'Jumping through a folding table',
             'Debating the most passionate fans'
         ],
-        narrative: 'Football is religion in America. CINDY is diving headfirst into the most intense fanbases to see if he can survive the wildest tailgates in the NFL.',
-        clippingNarrative: 'Focus on pure chaos. CINDY amidst thousands of screaming fans, eating massive BBQ plates, and participating in crazy tailgate traditions.',
-        trailerIdeas: 'CINDY stepping out of an RV into a sea of face-painted fans, smoke grenades going off.',
-        posterIdeas: 'CINDY wearing a helmet that is way too big for him, holding a football like a trophy in a smoky parking lot.',
+        narrative: 'Football is religion in America. Cindy is diving headfirst into the most intense fanbases to see if she can survive the wildest tailgates in the NFL.',
+        clippingNarrative: 'Focus on pure chaos. Cindy amidst thousands of screaming fans, eating massive BBQ plates, and participating in crazy tailgate traditions.',
+        trailerIdeas: 'Cindy stepping out of an RV into a sea of face-painted fans, smoke grenades going off.',
+        posterIdeas: 'Cindy wearing a helmet that is way too big for her, holding a football like a trophy in a smoky parking lot.',
         budget: '$150,000'
     },
     {
         id: 'arc-f1',
-        title: 'CINDY x F1: The Global Grid',
+        title: 'Cindy x F1: The Global Grid',
         status: 'planning',
         type: 'Arc',
         date: 'Summer 2027',
@@ -149,9 +149,9 @@ const SEED_ARCS = [
             'Trying to understand British racing slang'
         ],
         narrative: 'Taking the stream to the absolute peak of luxury and speed. From the chaos of the internet to the refined, elite world of Formula 1.',
-        clippingNarrative: 'Fish-out-of-water comedy. CINDY in ultra-high-end environments, interacting with billionaires and elite drivers, bringing his signature energy to the grid.',
-        trailerIdeas: 'Slow motion shots of F1 cars flying by, cut with CINDY trying to pop champagne on a yacht.',
-        posterIdeas: 'CINDY in a neon-green racing suit, holding a steering wheel, looking completely out of place but confident.',
+        clippingNarrative: 'Fish-out-of-water comedy. Cindy in ultra-high-end environments, interacting with billionaires and elite drivers, bringing her signature energy to the grid.',
+        trailerIdeas: 'Slow motion shots of F1 cars flying by, cut with Cindy trying to pop champagne on a yacht.',
+        posterIdeas: 'Cindy in a neon-green racing suit, holding a steering wheel, looking completely out of place but confident.',
         linkedStreams: [],
         budget: '$500,000+'
     },
@@ -196,7 +196,7 @@ const SEED_ARCS = [
         driver: 'John',
         segments: [
             { title: 'Dinner with Agency Execs', duration: '2 hrs', goals: 'Make connections for the NBA/NHL arcs', narrative: 'Show the business side, serious but funny moments.' },
-            { title: 'Paparazzi Walk', duration: '30 mins', goals: 'Generate hype and headlines', narrative: 'CINDY acting like an A-lister, funny interactions with photographers.' }
+            { title: 'Paparazzi Walk', duration: '30 mins', goals: 'Generate hype and headlines', narrative: 'Cindy acting like an A-lister, funny interactions with photographers.' }
         ]
     },
     {
@@ -208,7 +208,7 @@ const SEED_ARCS = [
         location: 'Miami Setup',
         segments: [
             { title: 'Rating Stadium Foods Online', duration: '1 hr', goals: 'Prep for the upcoming stadium tours', narrative: 'Outrageous reactions to crazy stadium foods.' },
-            { title: 'Learning Hockey Rules', duration: '45 mins', goals: 'Prepare for NHL arc', narrative: 'CINDY completely failing to understand icing and offsides.' }
+            { title: 'Learning Hockey Rules', duration: '45 mins', goals: 'Prepare for NHL arc', narrative: 'Cindy completely failing to understand icing and offsides.' }
         ]
     },
     {
@@ -222,11 +222,11 @@ const SEED_ARCS = [
         security: 'Big Mike',
         driver: 'John',
         segments: [
-            { title: 'Pitching the Stadium Tour', duration: '1 hr', goals: 'Get the player cosign', narrative: 'Players laughing at CINDYs ambitious stadium tour plans.' }
+            { title: 'Pitching the Stadium Tour', duration: '1 hr', goals: 'Get the player cosign', narrative: "Players laughing at Cindy's ambitious stadium tour plans." }
         ]
     }
 ];
-let arcsData = [];
+let arcsData = cloneSeed(SEED_ARCS);
 
 const SEED_GOALS = [
     {
@@ -249,7 +249,7 @@ const SEED_GOALS = [
         status: 'Planning',
         linkedArcs: ['arc-health'],
         linkedStreams: [],
-        description: 'Once invited, CINDY needs to physically prepare to dominate the court and win MVP.',
+        description: 'Once invited, Cindy needs to physically prepare to dominate the court and win MVP.',
         actionItems: [
             'Hire professional shooting coach',
             'Play 1v1s against lower-tier influencers for practice'
@@ -260,13 +260,13 @@ const SEED_GOALS = [
     { id: 'goal-5', category: 'Streaming Awards', title: 'Best Variety Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Showcase diverse content formats beyond traditional IRL or gaming.', actionItems: ['Integrate high-production arcs (NHL, NBA)'] },
     { id: 'goal-6', category: 'Streaming Awards', title: 'Streamer of the Year', status: 'In Progress', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'The ultimate goal: become the undeniable face of streaming for the year.', actionItems: ['Consistent virality', 'High-impact collabs that feel earned'] },
     { id: 'goal-7', category: 'Streaming Awards', title: 'Best Streamed Series', status: 'Planning', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'Win an award for the best episodic streamed content.', actionItems: ['Structure the stadium tours as seasonal content'] },
-    { id: 'goal-8', category: 'Streaming Awards', title: 'Best Sports Streamer', status: 'Planning', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'Solidify CINDY as the premier sports streamer.', actionItems: ['Collaborate with active professional athletes'] },
+    { id: 'goal-8', category: 'Streaming Awards', title: 'Best Sports Streamer', status: 'Planning', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'Solidify Cindy as the premier sports streamer.', actionItems: ['Collaborate with active professional athletes'] },
     { id: 'goal-9', category: 'Streaming Awards', title: 'Best Streamed Collab', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Execute a historic collaboration that breaks viewership records.', actionItems: ['Secure an A-list celebrity collab'] },
     { id: 'goal-10', category: 'Streaming Awards', title: 'Best Marathon Stream', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Host a massive, continuous marathon stream.', actionItems: ['Plan a 24-48 hour subathon with structured events'] },
     { id: 'goal-11', category: 'Streaming Awards', title: 'Best Reality Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Blur the line between reality TV and live streaming.', actionItems: ['Use multi-cam setups for major IRL events'] },
     { id: 'goal-12', category: 'Streaming Awards', title: 'Best Stream Duo', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Form a legendary streaming duo for specific segments.', actionItems: ['Find a permanent co-host for specific arcs'] }
 ];
-let goalsData = [];
+let goalsData = cloneSeed(SEED_GOALS);
 
 const SEED_CALENDAR = [];
 let calendarEvents = cloneSeed(SEED_CALENDAR);
@@ -437,14 +437,14 @@ const SEED_REACH_OUT_CONTACTS = {
     Podcast: [],
   },
 };
-let reachOutContactsData = {};
+let reachOutContactsData = cloneSeed(SEED_REACH_OUT_CONTACTS);
 
 const SEED_MEDIA = [
     { 
         platform: 'YouTube', 
         id: 'media-youtube',
         icon: 'fa-youtube', 
-        handle: 'CINDY', 
+        handle: 'Cindy', 
         strategy: 'Long-form VODs, High-budget Arc recaps', 
         goal: '10M Subs by 2027',
         management: [
@@ -493,7 +493,7 @@ const SEED_MEDIA = [
         platform: 'X / Twitter', 
         id: 'media-x',
         icon: 'fa-x-twitter', 
-        handle: '@CINDY', 
+        handle: '@Cindy', 
         strategy: '"People forget that they forget." Run Weekly/Monthly recaps to maintain narrative memory.', 
         goal: 'Dominate daily trending',
         management: [
@@ -733,7 +733,7 @@ const SEED_NETWORK = [
         ideas: []
     }
 ];
-let networkData = [];
+let networkData = cloneSeed(SEED_NETWORK);
 const networkFilters = { query: '', tag: '', name: '', sort: 'name_asc' };
 /** '' = all arcs; otherwise past | current | future (matches getArcTimelineStatus().key) */
 const arcTimelineFilter = { timeline: '' };
@@ -764,7 +764,7 @@ const NETWORK_PHOTO_BY_NAME = {
 };
 
 // --- Persistence: Express server saves JSON to server/data/state.json; localStorage backup if offline ---
-const LS_KEY = 'cindy-app-state-v3';
+const LS_KEY = 'cindy-app-state-v1';
 let __saveDbTimer = null;
 let __lastSavedJson = '';
 const AUTO_SAVE_MS = 25000;
@@ -809,7 +809,7 @@ function applyAppState(payload) {
   if (payload.reachOutContactsData && typeof payload.reachOutContactsData === 'object') {
     reachOutContactsData = payload.reachOutContactsData;
   }
-  // normalizeReachOutContactsData();
+  normalizeReachOutContactsData();
 }
 
 /** If disk/local backup predates a new built-in arc, append it once. */
@@ -924,6 +924,7 @@ function refreshAllViews() {
   renderArcs();
   renderNarratives();
   renderClippersBoard();
+  renderClippersSegmentBankBoard();
   renderAssets();
   renderGoals();
   renderNetwork();
@@ -968,6 +969,7 @@ function setupClippersSubtabs() {
         if (isMatch) pane.classList.add('active');
         else pane.classList.remove('active');
       });
+      if (target === 'segment-bank') renderClippersSegmentBankBoard();
     });
   });
 }
@@ -1471,6 +1473,11 @@ function getPersonRelatedStreams(personName) {
         seg.postedClips.some((clip) => {
           const people = Array.isArray(clip?.people) ? clip.people : String(clip?.people || '').split(',');
           return people.some((p) => isLikelySamePersonName(p, personName));
+        })) ||
+      (Array.isArray(seg?.rawClips) &&
+        seg.rawClips.some((clip) => {
+          const people = Array.isArray(clip?.people) ? clip.people : String(clip?.people || '').split(',');
+          return people.some((p) => isLikelySamePersonName(p, personName));
         }))
     );
   });
@@ -1567,7 +1574,7 @@ function normalizeRecapPeriodLinks(raw, fallbackPeriods) {
 
 let activeClipStreamKey = '';
 let goalListSelectedCategory = null;
-const clipBankFilters = { text: '', tag: '', person: '' };
+const clipBankFilters = { text: '', tag: '', person: '', kind: '' };
 let activeClipStreamBucket = 'future';
 const CINDY_PLATFORM_PHOTO = '';
 
@@ -1714,24 +1721,30 @@ function getClipBankEntries(streams) {
   const entries = [];
   streams.forEach((stream) => {
     (stream.segments || []).forEach((seg, segIndex) => {
-      const posted = Array.isArray(seg.postedClips) ? seg.postedClips : [];
-      posted.forEach((clip, clipIndex) => {
-        const tags = Array.isArray(clip.tags)
-          ? clip.tags.map((t) => String(t).trim()).filter(Boolean)
-          : String(clip.tags || '').split(',').map((t) => t.trim()).filter(Boolean);
-        const people = Array.isArray(clip.people)
-          ? clip.people.map((p) => String(p).trim()).filter(Boolean)
-          : String(clip.people || '').split(',').map((p) => p.trim()).filter(Boolean);
-        entries.push({
-          streamTitle: stream.title,
-          segmentTitle: seg.title || `Segment ${segIndex + 1}`,
-          url: String(clip.url || ''),
-          title: String(clip.title || ''),
-          tags,
-          people,
-          clipIndex,
+      const appendClips = (list, clipKind) => {
+        const arr = Array.isArray(list) ? list : [];
+        arr.forEach((clip, clipIndex) => {
+          const tags = Array.isArray(clip.tags)
+            ? clip.tags.map((t) => String(t).trim()).filter(Boolean)
+            : String(clip.tags || '').split(',').map((t) => t.trim()).filter(Boolean);
+          const people = Array.isArray(clip.people)
+            ? clip.people.map((p) => String(p).trim()).filter(Boolean)
+            : String(clip.people || '').split(',').map((p) => p.trim()).filter(Boolean);
+          entries.push({
+            streamTitle: stream.title,
+            segmentTitle: seg.title || `Segment ${segIndex + 1}`,
+            url: String(clip.url || ''),
+            title: String(clip.title || ''),
+            notes: String(clip.notes || ''),
+            tags,
+            people,
+            clipIndex,
+            clipKind,
+          });
         });
-      });
+      };
+      appendClips(seg.postedClips, 'posted');
+      appendClips(seg.rawClips, 'raw');
     });
   });
   return entries;
@@ -1805,13 +1818,14 @@ function renderClippersBoard() {
                 <a href="${escAttr(activeStream.fullVodUrl || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="if(!(this.closest('div').querySelector('.stream-full-vod-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('div').querySelector('.stream-full-vod-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
               </div>
             `
-            : `<div style="font-size:0.9rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px; margin-bottom:10px;">Select a stream to manage full VOD, segment VODs, and posted clips.</div>`
+            : `<div style="font-size:0.9rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px; margin-bottom:10px;">Select a stream to manage full VOD, segment VODs, raw pulls, and posted clips.</div>`
         }
         <div style="display:flex; flex-direction:column; gap:10px; min-width:0;">
           ${activeSegments
             .map((seg, segIndex) => {
               const vod = seg.clipVodUrl || '';
               const angle = seg.clipDesiredAngle || '';
+              const rawClips = Array.isArray(seg.rawClips) ? seg.rawClips : [];
               const postedClips = Array.isArray(seg.postedClips) ? seg.postedClips : [];
               return `
                 <div style="border:1px solid var(--border-color); border-radius:8px; padding:10px; background:rgba(255,255,255,0.02); min-width:0;">
@@ -1824,6 +1838,33 @@ function renderClippersBoard() {
                   </div>
                   <textarea class="form-input" style="width:100%; min-height:72px; resize:vertical; margin-bottom:8px;" placeholder="Desired angle for clippers"
                     oninput="updateSegmentClipperFields('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, 'clipDesiredAngle', this.value)">${escAttr(angle)}</textarea>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <strong style="font-size:0.82rem;">Raw clips</strong>
+                    <button type="button" class="btn btn-outline btn-sm" onclick="addRawClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex})"><i class="fa-solid fa-plus"></i> Add raw</button>
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:8px; min-width:0; margin-bottom:10px;">
+                    ${rawClips
+                      .map(
+                        (clip, clipIndex) => `
+                        <div class="raw-clip-row">
+                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Label (e.g. reaction cam A)" value="${escAttr(clip.title || '')}"
+                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'title', this.value)" />
+                          <input type="text" class="form-input raw-clip-url" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="File / drive / unlisted URL" value="${escAttr(clip.url || '')}"
+                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'url', this.value)" />
+                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Notes (timestamp, reel, etc.)" value="${escAttr(clip.notes || '')}"
+                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'notes', this.value)" />
+                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Tags (funny, wild)" value="${escAttr(Array.isArray(clip.tags) ? clip.tags.join(', ') : (clip.tags || ''))}"
+                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'tags', this.value)" />
+                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="People (Iggy, Von Miller)" value="${escAttr(Array.isArray(clip.people) ? clip.people.join(', ') : (clip.people || ''))}"
+                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'people', this.value)" />
+                          <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.raw-clip-row').querySelector('.raw-clip-url').value)"><i class="fa-solid fa-play"></i></button>
+                          <a href="${escAttr(clip.url || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link" onclick="if(!(this.closest('.raw-clip-row').querySelector('.raw-clip-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('.raw-clip-row').querySelector('.raw-clip-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
+                          <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="removeRawClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex})"><i class="fa-solid fa-xmark"></i></button>
+                        </div>`
+                      )
+                      .join('')}
+                    ${rawClips.length === 0 ? `<div style="font-size:0.82rem; color:var(--text-muted);">No raw pulls logged yet (rough cuts, ISOs, or temp links).</div>` : ''}
+                  </div>
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                     <strong style="font-size:0.82rem;">Posted Clips</strong>
                     <button type="button" class="btn btn-outline btn-sm" onclick="addPostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex})"><i class="fa-solid fa-plus"></i> Add clip</button>
@@ -1873,21 +1914,24 @@ function renderClippersBoard() {
   const allPeople = [...new Set(entries.flatMap((e) => e.people))].sort((a, b) => a.localeCompare(b));
   const query = clipBankFilters.text.trim().toLowerCase();
   const filtered = entries.filter((entry) => {
+    const notes = String(entry.notes || '').toLowerCase();
     const inQuery =
       !query ||
       entry.title.toLowerCase().includes(query) ||
       entry.streamTitle.toLowerCase().includes(query) ||
+      notes.includes(query) ||
       entry.tags.some((t) => t.toLowerCase().includes(query)) ||
       entry.people.some((p) => p.toLowerCase().includes(query));
     const inTag = !clipBankFilters.tag || entry.tags.includes(clipBankFilters.tag);
     const inPerson = !clipBankFilters.person || entry.people.includes(clipBankFilters.person);
-    return inQuery && inTag && inPerson;
+    const inKind = !clipBankFilters.kind || entry.clipKind === clipBankFilters.kind;
+    return inQuery && inTag && inPerson && inKind;
   });
 
   bankBoard.innerHTML = `
     <div class="glass-panel" style="padding:16px;">
       <div class="clip-bank-filters-grid">
-        <input class="form-input" placeholder="Search by stream, tag, person..." value="${escAttr(clipBankFilters.text)}" oninput="setClipBankFilter('text', this.value)" />
+        <input class="form-input" placeholder="Search stream, notes, tag, person..." value="${escAttr(clipBankFilters.text)}" oninput="setClipBankFilter('text', this.value)" />
         <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('tag', this.value)">
           <option value="">All tags</option>
           ${allTags.map((tag) => `<option value="${escAttr(tag)}" ${clipBankFilters.tag === tag ? 'selected' : ''}>${escAttr(tag)}</option>`).join('')}
@@ -1895,6 +1939,11 @@ function renderClippersBoard() {
         <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('person', this.value)">
           <option value="">All people</option>
           ${allPeople.map((p) => `<option value="${escAttr(p)}" ${clipBankFilters.person === p ? 'selected' : ''}>${escAttr(p)}</option>`).join('')}
+        </select>
+        <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('kind', this.value)">
+          <option value="" ${!clipBankFilters.kind ? 'selected' : ''}>All clips</option>
+          <option value="raw" ${clipBankFilters.kind === 'raw' ? 'selected' : ''}>Raw only</option>
+          <option value="posted" ${clipBankFilters.kind === 'posted' ? 'selected' : ''}>Posted only</option>
         </select>
       </div>
       <div class="clip-bank-scroll" style="max-height: 520px; overflow: auto; min-width: 0;">
@@ -1917,6 +1966,11 @@ function renderClippersBoard() {
                       hostKind === 'tiktok'
                         ? '<i class="fa-brands fa-tiktok clip-bank-card-thumb-icon clip-bank-card-thumb-icon--tiktok"></i>'
                         : '<i class="fa-solid fa-film clip-bank-card-thumb-icon"></i>';
+                    const kindBadge =
+                      clip.clipKind === 'raw'
+                        ? `<span class="tag clip-bank-kind-badge" style="background:rgba(251,191,36,0.15); border-color:rgba(251,191,36,0.35); color:#fbbf24;">Raw</span>`
+                        : `<span class="tag clip-bank-kind-badge" style="background:rgba(34,197,94,0.12); border-color:rgba(34,197,94,0.35); color:#86efac;">Posted</span>`;
+                    const notesLine = clip.notes ? `<div class="clip-bank-card-notes">${escAttr(clip.notes)}</div>` : '';
                     return `
                 <div role="button" tabindex="0" class="clip-bank-card" onclick="void window.openMediaEmbedPreview(${JSON.stringify(clip.url)})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();void window.openMediaEmbedPreview(${JSON.stringify(clip.url)});}">
                   <div class="clip-bank-card-thumb">
@@ -1927,9 +1981,11 @@ function renderClippersBoard() {
                     <div class="clip-bank-card-title">${escAttr(clip.title || 'Untitled clip')}</div>
                     <div class="clip-bank-card-meta">${escAttr(clip.streamTitle)} · ${escAttr(clip.segmentTitle)}</div>
                     <div class="clip-bank-card-tags">
+                      ${kindBadge}
                       ${clip.tags.map((tag) => `<span class="tag">${escAttr(tag)}</span>`).join('')}
                       ${clip.people.map((person) => `<span class="tag clip-bank-card-person">${escAttr(person)}</span>`).join('')}
                     </div>
+                    ${notesLine}
                     <div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;">
                       <a href="${href}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="font-size:0.75rem; padding:4px 10px;" onclick="event.stopPropagation();">Open</a>
                     </div>
@@ -2095,17 +2151,18 @@ const pages = {
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
   // Boot UI immediately so navigation/tabs are always interactive.
-  // ensureCollegeTakeoverArc();
-  // ensureF1LinkedStreams();
-  // ensureSeedNetworkPeople();
-  // ensureNetworkPhotoDefaults();
-  // normalizeReachOutContactsData();
+  ensureCollegeTakeoverArc();
+  ensureF1LinkedStreams();
+  ensureSeedNetworkPeople();
+  ensureNetworkPhotoDefaults();
+  normalizeReachOutContactsData();
   setupNavigation();
   renderCalendar();
   renderStreams();
   renderArcs();
   renderNarratives();
   renderClippersBoard();
+  renderClippersSegmentBankBoard();
   renderAssets();
   renderGoals();
   renderNetwork();
@@ -2148,11 +2205,11 @@ document.addEventListener('DOMContentLoaded', () => {
       new Promise((resolve) => setTimeout(() => resolve(false), 2500)),
     ]);
     if (!loaded) return;
-    // ensureCollegeTakeoverArc();
-    // ensureF1LinkedStreams();
-    // ensureSeedNetworkPeople();
-    // ensureNetworkPhotoDefaults();
-    // normalizeReachOutContactsData();
+    ensureCollegeTakeoverArc();
+    ensureF1LinkedStreams();
+    ensureSeedNetworkPeople();
+    ensureNetworkPhotoDefaults();
+    normalizeReachOutContactsData();
     refreshAllViews();
   })();
 
@@ -3122,6 +3179,47 @@ window.updatePostedClipField = function(streamId, parentArcId, linkedIndex, segm
     scheduleSaveAppStateToDb();
 };
 
+window.addRawClip = function(streamId, parentArcId, linkedIndex, segmentIndex) {
+    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+    if (!stream || !Array.isArray(stream.segments)) return;
+    const seg = stream.segments[segmentIndex];
+    if (!seg) return;
+    if (!Array.isArray(seg.rawClips)) seg.rawClips = [];
+    seg.rawClips.push({ title: '', url: '', notes: '', tags: [], people: [] });
+    renderClippersBoard();
+    scheduleSaveAppStateToDb();
+};
+
+window.removeRawClip = function(streamId, parentArcId, linkedIndex, segmentIndex, clipIndex) {
+    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+    if (!stream || !Array.isArray(stream.segments)) return;
+    const seg = stream.segments[segmentIndex];
+    if (!seg || !Array.isArray(seg.rawClips)) return;
+    seg.rawClips.splice(clipIndex, 1);
+    renderClippersBoard();
+    scheduleSaveAppStateToDb();
+};
+
+window.updateRawClipField = function(streamId, parentArcId, linkedIndex, segmentIndex, clipIndex, field, value) {
+    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+    if (!stream || !Array.isArray(stream.segments)) return;
+    const seg = stream.segments[segmentIndex];
+    if (!seg) return;
+    if (!Array.isArray(seg.rawClips)) seg.rawClips = [];
+    const clip = seg.rawClips[clipIndex];
+    if (!clip) return;
+    if (field === 'title' || field === 'url' || field === 'notes') {
+      clip[field] = value;
+    }
+    if (field === 'tags' || field === 'people') {
+      clip[field] = String(value || '')
+        .split(',')
+        .map((x) => x.trim())
+        .filter(Boolean);
+    }
+    scheduleSaveAppStateToDb();
+};
+
 function syncArcTimelineFilterButtons() {
     const active = String(arcTimelineFilter.timeline || '').trim().toLowerCase();
     document.querySelectorAll('#tab-arcs .arc-timeline-btn').forEach((btn) => {
@@ -3713,7 +3811,7 @@ function renderAssets() {
         card.innerHTML = `
             <div style="display: flex; align-items: center; gap: 12px;">
                 <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(204, 255, 0, 0.1); overflow:hidden; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem;">
-                    <img src="${escAttr(CINDY_PLATFORM_PHOTO)}" alt="CINDY" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
+                    <img src="${escAttr(CINDY_PLATFORM_PHOTO)}" alt="Cindy" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
                     <span style="display:none; align-items:center; justify-content:center; width:100%; height:100%;"><i class="fa-brands ${asset.icon}"></i></span>
                 </div>
                 <div>
@@ -4492,6 +4590,9 @@ window.addSegmentToDetail = function(streamId, parentArcId, linkedIndex, targetI
         narrative: '',
         options: [],
         clipVodUrl: '',
+        clipDesiredAngle: '',
+        postedClips: [],
+        rawClips: [],
     });
     renderDetail(stream, targetId, parentArc);
     scheduleSaveAppStateToDb();
@@ -4701,6 +4802,59 @@ const SEGMENT_BANK_CATEGORIES = [
 ];
 let activeSegmentBankCategory = 0;
 let activeSegmentBankCard = null;
+
+function renderClippersSegmentBankBoard() {
+  const board = document.getElementById('clippers-segment-bank-board');
+  if (!board) return;
+  const category = SEGMENT_BANK_CATEGORIES[activeSegmentBankCategory];
+  if (!category) return;
+  board.innerHTML = `
+    <div class="glass-panel" style="padding:16px; min-width:0;">
+      <div class="segment-bank-inline-tabs" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
+        ${SEGMENT_BANK_CATEGORIES.map(
+          (c, idx) => `
+          <button type="button" class="btn btn-outline btn-sm" style="${
+            idx === activeSegmentBankCategory ? 'border-color:rgba(204,255,0,0.55); background:rgba(204,255,0,0.12);' : ''
+          }"
+            onclick="setClippersSegmentBankCategory(${idx})">${escAttr(c.name)}</button>
+        `
+        ).join('')}
+      </div>
+      <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">${escAttr(category.name)}</div>
+      <div style="max-height:520px; overflow:auto; display:flex; flex-direction:column; gap:6px; min-width:0;">
+        ${category.items
+          .map(
+            (item) => `
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 10px; border:1px solid var(--border-color); border-radius:8px; background:rgba(255,255,255,0.02);">
+            <span style="font-size:0.92rem; min-width:0;">${escAttr(item)}</span>
+            <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="copySegmentBankIdeaToClipboard(${JSON.stringify(
+              item
+            )})" title="Copy to clipboard"><i class="fa-regular fa-copy"></i></button>
+          </div>
+        `
+          )
+          .join('')}
+      </div>
+    </div>
+  `;
+}
+
+window.setClippersSegmentBankCategory = function (idx) {
+  const n = Number(idx);
+  if (Number.isNaN(n) || n < 0 || n >= SEGMENT_BANK_CATEGORIES.length) return;
+  activeSegmentBankCategory = n;
+  renderClippersSegmentBankBoard();
+};
+
+window.copySegmentBankIdeaToClipboard = function (text) {
+  const t = String(text || '');
+  if (!t) return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    void navigator.clipboard.writeText(t).then(() => setDbStatus('Copied to clipboard', 'ok')).catch(() => setDbStatus('Copy failed', 'err'));
+  } else {
+    setDbStatus('Clipboard unavailable in this browser context', 'warn');
+  }
+};
 
 function setupSegmentBankModal() {
     const modal = document.getElementById('segment-bank-modal');
