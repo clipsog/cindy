@@ -28,243 +28,243 @@ function normalizeDateInputValue(v) {
 
 // App Data (seed → mutable copies; optional load from PostgreSQL via /api/state)
 const SEED_ARCS = [
-    {
-        id: 'arc-health',
-        title: 'Cindy Health & Fitness: The Build Up',
-        status: 'active',
-        type: 'Arc',
-        date: 'Spring 2026',
-        location: 'Miami / LA Gyms',
-        goals: ['Build physical stamina for the massive tours', 'Inspire audience to get healthy', 'Transform physique'],
-        clothing: ['Athleisure wear', 'Sweatbands', 'Custom gym shoes'],
-        activities: [
-            '100-day fitness challenge',
-            'Training with professional athletes',
-            'Diet and meal prep streams'
-        ],
-        prompts: [
-            'Reacting to her own lack of stamina',
-            'Trying weird fitness trends'
-        ],
-        narrative: 'Before she can take on the intense travel schedule of the NBA and NFL arena tours, Cindy needs to get in shape. This arc focuses on her physical and mental transformation, proving she can commit to the grind.',
-        clippingNarrative: 'Show the struggle and the progress. Funny moments of her failing at workouts, mixed with genuine growth and hype moments.',
-        trailerIdeas: 'Rocky-style training montage but heavily comedic. Cutting between her on a treadmill and hyping herself up in the mirror.',
-        posterIdeas: 'Before/After graphic style, but the "After" is just slightly more confident.',
-        budget: '$50,000 (Trainers & Nutritionists)'
-    },
-    {
-        id: 'arc-nhl',
-        title: 'Cindy x NHL: The Ultimate Arena Tour',
-        status: 'planning',
-        type: 'Arc',
-        date: 'Winter 2026',
-        location: 'NHL Arenas (USA/Canada)',
-        goals: ['Official NHL partnership', 'Rate all 32 arenas', 'Bring Gen-Z to hockey'],
-        clothing: ['Custom NHL jerseys', 'Oversized streetwear jackets', 'Beanies'],
-        activities: [
-            'Rating arena food',
-            'Rating the ambiance and music',
-            'Meeting the best players on the ice',
-            'Testing the most comfortable seats',
-            'Interviewing the most passionate fans'
-        ],
-        prompts: [
-            '"Who really has the best hotdogs in the NHL?"',
-            'Trying to ice skate for the first time',
-            'Chirping with the enforcers'
-        ],
-        narrative: 'Hockey has a reputation for being traditional. Cindy is coming in to see which arena truly has the best vibes, food, and fans, bridging the gap between streaming culture and the ice.',
-        clippingNarrative: 'Focus on Cindy reacting to the cold, her attempts at skating, and her brutal honesty when rating stadium food.',
-        trailerIdeas: 'Fast-paced cuts of hockey hits, sirens sounding, mixed with Cindy screaming in the stands holding a giant pretzel. Text: "THE COLDEST ARC YET".',
-        posterIdeas: 'Cindy in a half-unzipped custom hockey jersey, missing a tooth (edited), holding a glowing neon hockey stick.',
-        budget: '$120,000'
-    },
-    {
-        id: 'arc-nba',
-        title: 'Cindy x NBA: The Season Opener Stadium Tour',
-        status: 'planning',
-        type: 'Arc',
-        date: 'Oct 2026 (Next Season)',
-        location: 'All 30 NBA Arenas',
-        goals: ['Rate every NBA stadium experience', 'Crossover to mainstream basketball audience'],
-        clothing: ['Courtside high-fashion', 'Vintage NBA jackets', 'Sneakerhead fits'],
-        activities: [
-            'Courtside food reviews',
-            'Rating the halftime shows and ambiance',
-            'Interacting with the craziest fans',
-            'Testing the VIP/Courtside seats',
-            'Post-game locker room access with star players'
-        ],
-        prompts: [
-            'Asking players who has the best drip in the league',
-            'Rating fans shoes on the street outside the arena'
-        ],
-        narrative: "When the season starts next year, Cindy is going on a massive tour to every team's stadium to definitively rank who has the best food, ambiance, players, fans, and most comfortable seats.",
-        clippingNarrative: 'Show the scale of the tour. Highlight interactions with massive NBA stars, showcasing mutual respect and funny courtside antics.',
-        trailerIdeas: "Dramatic sports documentary style. Black and white footage of empty arenas, lighting up neon green one by one as Cindy walks in.",
-        posterIdeas: 'Split face graphic: Half Cindy, Half an NBA superstar, with a neon basketball bridging the gap.',
-        budget: '$300,000 (Production & Travel)',
-        linkedStreams: []
-    },
-    {
-        id: 'arc-nfl',
-        title: 'Cindy x NFL: Tailgate Takeovers',
-        status: 'planning',
-        type: 'Arc',
-        date: 'Fall 2026',
-        location: 'NFL Stadiums',
-        goals: ['Capture the craziest tailgate culture', 'Show stadium fan culture with respect and energy'],
-        clothing: ['Face paint', 'Custom shoulder pads over hoodies', 'Team-specific gear'],
-        activities: [
-            'Crashing the biggest tailgates (Bills Mafia, Raiders)',
-            'Eating crazy parking lot food',
-            'Throwing passes with starting QBs'
-        ],
-        prompts: [
-            'Jumping through a folding table',
-            'Debating the most passionate fans'
-        ],
-        narrative: 'Football is religion in America. Cindy is diving headfirst into the most intense fanbases to see if she can survive the wildest tailgates in the NFL.',
-        clippingNarrative: 'Focus on pure chaos. Cindy amidst thousands of screaming fans, eating massive BBQ plates, and participating in crazy tailgate traditions.',
-        trailerIdeas: 'Cindy stepping out of an RV into a sea of face-painted fans, smoke grenades going off.',
-        posterIdeas: 'Cindy wearing a helmet that is way too big for her, holding a football like a trophy in a smoky parking lot.',
-        budget: '$150,000'
-    },
-    {
-        id: 'arc-f1',
-        title: 'Cindy x F1: The Global Grid',
-        status: 'planning',
-        type: 'Arc',
-        date: 'Summer 2027',
-        location: 'Monaco, Vegas, Miami',
-        goals: ['Access the ultra-luxury sports market', 'Global exposure'],
-        clothing: ['Custom racing suits', 'Designer sunglasses', 'Paddock club casual'],
-        activities: [
-            'Paddock club luxury reviews',
-            'Riding in a two-seater F1 car',
-            'Interviewing drivers on the grid walk'
-        ],
-        prompts: [
-            'Asking billionaires what they do for a living',
-            'Trying to understand British racing slang'
-        ],
-        narrative: 'Taking the stream to the absolute peak of luxury and speed. From the chaos of the internet to the refined, elite world of Formula 1.',
-        clippingNarrative: 'Fish-out-of-water comedy. Cindy in ultra-high-end environments, interacting with billionaires and elite drivers, bringing her signature energy to the grid.',
-        trailerIdeas: 'Slow motion shots of F1 cars flying by, cut with Cindy trying to pop champagne on a yacht.',
-        posterIdeas: 'Cindy in a neon-green racing suit, holding a steering wheel, looking completely out of place but confident.',
-        linkedStreams: [],
-        budget: '$500,000+'
-    },
-    {
-        id: 'arc-college-takeovers',
-        title: 'College Takeovers with Alabama Barker',
-        status: 'planning',
-        type: 'Arc',
-        date: '2026 tour (4 stops)',
-        location: 'USC (LA) · University of Miami · University of Alabama · UT Austin',
-        goals: [
-            'Four campus-scale takeovers with Alabama Barker as the through-line',
-            'Each stop books a headliner (or crew) born in that state — CA, FL, AL, TX',
-            'Tour feel: routing, production, and state-pride story beats across all four colleges'
-        ],
-        clothing: ['Campus streetwear', 'SEC / Pac-12 / Big 12 nods in palette', 'Heat-ready Miami fits vs. layered Bama nights'],
-        activities: [
-            'USC — California-born headliner (or collective) on the bill',
-            'University of Miami — Florida-born headliner on the bill',
-            'University of Alabama — Alabama-born headliner on the bill',
-            'UT Austin — Texas-born headliner on the bill',
-            'Barker segments: handoffs, crowd energy checks, and “prove you’re from here” moments with each opener'
-        ],
-        prompts: [
-            'State vs. state crowd chant (good-natured) before the hometown act',
-            'Barker + local Greek / band row sampling (where permitted)'
-        ],
-        narrative: 'A four-school takeover tour — USC, the U (Miami), Alabama, and Texas — built around Alabama Barker. Every market gets a performer rooted in that state so the show feels native to the campus, not flown in blind.',
-        clippingNarrative: 'Travel montages between four iconic quads, Barker bridging sets, hometown hero walkouts, and “this one’s for [state]” peaks.',
-        trailerIdeas: 'Four-way split title card → four campus establishing shots → one shared chant; Barker on the mic: “Same tour. Four states. Your people on stage.”',
-        posterIdeas: 'Four panels (palm / neon / crimson / burnt orange) with Barker center; small map line connecting the four pins.',
-        budget: 'TBD (four-market routing + artist guarantees)'
-    },
-    {
-        id: 'stream-1',
-        title: 'Summer Prep: Networking in LA',
-        status: 'active',
-        type: 'IRL',
-        date: 'This Summer',
-        location: 'LA Exclusive Events',
-        security: 'Big Mike + 2',
-        driver: 'John',
-        segments: [
-            { title: 'Dinner with Agency Execs', duration: '2 hrs', goals: 'Make connections for the NBA/NHL arcs', narrative: 'Show the business side, serious but funny moments.' },
-            { title: 'Paparazzi Walk', duration: '30 mins', goals: 'Generate hype and headlines', narrative: 'Cindy acting like an A-lister, funny interactions with photographers.' }
-        ]
-    },
-    {
-        id: 'stream-2',
-        title: 'Sports Knowledge Test',
-        status: 'active',
-        type: 'Desktop',
-        date: 'Next Wednesday 9PM',
-        location: 'Miami Setup',
-        segments: [
-            { title: 'Rating Stadium Foods Online', duration: '1 hr', goals: 'Prep for the upcoming stadium tours', narrative: 'Outrageous reactions to crazy stadium foods.' },
-            { title: 'Learning Hockey Rules', duration: '45 mins', goals: 'Prepare for NHL arc', narrative: 'Cindy completely failing to understand icing and offsides.' }
-        ]
-    },
-    {
-        id: 'stream-3',
-        title: 'Meeting the NBA Contacts',
-        status: 'planning',
-        type: 'Collab',
-        date: 'Sunday 5PM',
-        location: 'Miami Basketball Court',
-        collabWith: 'LaMelo Ball',
-        security: 'Big Mike',
-        driver: 'John',
-        segments: [
-            { title: 'Pitching the Stadium Tour', duration: '1 hr', goals: 'Get the player cosign', narrative: 'Players laughing at Cindy's ambitious stadium tour plans.' }
-        ]
-    }
+  {
+    id: 'arc-health',
+    title: 'Cindy Health & Fitness: The Build Up',
+    status: 'active',
+    type: 'Arc',
+    date: 'Spring 2026',
+    location: 'Miami / LA Gyms',
+    goals: ['Build physical stamina for the massive tours', 'Inspire audience to get healthy', 'Transform physique'],
+    clothing: ['Athleisure wear', 'Sweatbands', 'Custom gym shoes'],
+    activities: [
+      '100-day fitness challenge',
+      'Training with professional athletes',
+      'Diet and meal prep streams'
+    ],
+    prompts: [
+      'Reacting to her own lack of stamina',
+      'Trying weird fitness trends'
+    ],
+    narrative: 'Before she can take on the intense travel schedule of the NBA and NFL arena tours, Cindy needs to get in shape. This arc focuses on her physical and mental transformation, proving she can commit to the grind.',
+    clippingNarrative: 'Show the struggle and the progress. Funny moments of her failing at workouts, mixed with genuine growth and hype moments.',
+    trailerIdeas: 'Rocky-style training montage but heavily comedic. Cutting between her on a treadmill and hyping herself up in the mirror.',
+    posterIdeas: 'Before/After graphic style, but the "After" is just slightly more confident.',
+    budget: '$50,000 (Trainers & Nutritionists)'
+  },
+  {
+    id: 'arc-nhl',
+    title: 'Cindy x NHL: The Ultimate Arena Tour',
+    status: 'planning',
+    type: 'Arc',
+    date: 'Winter 2026',
+    location: 'NHL Arenas (USA/Canada)',
+    goals: ['Official NHL partnership', 'Rate all 32 arenas', 'Bring Gen-Z to hockey'],
+    clothing: ['Custom NHL jerseys', 'Oversized streetwear jackets', 'Beanies'],
+    activities: [
+      'Rating arena food',
+      'Rating the ambiance and music',
+      'Meeting the best players on the ice',
+      'Testing the most comfortable seats',
+      'Interviewing the most passionate fans'
+    ],
+    prompts: [
+      '"Who really has the best hotdogs in the NHL?"',
+      'Trying to ice skate for the first time',
+      'Chirping with the enforcers'
+    ],
+    narrative: 'Hockey has a reputation for being traditional. Cindy is coming in to see which arena truly has the best vibes, food, and fans, bridging the gap between streaming culture and the ice.',
+    clippingNarrative: 'Focus on Cindy reacting to the cold, her attempts at skating, and her brutal honesty when rating stadium food.',
+    trailerIdeas: 'Fast-paced cuts of hockey hits, sirens sounding, mixed with Cindy screaming in the stands holding a giant pretzel. Text: "THE COLDEST ARC YET".',
+    posterIdeas: 'Cindy in a half-unzipped custom hockey jersey, missing a tooth (edited), holding a glowing neon hockey stick.',
+    budget: '$120,000'
+  },
+  {
+    id: 'arc-nba',
+    title: 'Cindy x NBA: The Season Opener Stadium Tour',
+    status: 'planning',
+    type: 'Arc',
+    date: 'Oct 2026 (Next Season)',
+    location: 'All 30 NBA Arenas',
+    goals: ['Rate every NBA stadium experience', 'Crossover to mainstream basketball audience'],
+    clothing: ['Courtside high-fashion', 'Vintage NBA jackets', 'Sneakerhead fits'],
+    activities: [
+      'Courtside food reviews',
+      'Rating the halftime shows and ambiance',
+      'Interacting with the craziest fans',
+      'Testing the VIP/Courtside seats',
+      'Post-game locker room access with star players'
+    ],
+    prompts: [
+      'Asking players who has the best drip in the league',
+      'Rating fans shoes on the street outside the arena'
+    ],
+    narrative: "When the season starts next year, Cindy is going on a massive tour to every team's stadium to definitively rank who has the best food, ambiance, players, fans, and most comfortable seats.",
+    clippingNarrative: 'Show the scale of the tour. Highlight interactions with massive NBA stars, showcasing mutual respect and funny courtside antics.',
+    trailerIdeas: "Dramatic sports documentary style. Black and white footage of empty arenas, lighting up neon green one by one as Cindy walks in.",
+    posterIdeas: 'Split face graphic: Half Cindy, Half an NBA superstar, with a neon basketball bridging the gap.',
+    budget: '$300,000 (Production & Travel)',
+    linkedStreams: []
+  },
+  {
+    id: 'arc-nfl',
+    title: 'Cindy x NFL: Tailgate Takeovers',
+    status: 'planning',
+    type: 'Arc',
+    date: 'Fall 2026',
+    location: 'NFL Stadiums',
+    goals: ['Capture the craziest tailgate culture', 'Show stadium fan culture with respect and energy'],
+    clothing: ['Face paint', 'Custom shoulder pads over hoodies', 'Team-specific gear'],
+    activities: [
+      'Crashing the biggest tailgates (Bills Mafia, Raiders)',
+      'Eating crazy parking lot food',
+      'Throwing passes with starting QBs'
+    ],
+    prompts: [
+      'Jumping through a folding table',
+      'Debating the most passionate fans'
+    ],
+    narrative: 'Football is religion in America. Cindy is diving headfirst into the most intense fanbases to see if she can survive the wildest tailgates in the NFL.',
+    clippingNarrative: 'Focus on pure chaos. Cindy amidst thousands of screaming fans, eating massive BBQ plates, and participating in crazy tailgate traditions.',
+    trailerIdeas: 'Cindy stepping out of an RV into a sea of face-painted fans, smoke grenades going off.',
+    posterIdeas: 'Cindy wearing a helmet that is way too big for her, holding a football like a trophy in a smoky parking lot.',
+    budget: '$150,000'
+  },
+  {
+    id: 'arc-f1',
+    title: 'Cindy x F1: The Global Grid',
+    status: 'planning',
+    type: 'Arc',
+    date: 'Summer 2027',
+    location: 'Monaco, Vegas, Miami',
+    goals: ['Access the ultra-luxury sports market', 'Global exposure'],
+    clothing: ['Custom racing suits', 'Designer sunglasses', 'Paddock club casual'],
+    activities: [
+      'Paddock club luxury reviews',
+      'Riding in a two-seater F1 car',
+      'Interviewing drivers on the grid walk'
+    ],
+    prompts: [
+      'Asking billionaires what they do for a living',
+      'Trying to understand British racing slang'
+    ],
+    narrative: 'Taking the stream to the absolute peak of luxury and speed. From the chaos of the internet to the refined, elite world of Formula 1.',
+    clippingNarrative: 'Fish-out-of-water comedy. Cindy in ultra-high-end environments, interacting with billionaires and elite drivers, bringing her signature energy to the grid.',
+    trailerIdeas: 'Slow motion shots of F1 cars flying by, cut with Cindy trying to pop champagne on a yacht.',
+    posterIdeas: 'Cindy in a neon-green racing suit, holding a steering wheel, looking completely out of place but confident.',
+    linkedStreams: [],
+    budget: '$500,000+'
+  },
+  {
+    id: 'arc-college-takeovers',
+    title: 'College Takeovers with Alabama Barker',
+    status: 'planning',
+    type: 'Arc',
+    date: '2026 tour (4 stops)',
+    location: 'USC (LA) · University of Miami · University of Alabama · UT Austin',
+    goals: [
+      'Four campus-scale takeovers with Alabama Barker as the through-line',
+      'Each stop books a headliner (or crew) born in that state — CA, FL, AL, TX',
+      'Tour feel: routing, production, and state-pride story beats across all four colleges'
+    ],
+    clothing: ['Campus streetwear', 'SEC / Pac-12 / Big 12 nods in palette', 'Heat-ready Miami fits vs. layered Bama nights'],
+    activities: [
+      'USC — California-born headliner (or collective) on the bill',
+      'University of Miami — Florida-born headliner on the bill',
+      'University of Alabama — Alabama-born headliner on the bill',
+      'UT Austin — Texas-born headliner on the bill',
+      'Barker segments: handoffs, crowd energy checks, and “prove you’re from here” moments with each opener'
+    ],
+    prompts: [
+      'State vs. state crowd chant (good-natured) before the hometown act',
+      'Barker + local Greek / band row sampling (where permitted)'
+    ],
+    narrative: 'A four-school takeover tour — USC, the U (Miami), Alabama, and Texas — built around Alabama Barker. Every market gets a performer rooted in that state so the show feels native to the campus, not flown in blind.',
+    clippingNarrative: 'Travel montages between four iconic quads, Barker bridging sets, hometown hero walkouts, and “this one’s for [state]” peaks.',
+    trailerIdeas: 'Four-way split title card → four campus establishing shots → one shared chant; Barker on the mic: “Same tour. Four states. Your people on stage.”',
+    posterIdeas: 'Four panels (palm / neon / crimson / burnt orange) with Barker center; small map line connecting the four pins.',
+    budget: 'TBD (four-market routing + artist guarantees)'
+  },
+  {
+    id: 'stream-1',
+    title: 'Summer Prep: Networking in LA',
+    status: 'active',
+    type: 'IRL',
+    date: 'This Summer',
+    location: 'LA Exclusive Events',
+    security: 'Big Mike + 2',
+    driver: 'John',
+    segments: [
+      { title: 'Dinner with Agency Execs', duration: '2 hrs', goals: 'Make connections for the NBA/NHL arcs', narrative: 'Show the business side, serious but funny moments.' },
+      { title: 'Paparazzi Walk', duration: '30 mins', goals: 'Generate hype and headlines', narrative: 'Cindy acting like an A-lister, funny interactions with photographers.' }
+    ]
+  },
+  {
+    id: 'stream-2',
+    title: 'Sports Knowledge Test',
+    status: 'active',
+    type: 'Desktop',
+    date: 'Next Wednesday 9PM',
+    location: 'Miami Setup',
+    segments: [
+      { title: 'Rating Stadium Foods Online', duration: '1 hr', goals: 'Prep for the upcoming stadium tours', narrative: 'Outrageous reactions to crazy stadium foods.' },
+      { title: 'Learning Hockey Rules', duration: '45 mins', goals: 'Prepare for NHL arc', narrative: 'Cindy completely failing to understand icing and offsides.' }
+    ]
+  },
+  {
+    id: 'stream-3',
+    title: 'Meeting the NBA Contacts',
+    status: 'planning',
+    type: 'Collab',
+    date: 'Sunday 5PM',
+    location: 'Miami Basketball Court',
+    collabWith: 'LaMelo Ball',
+    security: 'Big Mike',
+    driver: 'John',
+    segments: [
+      { title: 'Pitching the Stadium Tour', duration: '1 hr', goals: 'Get the player cosign', narrative: 'Players laughing at Cindy\'s ambitious stadium tour plans.' }
+    ]
+  }
 ];
 let arcsData = [];
 
 const SEED_GOALS = [
-    {
-        id: 'goal-1',
-        category: 'NBA Integration',
-        title: 'Get invited to NBA Celebrity All-Star Game',
-        status: 'In Progress',
-        linkedArcs: ['arc-health', 'arc-nba'],
-        linkedStreams: ['stream-3'],
-        description: 'Leverage the stadium tours and health transformation to secure a roster spot in the All-Star game.',
-        actionItems: [
-            'Network with NBA front offices during stadium visits',
-            'Post daily basketball training progress'
-        ]
-    },
-    {
-        id: 'goal-2',
-        category: 'NBA Integration',
-        title: 'Get NBA Celebrity All Star Game MVP',
-        status: 'Planning',
-        linkedArcs: ['arc-health'],
-        linkedStreams: [],
-        description: 'Once invited, Cindy needs to physically prepare to dominate the court and win MVP.',
-        actionItems: [
-            'Hire professional shooting coach',
-            'Play 1v1s against lower-tier influencers for practice'
-        ]
-    },
-    { id: 'goal-3', category: 'Streaming Awards', title: 'Best IRL Streamer', status: 'In Progress', linkedArcs: [], linkedStreams: [], description: 'Win the Best IRL Streamer award at the Streamer Awards.', actionItems: ['Maintain high quality IRL broadcasts', 'Innovate new IRL setups'] },
-    { id: 'goal-4', category: 'Streaming Awards', title: 'Best Just Chatting Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Dominate the Just Chatting category through engaging narratives.', actionItems: ['Host weekly structured chatting segments'] },
-    { id: 'goal-5', category: 'Streaming Awards', title: 'Best Variety Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Showcase diverse content formats beyond traditional IRL or gaming.', actionItems: ['Integrate high-production arcs (NHL, NBA)'] },
-    { id: 'goal-6', category: 'Streaming Awards', title: 'Streamer of the Year', status: 'In Progress', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'The ultimate goal: become the undeniable face of streaming for the year.', actionItems: ['Consistent virality', 'High-impact collabs that feel earned'] },
-    { id: 'goal-7', category: 'Streaming Awards', title: 'Best Streamed Series', status: 'Planning', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'Win an award for the best episodic streamed content.', actionItems: ['Structure the stadium tours as seasonal content'] },
-    { id: 'goal-8', category: 'Streaming Awards', title: 'Best Sports Streamer', status: 'Planning', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'Solidify Cindy as the premier sports streamer.', actionItems: ['Collaborate with active professional athletes'] },
-    { id: 'goal-9', category: 'Streaming Awards', title: 'Best Streamed Collab', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Execute a historic collaboration that breaks viewership records.', actionItems: ['Secure an A-list celebrity collab'] },
-    { id: 'goal-10', category: 'Streaming Awards', title: 'Best Marathon Stream', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Host a massive, continuous marathon stream.', actionItems: ['Plan a 24-48 hour subathon with structured events'] },
-    { id: 'goal-11', category: 'Streaming Awards', title: 'Best Reality Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Blur the line between reality TV and live streaming.', actionItems: ['Use multi-cam setups for major IRL events'] },
-    { id: 'goal-12', category: 'Streaming Awards', title: 'Best Stream Duo', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Form a legendary streaming duo for specific segments.', actionItems: ['Find a permanent co-host for specific arcs'] }
+  {
+    id: 'goal-1',
+    category: 'NBA Integration',
+    title: 'Get invited to NBA Celebrity All-Star Game',
+    status: 'In Progress',
+    linkedArcs: ['arc-health', 'arc-nba'],
+    linkedStreams: ['stream-3'],
+    description: 'Leverage the stadium tours and health transformation to secure a roster spot in the All-Star game.',
+    actionItems: [
+      'Network with NBA front offices during stadium visits',
+      'Post daily basketball training progress'
+    ]
+  },
+  {
+    id: 'goal-2',
+    category: 'NBA Integration',
+    title: 'Get NBA Celebrity All Star Game MVP',
+    status: 'Planning',
+    linkedArcs: ['arc-health'],
+    linkedStreams: [],
+    description: 'Once invited, Cindy needs to physically prepare to dominate the court and win MVP.',
+    actionItems: [
+      'Hire professional shooting coach',
+      'Play 1v1s against lower-tier influencers for practice'
+    ]
+  },
+  { id: 'goal-3', category: 'Streaming Awards', title: 'Best IRL Streamer', status: 'In Progress', linkedArcs: [], linkedStreams: [], description: 'Win the Best IRL Streamer award at the Streamer Awards.', actionItems: ['Maintain high quality IRL broadcasts', 'Innovate new IRL setups'] },
+  { id: 'goal-4', category: 'Streaming Awards', title: 'Best Just Chatting Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Dominate the Just Chatting category through engaging narratives.', actionItems: ['Host weekly structured chatting segments'] },
+  { id: 'goal-5', category: 'Streaming Awards', title: 'Best Variety Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Showcase diverse content formats beyond traditional IRL or gaming.', actionItems: ['Integrate high-production arcs (NHL, NBA)'] },
+  { id: 'goal-6', category: 'Streaming Awards', title: 'Streamer of the Year', status: 'In Progress', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'The ultimate goal: become the undeniable face of streaming for the year.', actionItems: ['Consistent virality', 'High-impact collabs that feel earned'] },
+  { id: 'goal-7', category: 'Streaming Awards', title: 'Best Streamed Series', status: 'Planning', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'Win an award for the best episodic streamed content.', actionItems: ['Structure the stadium tours as seasonal content'] },
+  { id: 'goal-8', category: 'Streaming Awards', title: 'Best Sports Streamer', status: 'Planning', linkedArcs: ['arc-nhl', 'arc-nba'], linkedStreams: [], description: 'Solidify Cindy as the premier sports streamer.', actionItems: ['Collaborate with active professional athletes'] },
+  { id: 'goal-9', category: 'Streaming Awards', title: 'Best Streamed Collab', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Execute a historic collaboration that breaks viewership records.', actionItems: ['Secure an A-list celebrity collab'] },
+  { id: 'goal-10', category: 'Streaming Awards', title: 'Best Marathon Stream', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Host a massive, continuous marathon stream.', actionItems: ['Plan a 24-48 hour subathon with structured events'] },
+  { id: 'goal-11', category: 'Streaming Awards', title: 'Best Reality Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Blur the line between reality TV and live streaming.', actionItems: ['Use multi-cam setups for major IRL events'] },
+  { id: 'goal-12', category: 'Streaming Awards', title: 'Best Stream Duo', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Form a legendary streaming duo for specific segments.', actionItems: ['Find a permanent co-host for specific arcs'] }
 ];
 let goalsData = [];
 
@@ -440,298 +440,298 @@ const SEED_REACH_OUT_CONTACTS = {
 let reachOutContactsData = {};
 
 const SEED_MEDIA = [
-    { 
-        platform: 'YouTube', 
-        id: 'media-youtube',
-        icon: 'fa-youtube', 
-        handle: 'Cindy', 
-        strategy: 'Long-form VODs, High-budget Arc recaps', 
-        goal: '10M Subs by 2027',
-        management: [
-            'Dedicated editor for long-form content',
-            'Thumbnail A/B testing on all major uploads',
-            'Publishing every Sunday at 3PM EST',
-            'Establish Vlog channel for secondary content'
-        ],
-        creation: [
-            'Streaming VODs',
-            'Weekly recaps',
-            'Monthly recaps'
-        ]
-    },
-    { 
-        platform: 'Instagram', 
-        id: 'media-ig',
-        icon: 'fa-instagram', 
-        handle: '@cindy', 
-        strategy: 'Grid for trailers, Stories for posters, Reels for highlights and arcs',
-        goal: 'Stay top-of-mind and aligned with main streams and storylines',
-        management: [
-            'Put stories in highlights so people can go back'
-        ],
-        creation: [
-            'Stories: Posters of upcoming streams',
-            'Reels: Trailers and arc moments',
-            'Posts: High production dumps'
-        ]
-    },
-    { 
-        platform: 'TikTok', 
-        id: 'media-tiktok',
-        icon: 'fa-tiktok', 
-        handle: '@cindy', 
-        strategy: '',
-        goal: 'Bring more viewers into live streams with clips and trends',
-        management: [],
-        creation: [],
-        /** One URL per line in UI — trend videos to recreate (solo) */
-        tiktokSoloTrendLinks: [],
-        /** One URL per line in UI — trend videos to recreate (collab) */
-        tiktokCollabTrendLinks: [],
-    },
-    { 
-        platform: 'X / Twitter', 
-        id: 'media-x',
-        icon: 'fa-x-twitter', 
-        handle: '@Cindy', 
-        strategy: '"People forget that they forget." Run Weekly/Monthly recaps to maintain narrative memory.', 
-        goal: 'Dominate daily trending',
-        management: [
-            'Weekly recap threads posted every Monday morning',
-            'Monthly "Season Recap" videos posted on the 1st of the month'
-        ],
-        creation: [
-            'Posters',
-            'Trailers',
-            'Weekly recaps',
-            'Monthly recaps'
-        ]
-    },
-    { 
-        platform: 'Snapchat', 
-        id: 'media-snapchat',
-        icon: 'fa-snapchat', 
-        handle: 'cindy', 
-        strategy: 'Raw behind-the-scenes and day-in-the-life moments',
-        goal: 'Daily touchpoints with people who already follow the story',
-        management: [
-            'Post 10-15 snaps daily to stay at the top of feeds',
-            'Point back to streams and arcs when it fits naturally'
-        ],
-        creation: [
-            'Workout',
-            'Eating',
-            'Self-care',
-            'Traveling',
-            'Behind the scenes',
-            'Funny moments',
-            'On stream'
-        ]
-    }
+  {
+    platform: 'YouTube',
+    id: 'media-youtube',
+    icon: 'fa-youtube',
+    handle: 'Cindy',
+    strategy: 'Long-form VODs, High-budget Arc recaps',
+    goal: '10M Subs by 2027',
+    management: [
+      'Dedicated editor for long-form content',
+      'Thumbnail A/B testing on all major uploads',
+      'Publishing every Sunday at 3PM EST',
+      'Establish Vlog channel for secondary content'
+    ],
+    creation: [
+      'Streaming VODs',
+      'Weekly recaps',
+      'Monthly recaps'
+    ]
+  },
+  {
+    platform: 'Instagram',
+    id: 'media-ig',
+    icon: 'fa-instagram',
+    handle: '@cindy',
+    strategy: 'Grid for trailers, Stories for posters, Reels for highlights and arcs',
+    goal: 'Stay top-of-mind and aligned with main streams and storylines',
+    management: [
+      'Put stories in highlights so people can go back'
+    ],
+    creation: [
+      'Stories: Posters of upcoming streams',
+      'Reels: Trailers and arc moments',
+      'Posts: High production dumps'
+    ]
+  },
+  {
+    platform: 'TikTok',
+    id: 'media-tiktok',
+    icon: 'fa-tiktok',
+    handle: '@cindy',
+    strategy: '',
+    goal: 'Bring more viewers into live streams with clips and trends',
+    management: [],
+    creation: [],
+    /** One URL per line in UI — trend videos to recreate (solo) */
+    tiktokSoloTrendLinks: [],
+    /** One URL per line in UI — trend videos to recreate (collab) */
+    tiktokCollabTrendLinks: [],
+  },
+  {
+    platform: 'X / Twitter',
+    id: 'media-x',
+    icon: 'fa-x-twitter',
+    handle: '@Cindy',
+    strategy: '"People forget that they forget." Run Weekly/Monthly recaps to maintain narrative memory.',
+    goal: 'Dominate daily trending',
+    management: [
+      'Weekly recap threads posted every Monday morning',
+      'Monthly "Season Recap" videos posted on the 1st of the month'
+    ],
+    creation: [
+      'Posters',
+      'Trailers',
+      'Weekly recaps',
+      'Monthly recaps'
+    ]
+  },
+  {
+    platform: 'Snapchat',
+    id: 'media-snapchat',
+    icon: 'fa-snapchat',
+    handle: 'cindy',
+    strategy: 'Raw behind-the-scenes and day-in-the-life moments',
+    goal: 'Daily touchpoints with people who already follow the story',
+    management: [
+      'Post 10-15 snaps daily to stay at the top of feeds',
+      'Point back to streams and arcs when it fits naturally'
+    ],
+    creation: [
+      'Workout',
+      'Eating',
+      'Self-care',
+      'Traveling',
+      'Behind the scenes',
+      'Funny moments',
+      'On stream'
+    ]
+  }
 ];
 let mediaAssets = cloneSeed(SEED_MEDIA);
 
 const SEED_NETWORK = [
-    {
-        name: 'LaMelo Ball',
-        city: 'Charlotte, NC',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/LaMelo_Ball_%28cropped%29.jpg/960px-LaMelo_Ball_%28cropped%29.jpg',
-        tags: ['NBA', 'Athlete'],
-        contacts: [
-            { type: 'brands', icon: 'fa-instagram', handle: '@melo' },
-            { type: 'solid', icon: 'fa-envelope', handle: 'Team ops (David)' }
-        ],
-        ideas: [
-            'Sneaker culture Q&A stream',
-            'LA sneaker spots walking tour',
-            'PIG with a handicap'
-        ]
-    },
-    {
-        name: 'Central Cee',
-        city: 'London, UK',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Central_cee-5.jpg/960px-Central_cee-5.jpg',
-        tags: ['Artist'],
-        contacts: [
-            { type: 'brands', icon: 'fa-instagram', handle: '@centralcee' }
-        ],
-        ideas: [
-            'London slang translation stream',
-            'Driving around London in a Rolls',
-            'UK Drill outfit rating'
-        ]
-    },
-    {
-        name: 'Dillon Brooks',
-        city: 'Houston, TX',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg/960px-2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg',
-        tags: ['NBA', 'Athlete'],
-        contacts: [
-            { type: 'brands', icon: 'fa-instagram', handle: '@dillonbrooks24' }
-        ],
-        ideas: [
-            'Trash talking tier list',
-            '1v1 basketball defense challenge'
-        ]
-    },
-    {
-        name: 'Gerald Green',
-        city: 'Houston, TX',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Gerald_Green_2017_v_Wizards.jpg/960px-Gerald_Green_2017_v_Wizards.jpg',
-        tags: ['NBA', 'Athlete', 'Dunker'],
-        contacts: [
-            { type: 'brands', icon: 'fa-instagram', handle: '@g.green14' }
-        ],
-        ideas: [
-            'Dunk contest judging',
-            'Training stream: how to increase vertical'
-        ]
-    },
-    {
-        name: 'Alex Antetokounmpo',
-        city: 'Milwaukee, WI',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Alex_Antetokounmpo_%28cropped%29.jpg/960px-Alex_Antetokounmpo_%28cropped%29.jpg',
-        tags: ['NBA', 'Athlete'],
-        contacts: [
-            { type: 'brands', icon: 'fa-instagram', handle: '@alex_ante34' }
-        ],
-        ideas: [
-            'Greek food tasting stream',
-            'Brotherhood and basketball chat'
-        ]
-    },
-    {
-        name: 'LiAngelo (Gelo) Ball',
-        city: 'Los Angeles, CA',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/LiAngelo_Ball_Vytautas.jpg/960px-LiAngelo_Ball_Vytautas.jpg',
-        tags: ['Athlete', 'Basketball'],
-        contacts: [
-            { type: 'brands', icon: 'fa-instagram', handle: '@gelo' }
-        ],
-        ideas: [
-            '3-point shootout challenge',
-            'Locker / on-court fit walkthrough'
-        ]
-    },
-    {
-        name: 'Lacy',
-        city: 'TBD',
-        photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/48487d3b-e713-4a49-ad35-dec6ab7d690e-profile_image-600x600.png',
-        tags: ['Creator'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Marlon',
-        city: 'TBD',
-        photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/71f5f92d-c94b-41ba-80f2-480165a94605-profile_image-600x600.png',
-        tags: ['Creator'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'DDG',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/DDG_2025.jpg/960px-DDG_2025.jpg',
-        tags: ['Creator', 'Artist'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Adin Ross',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Adin_Ross_in_2025.png',
-        tags: ['Creator', 'Streamer'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Ryan Garcia',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/RYAN_GARCIA.jpg/960px-RYAN_GARCIA.jpg',
-        tags: ['Athlete', 'Boxing'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Gilbert Arenas',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Gilbert_arenas_2008.jpg/960px-Gilbert_arenas_2008.jpg',
-        tags: ['Athlete', 'Basketball'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Iggy Azalea',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg/960px-Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg',
-        tags: ['Artist'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Young Thug',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Young_Thug_in_2021.png',
-        tags: ['Artist'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Ye',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg/960px-Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg',
-        tags: ['Artist'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Nina Drama',
-        city: 'TBD',
-        photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/ead64b9a-b753-4673-8ea0-3186fdd826d8-profile_image-600x600.png',
-        tags: ['Host', 'Creator'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Arman',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Arman_Tsarukyan_2019.jpg',
-        tags: ['Creator'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Jason Derulo',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Jason_Derulo_in_2022_%28cropped%29.jpg',
-        tags: ['Artist'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Kevin Gates',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg/960px-Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg',
-        tags: ['Artist'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Von Miller',
-        city: 'TBD',
-        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Commanders_Training_Camp_-_54752497153.jpg/960px-Commanders_Training_Camp_-_54752497153.jpg',
-        tags: ['Athlete', 'NFL'],
-        contacts: [],
-        ideas: []
-    },
-    {
-        name: 'Alabama Barker',
-        city: 'Los Angeles, CA',
-        tags: ['Creator', 'Artist'],
-        contacts: [],
-        ideas: []
-    }
+  {
+    name: 'LaMelo Ball',
+    city: 'Charlotte, NC',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/LaMelo_Ball_%28cropped%29.jpg/960px-LaMelo_Ball_%28cropped%29.jpg',
+    tags: ['NBA', 'Athlete'],
+    contacts: [
+      { type: 'brands', icon: 'fa-instagram', handle: '@melo' },
+      { type: 'solid', icon: 'fa-envelope', handle: 'Team ops (David)' }
+    ],
+    ideas: [
+      'Sneaker culture Q&A stream',
+      'LA sneaker spots walking tour',
+      'PIG with a handicap'
+    ]
+  },
+  {
+    name: 'Central Cee',
+    city: 'London, UK',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Central_cee-5.jpg/960px-Central_cee-5.jpg',
+    tags: ['Artist'],
+    contacts: [
+      { type: 'brands', icon: 'fa-instagram', handle: '@centralcee' }
+    ],
+    ideas: [
+      'London slang translation stream',
+      'Driving around London in a Rolls',
+      'UK Drill outfit rating'
+    ]
+  },
+  {
+    name: 'Dillon Brooks',
+    city: 'Houston, TX',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg/960px-2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg',
+    tags: ['NBA', 'Athlete'],
+    contacts: [
+      { type: 'brands', icon: 'fa-instagram', handle: '@dillonbrooks24' }
+    ],
+    ideas: [
+      'Trash talking tier list',
+      '1v1 basketball defense challenge'
+    ]
+  },
+  {
+    name: 'Gerald Green',
+    city: 'Houston, TX',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Gerald_Green_2017_v_Wizards.jpg/960px-Gerald_Green_2017_v_Wizards.jpg',
+    tags: ['NBA', 'Athlete', 'Dunker'],
+    contacts: [
+      { type: 'brands', icon: 'fa-instagram', handle: '@g.green14' }
+    ],
+    ideas: [
+      'Dunk contest judging',
+      'Training stream: how to increase vertical'
+    ]
+  },
+  {
+    name: 'Alex Antetokounmpo',
+    city: 'Milwaukee, WI',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Alex_Antetokounmpo_%28cropped%29.jpg/960px-Alex_Antetokounmpo_%28cropped%29.jpg',
+    tags: ['NBA', 'Athlete'],
+    contacts: [
+      { type: 'brands', icon: 'fa-instagram', handle: '@alex_ante34' }
+    ],
+    ideas: [
+      'Greek food tasting stream',
+      'Brotherhood and basketball chat'
+    ]
+  },
+  {
+    name: 'LiAngelo (Gelo) Ball',
+    city: 'Los Angeles, CA',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/LiAngelo_Ball_Vytautas.jpg/960px-LiAngelo_Ball_Vytautas.jpg',
+    tags: ['Athlete', 'Basketball'],
+    contacts: [
+      { type: 'brands', icon: 'fa-instagram', handle: '@gelo' }
+    ],
+    ideas: [
+      '3-point shootout challenge',
+      'Locker / on-court fit walkthrough'
+    ]
+  },
+  {
+    name: 'Lacy',
+    city: 'TBD',
+    photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/48487d3b-e713-4a49-ad35-dec6ab7d690e-profile_image-600x600.png',
+    tags: ['Creator'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Marlon',
+    city: 'TBD',
+    photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/71f5f92d-c94b-41ba-80f2-480165a94605-profile_image-600x600.png',
+    tags: ['Creator'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'DDG',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/DDG_2025.jpg/960px-DDG_2025.jpg',
+    tags: ['Creator', 'Artist'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Adin Ross',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Adin_Ross_in_2025.png',
+    tags: ['Creator', 'Streamer'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Ryan Garcia',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/RYAN_GARCIA.jpg/960px-RYAN_GARCIA.jpg',
+    tags: ['Athlete', 'Boxing'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Gilbert Arenas',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Gilbert_arenas_2008.jpg/960px-Gilbert_arenas_2008.jpg',
+    tags: ['Athlete', 'Basketball'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Iggy Azalea',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg/960px-Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg',
+    tags: ['Artist'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Young Thug',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Young_Thug_in_2021.png',
+    tags: ['Artist'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Ye',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg/960px-Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg',
+    tags: ['Artist'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Nina Drama',
+    city: 'TBD',
+    photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/ead64b9a-b753-4673-8ea0-3186fdd826d8-profile_image-600x600.png',
+    tags: ['Host', 'Creator'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Arman',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Arman_Tsarukyan_2019.jpg',
+    tags: ['Creator'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Jason Derulo',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Jason_Derulo_in_2022_%28cropped%29.jpg',
+    tags: ['Artist'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Kevin Gates',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg/960px-Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg',
+    tags: ['Artist'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Von Miller',
+    city: 'TBD',
+    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Commanders_Training_Camp_-_54752497153.jpg/960px-Commanders_Training_Camp_-_54752497153.jpg',
+    tags: ['Athlete', 'NFL'],
+    contacts: [],
+    ideas: []
+  },
+  {
+    name: 'Alabama Barker',
+    city: 'Los Angeles, CA',
+    tags: ['Creator', 'Artist'],
+    contacts: [],
+    ideas: []
+  }
 ];
 let networkData = [];
 const networkFilters = { query: '', tag: '', name: '', sort: 'name_asc' };
@@ -1056,41 +1056,41 @@ function renderNetworkDetailModal(index) {
   const relatedClips = getPersonTaggedClips(person.name);
   streamsEl.innerHTML = relatedStreams.length
     ? relatedStreams
-        .map((s) => {
-          const vod = String(s.fullVodUrl || '').trim();
-          const vodLink = vod
-            ? `<a href="${escAttr(vod)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();">VOD</a>`
-            : `<span style="font-size:0.75rem; color:var(--text-muted);">No VOD yet</span>`;
-          return `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; border:1px solid var(--border-color); border-radius:8px; padding:8px; min-width:0;">
+      .map((s) => {
+        const vod = String(s.fullVodUrl || '').trim();
+        const vodLink = vod
+          ? `<a href="${escAttr(vod)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="event.stopPropagation();">VOD</a>`
+          : `<span style="font-size:0.75rem; color:var(--text-muted);">No VOD yet</span>`;
+        return `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; border:1px solid var(--border-color); border-radius:8px; padding:8px; min-width:0;">
             <div style="min-width:0;">
               <div style="font-size:0.86rem; color:var(--text-main); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escAttr(s.title || 'Untitled stream')}</div>
               <div style="font-size:0.75rem; color:var(--text-muted);">${escAttr(s.date || 'TBD')}</div>
             </div>
             ${vodLink}
           </div>`;
-        })
-        .join('')
+      })
+      .join('')
     : `<div style="font-size:0.82rem; color:var(--text-muted);">No streams linked yet.</div>`;
 
   clipsEl.innerHTML = relatedClips.length
     ? relatedClips
-        .map((c) => {
-          const link = String(c.url || '').trim();
-          const clipActions = link
-            ? `<div style="display:flex; gap:6px; flex-shrink:0; align-items:center;">
+      .map((c) => {
+        const link = String(c.url || '').trim();
+        const clipActions = link
+          ? `<div style="display:flex; gap:6px; flex-shrink:0; align-items:center;">
                 <button type="button" class="btn btn-outline btn-sm" title="Play in app" onclick="event.stopPropagation(); void window.openMediaEmbedPreview(${JSON.stringify(link)});"><i class="fa-solid fa-play"></i></button>
                 <a href="${escAttr(link)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" onclick="event.stopPropagation();">Open</a>
               </div>`
-            : `<span style="font-size:0.75rem; color:var(--text-muted);">No link</span>`;
-          return `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; border:1px solid var(--border-color); border-radius:8px; padding:8px; min-width:0;">
+          : `<span style="font-size:0.75rem; color:var(--text-muted);">No link</span>`;
+        return `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px; border:1px solid var(--border-color); border-radius:8px; padding:8px; min-width:0;">
             <div style="min-width:0;">
               <div style="font-size:0.86rem; color:var(--text-main); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escAttr(c.title || 'Untitled clip')}</div>
               <div style="font-size:0.75rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escAttr(c.streamTitle || 'Unknown stream')}</div>
             </div>
             ${clipActions}
           </div>`;
-        })
-        .join('')
+      })
+      .join('')
     : `<div style="font-size:0.82rem; color:var(--text-muted);">No clips tagged with this contact yet.</div>`;
 
   ideasEl.value = Array.isArray(person.ideas) ? person.ideas.join('\n') : String(person.ideas || '');
@@ -1230,7 +1230,7 @@ function createGoalViaForm(defaultCategory = '') {
   });
 }
 
-window.editGoalById = function(goalId) {
+window.editGoalById = function (goalId) {
   const goal = goalsData.find((g) => g.id === goalId);
   if (!goal) return;
   openQuickFormModal({
@@ -1256,7 +1256,7 @@ window.editGoalById = function(goalId) {
   });
 };
 
-window.deleteGoalById = function(goalId) {
+window.deleteGoalById = function (goalId) {
   const idx = goalsData.findIndex((g) => g.id === goalId);
   if (idx < 0) return;
   const goal = goalsData[idx];
@@ -1267,7 +1267,7 @@ window.deleteGoalById = function(goalId) {
   scheduleSaveAppStateToDb();
 };
 
-window.editGoalCategory = function(category) {
+window.editGoalCategory = function (category) {
   const cat = String(category || '').trim();
   if (!cat) return;
   const inCategory = goalsData.filter((g) => String(g.category || '').trim() === cat);
@@ -1291,7 +1291,7 @@ window.editGoalCategory = function(category) {
   });
 };
 
-window.deleteGoalCategory = function(category) {
+window.deleteGoalCategory = function (category) {
   const cat = String(category || '').trim();
   if (!cat) return;
   const count = goalsData.filter((g) => String(g.category || '').trim() === cat).length;
@@ -1774,25 +1774,23 @@ function renderClippersBoard() {
           <button type="button" onclick="setClipManagementBucket('future')" class="btn btn-outline btn-sm" style="flex:1; border-color:${activeClipStreamBucket === 'future' ? 'rgba(204,255,0,0.6)' : 'var(--border-color)'}; background:${activeClipStreamBucket === 'future' ? 'rgba(204,255,0,0.1)' : 'transparent'};">Future</button>
         </div>
         <div style="display:flex; flex-direction:column; gap:8px; max-height: 560px; overflow:auto;">
-          ${
-            visibleStreams.length
-              ? visibleStreams
-                  .map((stream) => {
-                    const keyValue = getClipStreamKey(stream);
-                    const isActive = keyValue === activeClipStreamKey;
-                    return `<button type="button" onclick="setActiveClipManagementStream('${keyValue}')" class="btn btn-outline btn-sm" style="text-align:left; justify-content:flex-start; border-color:${isActive ? 'rgba(204,255,0,0.6)' : 'var(--border-color)'}; background:${isActive ? 'rgba(204,255,0,0.1)' : 'transparent'};">
+          ${visibleStreams.length
+      ? visibleStreams
+        .map((stream) => {
+          const keyValue = getClipStreamKey(stream);
+          const isActive = keyValue === activeClipStreamKey;
+          return `<button type="button" onclick="setActiveClipManagementStream('${keyValue}')" class="btn btn-outline btn-sm" style="text-align:left; justify-content:flex-start; border-color:${isActive ? 'rgba(204,255,0,0.6)' : 'var(--border-color)'}; background:${isActive ? 'rgba(204,255,0,0.1)' : 'transparent'};">
                       ${escAttr(stream.title)}
                     </button>`;
-                  })
-                  .join('')
-              : `<div style="font-size:0.82rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px;">No streams in this time bucket.</div>`
-          }
+        })
+        .join('')
+      : `<div style="font-size:0.82rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px;">No streams in this time bucket.</div>`
+    }
         </div>
       </div>
       <div class="glass-panel detail-panel clippers-mgmt-detail-panel" style="padding: 16px; min-width: 0;">
-        ${
-          activeStream
-            ? `
+        ${activeStream
+      ? `
               ${clippersBackBtn}
               <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; margin-bottom:12px;">
                 <h4 style="margin:0; font-size:1rem;">${escAttr(activeStream.title)}</h4>
@@ -1805,15 +1803,15 @@ function renderClippersBoard() {
                 <a href="${escAttr(activeStream.fullVodUrl || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="if(!(this.closest('div').querySelector('.stream-full-vod-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('div').querySelector('.stream-full-vod-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
               </div>
             `
-            : `<div style="font-size:0.9rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px; margin-bottom:10px;">Select a stream to manage full VOD, segment VODs, and posted clips.</div>`
-        }
+      : `<div style="font-size:0.9rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px; margin-bottom:10px;">Select a stream to manage full VOD, segment VODs, and posted clips.</div>`
+    }
         <div style="display:flex; flex-direction:column; gap:10px; min-width:0;">
           ${activeSegments
-            .map((seg, segIndex) => {
-              const vod = seg.clipVodUrl || '';
-              const angle = seg.clipDesiredAngle || '';
-              const postedClips = Array.isArray(seg.postedClips) ? seg.postedClips : [];
-              return `
+      .map((seg, segIndex) => {
+        const vod = seg.clipVodUrl || '';
+        const angle = seg.clipDesiredAngle || '';
+        const postedClips = Array.isArray(seg.postedClips) ? seg.postedClips : [];
+        return `
                 <div style="border:1px solid var(--border-color); border-radius:8px; padding:10px; background:rgba(255,255,255,0.02); min-width:0;">
                   <div style="font-size:0.82rem; color:var(--primary); margin-bottom:8px;">Segment ${segIndex + 1}: ${escAttr(seg.title || 'Untitled')}</div>
                   <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center; margin-bottom:8px;">
@@ -1830,8 +1828,8 @@ function renderClippersBoard() {
                   </div>
                   <div style="display:flex; flex-direction:column; gap:8px; min-width:0;">
                     ${postedClips
-                      .map(
-                        (clip, clipIndex) => `
+            .map(
+              (clip, clipIndex) => `
                         <div class="posted-clip-row">
                           <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Clip title" value="${escAttr(clip.title || '')}"
                             oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'title', this.value)" />
@@ -1845,19 +1843,18 @@ function renderClippersBoard() {
                           <a href="${escAttr(clip.url || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link" onclick="if(!(this.closest('.posted-clip-row').querySelector('.posted-clip-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('.posted-clip-row').querySelector('.posted-clip-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
                           <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="removePostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex})"><i class="fa-solid fa-xmark"></i></button>
                         </div>`
-                      )
-                      .join('')}
+            )
+            .join('')}
                     ${postedClips.length === 0 ? `<div style="font-size:0.82rem; color:var(--text-muted);">No clips posted yet for this segment.</div>` : ''}
                   </div>
                 </div>
               `;
-            })
-            .join('')}
-          ${
-            activeSegments.length === 0
-              ? `<div style="font-size:0.86rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px;">No segments on this stream yet.</div>`
-              : ''
-          }
+      })
+      .join('')}
+          ${activeSegments.length === 0
+      ? `<div style="font-size:0.86rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px;">No segments on this stream yet.</div>`
+      : ''
+    }
         </div>
       </div>
     </div>
@@ -1898,26 +1895,25 @@ function renderClippersBoard() {
         </select>
       </div>
       <div class="clip-bank-scroll" style="max-height: 520px; overflow: auto; min-width: 0;">
-        ${
-          filtered.length
-            ? `<div class="clip-bank-grid">` +
-                filtered
-                  .map((clip) => {
-                    const thumb = getClipBankThumbnailUrl(clip.url);
-                    const hostKind = getClipBankClipHost(clip.url);
-                    const href = escAttr(clip.url);
-                    const thumbImg = thumb
-                      ? `<img src="${escAttr(thumb)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">`
-                      : '';
-                    const phClass =
-                      hostKind === 'tiktok'
-                        ? 'clip-bank-card-thumb-placeholder clip-bank-card-thumb-placeholder--tiktok'
-                        : 'clip-bank-card-thumb-placeholder';
-                    const phIcon =
-                      hostKind === 'tiktok'
-                        ? '<i class="fa-brands fa-tiktok clip-bank-card-thumb-icon clip-bank-card-thumb-icon--tiktok"></i>'
-                        : '<i class="fa-solid fa-film clip-bank-card-thumb-icon"></i>';
-                    return `
+        ${filtered.length
+      ? `<div class="clip-bank-grid">` +
+      filtered
+        .map((clip) => {
+          const thumb = getClipBankThumbnailUrl(clip.url);
+          const hostKind = getClipBankClipHost(clip.url);
+          const href = escAttr(clip.url);
+          const thumbImg = thumb
+            ? `<img src="${escAttr(thumb)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">`
+            : '';
+          const phClass =
+            hostKind === 'tiktok'
+              ? 'clip-bank-card-thumb-placeholder clip-bank-card-thumb-placeholder--tiktok'
+              : 'clip-bank-card-thumb-placeholder';
+          const phIcon =
+            hostKind === 'tiktok'
+              ? '<i class="fa-brands fa-tiktok clip-bank-card-thumb-icon clip-bank-card-thumb-icon--tiktok"></i>'
+              : '<i class="fa-solid fa-film clip-bank-card-thumb-icon"></i>';
+          return `
                 <div role="button" tabindex="0" class="clip-bank-card" onclick="void window.openMediaEmbedPreview(${JSON.stringify(clip.url)})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();void window.openMediaEmbedPreview(${JSON.stringify(clip.url)});}">
                   <div class="clip-bank-card-thumb">
                     <div class="${phClass}" aria-hidden="true">${phIcon}</div>
@@ -1935,11 +1931,11 @@ function renderClippersBoard() {
                     </div>
                   </div>
                 </div>`;
-                  })
-                  .join('') +
-                `</div>`
-            : `<div style="font-size:0.9rem; color:var(--text-muted); padding: 8px 0;">No clips match these filters yet.</div>`
-        }
+        })
+        .join('') +
+      `</div>`
+      : `<div style="font-size:0.9rem; color:var(--text-muted); padding: 8px 0;">No clips match these filters yet.</div>`
+    }
       </div>
     </div>
   `;
@@ -2054,42 +2050,42 @@ const mainActionBtn = document.getElementById('main-action-btn');
 
 // Page metadata
 const pages = {
-    calendar: {
-        title: 'Calendar Overview',
-        desc: 'Manage upcoming streams, posters, and trailers schedule.',
-        btnText: 'Add Event',
-        btnIcon: 'fa-plus'
-    },
-    streams: {
-        title: 'Streams',
-        desc: 'Detailed stream management and preparation.',
-        btnText: 'New',
-        btnIcon: 'fa-video'
-    },
-    arcs: {
-        title: 'Arcs',
-        desc: 'Long-term narrative arcs and campaigns.',
-        btnText: 'New',
-        btnIcon: 'fa-bolt'
-    },
-    goals: {
-        title: 'Goals & Objectives',
-        desc: 'Track and manage ecosystem-wide goals.',
-        btnText: 'New Goal',
-        btnIcon: 'fa-plus'
-    },
-    media: {
-        title: 'Media & Narrative',
-        desc: 'Asset distribution, platform focus, and narrative orientation.',
-        btnText: 'New Directive',
-        btnIcon: 'fa-bullhorn'
-    },
-    network: {
-        title: 'Network Directory',
-        desc: 'Manage contacts, locations, and collab ideas.',
-        btnText: 'Add Person',
-        btnIcon: 'fa-plus'
-    }
+  calendar: {
+    title: 'Calendar Overview',
+    desc: 'Manage upcoming streams, posters, and trailers schedule.',
+    btnText: 'Add Event',
+    btnIcon: 'fa-plus'
+  },
+  streams: {
+    title: 'Streams',
+    desc: 'Detailed stream management and preparation.',
+    btnText: 'New',
+    btnIcon: 'fa-video'
+  },
+  arcs: {
+    title: 'Arcs',
+    desc: 'Long-term narrative arcs and campaigns.',
+    btnText: 'New',
+    btnIcon: 'fa-bolt'
+  },
+  goals: {
+    title: 'Goals & Objectives',
+    desc: 'Track and manage ecosystem-wide goals.',
+    btnText: 'New Goal',
+    btnIcon: 'fa-plus'
+  },
+  media: {
+    title: 'Media & Narrative',
+    desc: 'Asset distribution, platform focus, and narrative orientation.',
+    btnText: 'New Directive',
+    btnIcon: 'fa-bullhorn'
+  },
+  network: {
+    title: 'Network Directory',
+    desc: 'Manage contacts, locations, and collab ideas.',
+    btnText: 'Add Person',
+    btnIcon: 'fa-plus'
+  }
 };
 
 // Initialize App
@@ -2282,160 +2278,160 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Navigation Logic
 function setupNavigation() {
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            clearMobileCardDetailScreens();
-            // Update Active State
-            navItems.forEach(nav => nav.classList.remove('active'));
-            item.classList.add('active');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      clearMobileCardDetailScreens();
+      // Update Active State
+      navItems.forEach(nav => nav.classList.remove('active'));
+      item.classList.add('active');
 
-            const tabId = item.getAttribute('data-tab');
-            
-            // Switch Tabs
-            tabPanes.forEach(pane => {
-                pane.classList.remove('active');
-                if (pane.id === `tab-${tabId}`) {
-                    pane.classList.add('active');
-                }
-            });
+      const tabId = item.getAttribute('data-tab');
 
-            requestAnimationFrame(() => {
-                if (tabId === 'streams') {
-                    streamListSelectedKey = null;
-                    hideDetailPanel('stream-detail', '#tab-streams .campaign-detail-col');
-                    renderStreams();
-                } else if (tabId === 'arcs') {
-                    arcListSelectedId = null;
-                    hideDetailPanel('arc-detail', '#tab-arcs .campaign-detail-col');
-                    renderArcs();
-                } else if (tabId === 'media') {
-                    assetListSelectedKey = null;
-                    activeClipStreamKey = '';
-                    const mediaTab = document.getElementById('tab-media');
-                    if (mediaTab) mediaTab.classList.remove('clippers-mgmt-detail-open');
-                    hideDetailPanel('asset-detail', '#media-pane-social .campaign-detail-col');
-                    renderAssets();
-                    renderClippersBoard();
-                } else if (tabId === 'goals') {
-                    goalListSelectedCategory = null;
-                    hideDetailPanel('goal-detail', '#tab-goals .campaign-detail-col');
-                    renderGoals();
-                }
-                if (tabId === 'streams') scheduleDetailDockRetry(syncStreamDetailDock);
-                else if (tabId === 'arcs') scheduleDetailDockRetry(syncArcDetailDock);
-                else if (tabId === 'media') scheduleDetailDockRetry(syncAssetDetailDock);
-                else if (tabId === 'goals') scheduleDetailDockRetry(syncGoalDetailDock);
-            });
+      // Switch Tabs
+      tabPanes.forEach(pane => {
+        pane.classList.remove('active');
+        if (pane.id === `tab-${tabId}`) {
+          pane.classList.add('active');
+        }
+      });
 
-            // Update Header
-            const pageData = pages[tabId];
-            pageTitle.textContent = pageData.title;
-            pageDesc.textContent = pageData.desc;
-            mainActionBtn.innerHTML = `<i class="fa-solid ${pageData.btnIcon}"></i> ${pageData.btnText}`;
-        });
+      requestAnimationFrame(() => {
+        if (tabId === 'streams') {
+          streamListSelectedKey = null;
+          hideDetailPanel('stream-detail', '#tab-streams .campaign-detail-col');
+          renderStreams();
+        } else if (tabId === 'arcs') {
+          arcListSelectedId = null;
+          hideDetailPanel('arc-detail', '#tab-arcs .campaign-detail-col');
+          renderArcs();
+        } else if (tabId === 'media') {
+          assetListSelectedKey = null;
+          activeClipStreamKey = '';
+          const mediaTab = document.getElementById('tab-media');
+          if (mediaTab) mediaTab.classList.remove('clippers-mgmt-detail-open');
+          hideDetailPanel('asset-detail', '#media-pane-social .campaign-detail-col');
+          renderAssets();
+          renderClippersBoard();
+        } else if (tabId === 'goals') {
+          goalListSelectedCategory = null;
+          hideDetailPanel('goal-detail', '#tab-goals .campaign-detail-col');
+          renderGoals();
+        }
+        if (tabId === 'streams') scheduleDetailDockRetry(syncStreamDetailDock);
+        else if (tabId === 'arcs') scheduleDetailDockRetry(syncArcDetailDock);
+        else if (tabId === 'media') scheduleDetailDockRetry(syncAssetDetailDock);
+        else if (tabId === 'goals') scheduleDetailDockRetry(syncGoalDetailDock);
+      });
+
+      // Update Header
+      const pageData = pages[tabId];
+      pageTitle.textContent = pageData.title;
+      pageDesc.textContent = pageData.desc;
+      mainActionBtn.innerHTML = `<i class="fa-solid ${pageData.btnIcon}"></i> ${pageData.btnText}`;
     });
+  });
 }
 
 // Render Calendar
 function renderCalendar() {
-    const grid = document.getElementById('calendar-grid');
-    if (!grid) return;
-    const monthLabel = document.querySelector('#tab-calendar .current-month');
-    const navButtons = document.querySelectorAll('#tab-calendar .calendar-nav .icon-btn');
-    grid.innerHTML = '';
+  const grid = document.getElementById('calendar-grid');
+  if (!grid) return;
+  const monthLabel = document.querySelector('#tab-calendar .current-month');
+  const navButtons = document.querySelectorAll('#tab-calendar .calendar-nav .icon-btn');
+  grid.innerHTML = '';
 
-    if (monthLabel) {
-      monthLabel.textContent = displayedCalendarDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-    }
-    if (navButtons.length >= 2) {
-      navButtons[0].onclick = () => {
-        displayedCalendarDate.setMonth(displayedCalendarDate.getMonth() - 1);
-        renderCalendar();
-      };
-      navButtons[1].onclick = () => {
-        displayedCalendarDate.setMonth(displayedCalendarDate.getMonth() + 1);
-        renderCalendar();
-      };
-    }
-
-    const year = displayedCalendarDate.getFullYear();
-    const month = displayedCalendarDate.getMonth();
-    const firstDayOfWeek = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-    const getEventDayForDisplayedMonth = (ev) => {
-      const parsed = new Date(String(ev.time || '').trim());
-      if (!Number.isNaN(parsed.getTime())) {
-        if (parsed.getFullYear() !== year || parsed.getMonth() !== month) return null;
-        return parsed.getDate();
-      }
-      return Number.isInteger(ev.day) ? ev.day : null;
+  if (monthLabel) {
+    monthLabel.textContent = displayedCalendarDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+  if (navButtons.length >= 2) {
+    navButtons[0].onclick = () => {
+      displayedCalendarDate.setMonth(displayedCalendarDate.getMonth() - 1);
+      renderCalendar();
     };
+    navButtons[1].onclick = () => {
+      displayedCalendarDate.setMonth(displayedCalendarDate.getMonth() + 1);
+      renderCalendar();
+    };
+  }
 
-    for (let i = 0; i < firstDayOfWeek; i++) {
-        const emptyDay = document.createElement('div');
-        emptyDay.className = 'calendar-day empty';
-        grid.appendChild(emptyDay);
+  const year = displayedCalendarDate.getFullYear();
+  const month = displayedCalendarDate.getMonth();
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const getEventDayForDisplayedMonth = (ev) => {
+    const parsed = new Date(String(ev.time || '').trim());
+    if (!Number.isNaN(parsed.getTime())) {
+      if (parsed.getFullYear() !== year || parsed.getMonth() !== month) return null;
+      return parsed.getDate();
     }
+    return Number.isInteger(ev.day) ? ev.day : null;
+  };
 
-    for (let i = 1; i <= daysInMonth; i++) {
-        const day = document.createElement('div');
-        day.className = 'calendar-day';
-        const now = new Date();
-        if (i === now.getDate() && month === now.getMonth() && year === now.getFullYear()) day.classList.add('today');
+  for (let i = 0; i < firstDayOfWeek; i++) {
+    const emptyDay = document.createElement('div');
+    emptyDay.className = 'calendar-day empty';
+    grid.appendChild(emptyDay);
+  }
 
-        let dayHtml = `<div class="day-number">${i}</div>`;
+  for (let i = 1; i <= daysInMonth; i++) {
+    const day = document.createElement('div');
+    day.className = 'calendar-day';
+    const now = new Date();
+    if (i === now.getDate() && month === now.getMonth() && year === now.getFullYear()) day.classList.add('today');
 
-        const dayEvents = calendarEvents.filter((e) => getEventDayForDisplayedMonth(e) === i);
-        if (dayEvents.length > 0) {
-            dayHtml += `<div class="events-container">`;
-            dayEvents.forEach(e => {
-                const index = calendarEvents.indexOf(e);
-                dayHtml += `<div class="event-badge event-${e.color}" onclick="openCalendarEvent(${index})" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+    let dayHtml = `<div class="day-number">${i}</div>`;
+
+    const dayEvents = calendarEvents.filter((e) => getEventDayForDisplayedMonth(e) === i);
+    if (dayEvents.length > 0) {
+      dayHtml += `<div class="events-container">`;
+      dayEvents.forEach(e => {
+        const index = calendarEvents.indexOf(e);
+        dayHtml += `<div class="event-badge event-${e.color}" onclick="openCalendarEvent(${index})" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                     <i class="fa-solid ${e.type === 'stream' ? 'fa-video' : 'fa-image'}"></i> ${e.title}
                 </div>`;
-            });
-            dayHtml += `</div>`;
-        }
-
-        day.innerHTML = dayHtml;
-        grid.appendChild(day);
+      });
+      dayHtml += `</div>`;
     }
+
+    day.innerHTML = dayHtml;
+    grid.appendChild(day);
+  }
 }
 
-window.openCalendarEvent = function(index) {
-    const ev = calendarEvents[index];
-    const mainView = document.getElementById('calendar-main-view');
-    const detailView = document.getElementById('calendar-detail-view');
-    const detailPanel = document.getElementById('calendar-event-detail');
-    
-    if (mainView && detailView && detailPanel) {
-        mainView.style.display = 'none';
-        detailView.style.display = 'block';
+window.openCalendarEvent = function (index) {
+  const ev = calendarEvents[index];
+  const mainView = document.getElementById('calendar-main-view');
+  const detailView = document.getElementById('calendar-detail-view');
+  const detailPanel = document.getElementById('calendar-event-detail');
 
-        const streams = getUnifiedStreams();
-        let matched = null;
-        if (ev.streamId) {
-          matched = streams.find((s) => s.id === ev.streamId) || null;
-        }
-        if (!matched) {
-          const eventTitle = String(ev.title || '').trim().toLowerCase();
-          const eventTime = String(ev.time || '').trim();
-          matched =
-            streams.find((s) => {
-              const sameTitle = String(s.title || '').trim().toLowerCase() === eventTitle;
-              if (!sameTitle) return false;
-              if (!eventTime) return true;
-              return String(s.date || '').trim() === eventTime;
-            }) || null;
-        }
+  if (mainView && detailView && detailPanel) {
+    mainView.style.display = 'none';
+    detailView.style.display = 'block';
 
-        if (matched) {
-          renderDetail(matched, 'calendar-event-detail', matched.parentArc || null);
-          return;
-        }
+    const streams = getUnifiedStreams();
+    let matched = null;
+    if (ev.streamId) {
+      matched = streams.find((s) => s.id === ev.streamId) || null;
+    }
+    if (!matched) {
+      const eventTitle = String(ev.title || '').trim().toLowerCase();
+      const eventTime = String(ev.time || '').trim();
+      matched =
+        streams.find((s) => {
+          const sameTitle = String(s.title || '').trim().toLowerCase() === eventTitle;
+          if (!sameTitle) return false;
+          if (!eventTime) return true;
+          return String(s.date || '').trim() === eventTime;
+        }) || null;
+    }
 
-        detailPanel.innerHTML = `
+    if (matched) {
+      renderDetail(matched, 'calendar-event-detail', matched.parentArc || null);
+      return;
+    }
+
+    detailPanel.innerHTML = `
           <div class="detail-header">
               <h2>${ev.title}</h2>
               <div class="detail-tags">
@@ -2451,16 +2447,16 @@ window.openCalendarEvent = function(index) {
               </div>
           </div>
         `;
-    }
+  }
 };
 
-window.closeCalendarDetail = function() {
-    const mainView = document.getElementById('calendar-main-view');
-    const detailView = document.getElementById('calendar-detail-view');
-    if (mainView && detailView) {
-        detailView.style.display = 'none';
-        mainView.style.display = 'block';
-    }
+window.closeCalendarDetail = function () {
+  const mainView = document.getElementById('calendar-main-view');
+  const detailView = document.getElementById('calendar-detail-view');
+  if (mainView && detailView) {
+    detailView.style.display = 'none';
+    mainView.style.display = 'block';
+  }
 };
 
 function extractTikTokVideoIdFromUrl(url) {
@@ -2693,186 +2689,186 @@ function syncStreamsBucketButtons() {
   });
 }
 
-window.setStreamsBucket = function(bucket) {
-    const next = String(bucket || '').toLowerCase();
-    if (!['past', 'current', 'future'].includes(next)) return;
-    streamsBucketUserPinned = true;
-    activeStreamsBucket = next;
-    renderStreams();
+window.setStreamsBucket = function (bucket) {
+  const next = String(bucket || '').toLowerCase();
+  if (!['past', 'current', 'future'].includes(next)) return;
+  streamsBucketUserPinned = true;
+  activeStreamsBucket = next;
+  renderStreams();
 };
 
 const MOBILE_DETAIL_DOCK_MQ = '(max-width: 900px)';
 
 function isMobileDetailDockLayout() {
-    try {
-        return window.matchMedia(MOBILE_DETAIL_DOCK_MQ).matches;
-    } catch (e) {
-        const w = window.innerWidth || document.documentElement.clientWidth || 0;
-        return w <= 900;
-    }
+  try {
+    return window.matchMedia(MOBILE_DETAIL_DOCK_MQ).matches;
+  } catch (e) {
+    const w = window.innerWidth || document.documentElement.clientWidth || 0;
+    return w <= 900;
+  }
 }
 
 function isSingleColumnCampaignLayout(list) {
-    if (!list || !list.closest) return false;
-    const layout = list.closest('.campaigns-layout');
-    if (!layout) return false;
-    const computedCols = window.getComputedStyle(layout).gridTemplateColumns || '';
-    const cols = computedCols
-        .split(' ')
-        .map((v) => v.trim())
-        .filter(Boolean);
-    return cols.length <= 1;
+  if (!list || !list.closest) return false;
+  const layout = list.closest('.campaigns-layout');
+  if (!layout) return false;
+  const computedCols = window.getComputedStyle(layout).gridTemplateColumns || '';
+  const cols = computedCols
+    .split(' ')
+    .map((v) => v.trim())
+    .filter(Boolean);
+  return cols.length <= 1;
 }
 
 function isMobileCardDetailModeForList(listId) {
-    const list = document.getElementById(listId);
-    return isMobileDetailDockLayout() || isSingleColumnCampaignLayout(list);
+  const list = document.getElementById(listId);
+  return isMobileDetailDockLayout() || isSingleColumnCampaignLayout(list);
 }
 
 function clearMobileCardDetailScreens() {
-    ['tab-streams', 'tab-arcs', 'tab-media', 'tab-goals'].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.classList.remove('mobile-card-detail-open');
-    });
-    const mediaTab = document.getElementById('tab-media');
-    if (mediaTab) mediaTab.classList.remove('clippers-mgmt-detail-open');
+  ['tab-streams', 'tab-arcs', 'tab-media', 'tab-goals'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('mobile-card-detail-open');
+  });
+  const mediaTab = document.getElementById('tab-media');
+  if (mediaTab) mediaTab.classList.remove('clippers-mgmt-detail-open');
 }
 
 function openMobileCardDetailScreen(tabId, detailId, columnSelector) {
-    const tab = document.getElementById(tabId);
-    if (!tab) return;
-    moveDetailPanelToColumn(detailId, columnSelector);
-    tab.classList.add('mobile-card-detail-open');
+  const tab = document.getElementById(tabId);
+  if (!tab) return;
+  moveDetailPanelToColumn(detailId, columnSelector);
+  tab.classList.add('mobile-card-detail-open');
 }
 
-window.backToCardSelections = function(tabId) {
-    const tab = document.getElementById(tabId);
-    if (!tab) return;
-    tab.classList.remove('mobile-card-detail-open');
+window.backToCardSelections = function (tabId) {
+  const tab = document.getElementById(tabId);
+  if (!tab) return;
+  tab.classList.remove('mobile-card-detail-open');
 };
 
 function injectMobileBackButton(detailPanel, tabId) {
-    if (!detailPanel) return;
-    const existing = detailPanel.querySelector('.mobile-detail-back-btn');
-    if (existing) existing.remove();
-    const listIdByTab = {
-      'tab-media': 'asset-list',
-      'tab-streams': 'stream-list',
-      'tab-arcs': 'arc-list',
-      'tab-goals': 'goals-list',
-    };
-    const listId = listIdByTab[tabId] || 'arc-list';
-    if (!isMobileCardDetailModeForList(listId)) return;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'btn btn-outline btn-sm mobile-detail-back-btn';
-    btn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Back to list';
-    btn.addEventListener('click', () => window.backToCardSelections(tabId));
-    detailPanel.prepend(btn);
+  if (!detailPanel) return;
+  const existing = detailPanel.querySelector('.mobile-detail-back-btn');
+  if (existing) existing.remove();
+  const listIdByTab = {
+    'tab-media': 'asset-list',
+    'tab-streams': 'stream-list',
+    'tab-arcs': 'arc-list',
+    'tab-goals': 'goals-list',
+  };
+  const listId = listIdByTab[tabId] || 'arc-list';
+  if (!isMobileCardDetailModeForList(listId)) return;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn btn-outline btn-sm mobile-detail-back-btn';
+  btn.innerHTML = '<i class="fa-solid fa-arrow-left"></i> Back to list';
+  btn.addEventListener('click', () => window.backToCardSelections(tabId));
+  detailPanel.prepend(btn);
 }
 
 function moveDetailPanelToColumn(detailId, columnSelector) {
-    const detail = document.getElementById(detailId);
-    const col = document.querySelector(columnSelector);
-    if (detail && col) {
-        col.classList.remove('campaign-detail-col--docked-out');
-        detail.style.display = '';
-        col.appendChild(detail);
-    }
+  const detail = document.getElementById(detailId);
+  const col = document.querySelector(columnSelector);
+  if (detail && col) {
+    col.classList.remove('campaign-detail-col--docked-out');
+    detail.style.display = '';
+    col.appendChild(detail);
+  }
 }
 
 function dockDetailUnderActiveListCard(listId, detailId, columnSelector) {
-    const list = document.getElementById(listId);
-    const active = list ? list.querySelector('.arc-card.active') : null;
-    dockDetailUnderSpecificCard(listId, detailId, columnSelector, active);
+  const list = document.getElementById(listId);
+  const active = list ? list.querySelector('.arc-card.active') : null;
+  dockDetailUnderSpecificCard(listId, detailId, columnSelector, active);
 }
 
 function dockDetailUnderSpecificCard(listId, detailId, columnSelector, cardEl) {
-    const list = document.getElementById(listId);
-    const detail = document.getElementById(detailId);
-    const col = document.querySelector(columnSelector);
-    if (!list || !detail) return;
-    if (col) col.classList.remove('campaign-detail-col--docked-out');
-    if (col) col.appendChild(detail);
+  const list = document.getElementById(listId);
+  const detail = document.getElementById(detailId);
+  const col = document.querySelector(columnSelector);
+  if (!list || !detail) return;
+  if (col) col.classList.remove('campaign-detail-col--docked-out');
+  if (col) col.appendChild(detail);
 }
 
 function hideDetailPanel(detailId, columnSelector) {
-    const detail = document.getElementById(detailId);
-    const col = document.querySelector(columnSelector);
-    if (!detail) return;
-    detail.style.display = 'none';
-    if (col) col.classList.add('campaign-detail-col--docked-out');
+  const detail = document.getElementById(detailId);
+  const col = document.querySelector(columnSelector);
+  if (!detail) return;
+  detail.style.display = 'none';
+  if (col) col.classList.add('campaign-detail-col--docked-out');
 }
 
 function scheduleDetailDockRetry(syncFn) {
+  syncFn();
+  requestAnimationFrame(() => {
     syncFn();
-    requestAnimationFrame(() => {
-        syncFn();
-        requestAnimationFrame(() => syncFn());
-    });
+    requestAnimationFrame(() => syncFn());
+  });
 }
 
 function syncStreamDetailDock() {
-    dockDetailUnderActiveListCard('stream-list', 'stream-detail', '#tab-streams .campaign-detail-col');
+  dockDetailUnderActiveListCard('stream-list', 'stream-detail', '#tab-streams .campaign-detail-col');
 }
 
 function syncArcDetailDock() {
-    dockDetailUnderActiveListCard('arc-list', 'arc-detail', '#tab-arcs .campaign-detail-col');
+  dockDetailUnderActiveListCard('arc-list', 'arc-detail', '#tab-arcs .campaign-detail-col');
 }
 
 function syncAssetDetailDock() {
-    dockDetailUnderActiveListCard('asset-list', 'asset-detail', '#media-pane-social .campaign-detail-col');
+  dockDetailUnderActiveListCard('asset-list', 'asset-detail', '#media-pane-social .campaign-detail-col');
 }
 
 function syncGoalDetailDock() {
-    dockDetailUnderActiveListCard('goals-list', 'goal-detail', '#tab-goals .campaign-detail-col');
+  dockDetailUnderActiveListCard('goals-list', 'goal-detail', '#tab-goals .campaign-detail-col');
 }
 
 function restoreAllDetailPanelsToColumns() {
-    document.querySelectorAll('.campaign-detail-col--docked-out').forEach((el) => el.classList.remove('campaign-detail-col--docked-out'));
-    moveDetailPanelToColumn('stream-detail', '#tab-streams .campaign-detail-col');
-    moveDetailPanelToColumn('arc-detail', '#tab-arcs .campaign-detail-col');
-    moveDetailPanelToColumn('asset-detail', '#media-pane-social .campaign-detail-col');
-    moveDetailPanelToColumn('goal-detail', '#tab-goals .campaign-detail-col');
+  document.querySelectorAll('.campaign-detail-col--docked-out').forEach((el) => el.classList.remove('campaign-detail-col--docked-out'));
+  moveDetailPanelToColumn('stream-detail', '#tab-streams .campaign-detail-col');
+  moveDetailPanelToColumn('arc-detail', '#tab-arcs .campaign-detail-col');
+  moveDetailPanelToColumn('asset-detail', '#media-pane-social .campaign-detail-col');
+  moveDetailPanelToColumn('goal-detail', '#tab-goals .campaign-detail-col');
 }
 
 function renderStreams() {
-    const list = document.getElementById('stream-list');
-    moveDetailPanelToColumn('stream-detail', '#tab-streams .campaign-detail-col');
-    list.innerHTML = '';
-    const streams = getUnifiedStreams();
-    if (!streamsBucketUserPinned) {
-      const hasCurrent = streams.some((s) => getClipStreamTimeBucket(s) === 'current');
-      activeStreamsBucket = hasCurrent ? 'current' : 'past';
-    }
-    const filtered = streams.filter((s) => getClipStreamTimeBucket(s) === activeStreamsBucket);
+  const list = document.getElementById('stream-list');
+  moveDetailPanelToColumn('stream-detail', '#tab-streams .campaign-detail-col');
+  list.innerHTML = '';
+  const streams = getUnifiedStreams();
+  if (!streamsBucketUserPinned) {
+    const hasCurrent = streams.some((s) => getClipStreamTimeBucket(s) === 'current');
+    activeStreamsBucket = hasCurrent ? 'current' : 'past';
+  }
+  const filtered = streams.filter((s) => getClipStreamTimeBucket(s) === activeStreamsBucket);
 
-    if (filtered.length === 0) {
-        const pretty = activeStreamsBucket === 'future' ? 'upcoming' : activeStreamsBucket;
-        list.innerHTML = `<div class="glass-panel" style="padding:12px; color:var(--text-muted); border-style:dashed;">No ${pretty} streams yet.</div>`;
-        const detailPanel = document.getElementById('stream-detail');
-        if (detailPanel) {
-          detailPanel.innerHTML = `
+  if (filtered.length === 0) {
+    const pretty = activeStreamsBucket === 'future' ? 'upcoming' : activeStreamsBucket;
+    list.innerHTML = `<div class="glass-panel" style="padding:12px; color:var(--text-muted); border-style:dashed;">No ${pretty} streams yet.</div>`;
+    const detailPanel = document.getElementById('stream-detail');
+    if (detailPanel) {
+      detailPanel.innerHTML = `
             <div class="empty-state">
               <i class="fa-solid fa-video empty-icon"></i>
               <p>Select a stream to view details</p>
             </div>
           `;
-        }
-        syncStreamsBucketButtons();
-        scheduleDetailDockRetry(syncStreamDetailDock);
-        return;
     }
+    syncStreamsBucketButtons();
+    scheduleDetailDockRetry(syncStreamDetailDock);
+    return;
+  }
 
-    const hasSelectedStream = filtered.some((s) => getClipStreamKey(s) === streamListSelectedKey);
+  const hasSelectedStream = filtered.some((s) => getClipStreamKey(s) === streamListSelectedKey);
 
-    filtered.forEach((stream) => {
-        const card = document.createElement('div');
-        const streamKey = getClipStreamKey(stream);
-        card.className = `arc-card ${streamListSelectedKey === streamKey ? 'active' : ''}`;
-        const displayDate = String(stream.date || 'TBD').split(' - ')[0];
-        const displayLocation = String(stream.location || 'TBD').split(',')[0];
-        card.innerHTML = `
+  filtered.forEach((stream) => {
+    const card = document.createElement('div');
+    const streamKey = getClipStreamKey(stream);
+    card.className = `arc-card ${streamListSelectedKey === streamKey ? 'active' : ''}`;
+    const displayDate = String(stream.date || 'TBD').split(' - ')[0];
+    const displayLocation = String(stream.location || 'TBD').split(',')[0];
+    card.innerHTML = `
             <span class="arc-status status-${stream.status}">${stream.status}</span>
             <span class="arc-status status-planning" style="background: rgba(255, 255, 255, 0.1); color: #fff;">${stream.type}</span>
             <h4 class="arc-title" style="margin-top: 8px;">${stream.title}</h4>
@@ -2883,290 +2879,290 @@ function renderStreams() {
             ${stream.parentArc ? `<div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 8px;">From arc: ${stream.parentArc.title}</div>` : ''}
         `;
 
-        card.addEventListener('click', () => {
-            if (card.classList.contains('active')) {
-                streamListSelectedKey = null;
-                card.classList.remove('active');
-                hideDetailPanel('stream-detail', '#tab-streams .campaign-detail-col');
-                return;
-            }
-            document.querySelectorAll('#tab-streams .arc-card').forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
-            streamListSelectedKey = streamKey;
-            renderDetail(stream, 'stream-detail', stream.parentArc || null);
-            scheduleDetailDockRetry(() =>
-                dockDetailUnderSpecificCard('stream-list', 'stream-detail', '#tab-streams .campaign-detail-col', card)
-            );
-            if (isMobileCardDetailModeForList('stream-list')) {
-                openMobileCardDetailScreen('tab-streams', 'stream-detail', '#tab-streams .campaign-detail-col');
-            }
-        });
-        list.appendChild(card);
+    card.addEventListener('click', () => {
+      if (card.classList.contains('active')) {
+        streamListSelectedKey = null;
+        card.classList.remove('active');
+        hideDetailPanel('stream-detail', '#tab-streams .campaign-detail-col');
+        return;
+      }
+      document.querySelectorAll('#tab-streams .arc-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      streamListSelectedKey = streamKey;
+      renderDetail(stream, 'stream-detail', stream.parentArc || null);
+      scheduleDetailDockRetry(() =>
+        dockDetailUnderSpecificCard('stream-list', 'stream-detail', '#tab-streams .campaign-detail-col', card)
+      );
+      if (isMobileCardDetailModeForList('stream-list')) {
+        openMobileCardDetailScreen('tab-streams', 'stream-detail', '#tab-streams .campaign-detail-col');
+      }
     });
+    list.appendChild(card);
+  });
 
-    if (hasSelectedStream) {
-        const selectedStream = filtered.find((s) => getClipStreamKey(s) === streamListSelectedKey);
-        if (selectedStream) renderDetail(selectedStream, 'stream-detail', selectedStream.parentArc || null);
-    } else {
-        const detailPanel = document.getElementById('stream-detail');
-        if (detailPanel) {
-          detailPanel.innerHTML = `
+  if (hasSelectedStream) {
+    const selectedStream = filtered.find((s) => getClipStreamKey(s) === streamListSelectedKey);
+    if (selectedStream) renderDetail(selectedStream, 'stream-detail', selectedStream.parentArc || null);
+  } else {
+    const detailPanel = document.getElementById('stream-detail');
+    if (detailPanel) {
+      detailPanel.innerHTML = `
             <div class="empty-state">
               <i class="fa-solid fa-video empty-icon"></i>
               <p>Select a stream to view details</p>
             </div>
           `;
-        }
-        hideDetailPanel('stream-detail', '#tab-streams .campaign-detail-col');
     }
-    syncStreamsBucketButtons();
-    scheduleDetailDockRetry(syncStreamDetailDock);
+    hideDetailPanel('stream-detail', '#tab-streams .campaign-detail-col');
+  }
+  syncStreamsBucketButtons();
+  scheduleDetailDockRetry(syncStreamDetailDock);
 }
 
 function deleteStreamRecord(stream, parentArc = null) {
-    const ok = window.confirm(
-      parentArc
-        ? `Delete linked stream "${stream.title}" from "${parentArc.title}"?`
-        : `Delete stream "${stream.title}"?`
-    );
-    if (!ok) return;
+  const ok = window.confirm(
+    parentArc
+      ? `Delete linked stream "${stream.title}" from "${parentArc.title}"?`
+      : `Delete stream "${stream.title}"?`
+  );
+  if (!ok) return;
 
-    if (parentArc) {
-      const parent = arcsData.find((a) => a.id === parentArc.id);
-      if (!parent || !Array.isArray(parent.linkedStreams)) return;
-      if (Number.isInteger(stream.linkedIndex)) {
-        parent.linkedStreams.splice(stream.linkedIndex, 1);
-      } else {
-        parent.linkedStreams = parent.linkedStreams.filter((ls) => ls.title !== stream.title);
-      }
+  if (parentArc) {
+    const parent = arcsData.find((a) => a.id === parentArc.id);
+    if (!parent || !Array.isArray(parent.linkedStreams)) return;
+    if (Number.isInteger(stream.linkedIndex)) {
+      parent.linkedStreams.splice(stream.linkedIndex, 1);
     } else {
-      arcsData = arcsData.filter((a) => a.id !== stream.id);
+      parent.linkedStreams = parent.linkedStreams.filter((ls) => ls.title !== stream.title);
     }
-    renderStreams();
-    renderArcs();
-    const detailPanel = document.getElementById('stream-detail');
-    if (detailPanel) {
-      detailPanel.innerHTML = `
+  } else {
+    arcsData = arcsData.filter((a) => a.id !== stream.id);
+  }
+  renderStreams();
+  renderArcs();
+  const detailPanel = document.getElementById('stream-detail');
+  if (detailPanel) {
+    detailPanel.innerHTML = `
         <div class="empty-state">
           <i class="fa-solid fa-video empty-icon"></i>
           <p>Select a stream to view details</p>
         </div>
       `;
-    }
-    scheduleSaveAppStateToDb();
+  }
+  scheduleSaveAppStateToDb();
 }
 
 function deleteArcRecord(arc) {
-    const ok = window.confirm(`Delete arc "${arc.title}"?`);
-    if (!ok) return;
-    arcsData = arcsData.filter((a) => a.id !== arc.id);
-    arcListSelectedId = null;
-    renderArcs();
-    renderStreams();
-    scheduleSaveAppStateToDb();
+  const ok = window.confirm(`Delete arc "${arc.title}"?`);
+  if (!ok) return;
+  arcsData = arcsData.filter((a) => a.id !== arc.id);
+  arcListSelectedId = null;
+  renderArcs();
+  renderStreams();
+  scheduleSaveAppStateToDb();
 }
 
-window.updateSegmentOption = function(streamId, parentArcId, linkedIndex, segmentIndex, optionIndex, field, value) {
-    let stream = null;
-    if (parentArcId && parentArcId !== 'null') {
-      const parent = arcsData.find((a) => a.id === parentArcId);
-      if (!parent || !Array.isArray(parent.linkedStreams)) return;
-      if (Number.isInteger(linkedIndex) && linkedIndex >= 0) {
-        stream = parent.linkedStreams[linkedIndex];
-      }
-    } else {
-      stream = arcsData.find((a) => a.id === streamId);
+window.updateSegmentOption = function (streamId, parentArcId, linkedIndex, segmentIndex, optionIndex, field, value) {
+  let stream = null;
+  if (parentArcId && parentArcId !== 'null') {
+    const parent = arcsData.find((a) => a.id === parentArcId);
+    if (!parent || !Array.isArray(parent.linkedStreams)) return;
+    if (Number.isInteger(linkedIndex) && linkedIndex >= 0) {
+      stream = parent.linkedStreams[linkedIndex];
     }
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    if (!Array.isArray(seg.options)) seg.options = [];
-    const opt = seg.options[optionIndex];
-    if (!opt) return;
-    if (field === 'text') opt.text = value;
-    if (field === 'decision') opt.decision = value;
-    scheduleSaveAppStateToDb();
+  } else {
+    stream = arcsData.find((a) => a.id === streamId);
+  }
+  if (!stream || !Array.isArray(stream.segments)) return;
+  const seg = stream.segments[segmentIndex];
+  if (!seg) return;
+  if (!Array.isArray(seg.options)) seg.options = [];
+  const opt = seg.options[optionIndex];
+  if (!opt) return;
+  if (field === 'text') opt.text = value;
+  if (field === 'decision') opt.decision = value;
+  scheduleSaveAppStateToDb();
 };
 
-window.updateSegmentName = function(streamId, parentArcId, linkedIndex, segmentIndex, value) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    seg.title = String(value || '').trim();
-    scheduleSaveAppStateToDb();
+window.updateSegmentName = function (streamId, parentArcId, linkedIndex, segmentIndex, value) {
+  const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+  if (!stream || !Array.isArray(stream.segments)) return;
+  const seg = stream.segments[segmentIndex];
+  if (!seg) return;
+  seg.title = String(value || '').trim();
+  scheduleSaveAppStateToDb();
 };
 
-window.updateSegmentField = function(streamId, parentArcId, linkedIndex, segmentIndex, field, value) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    if (!['duration', 'goals', 'narrative'].includes(field)) return;
-    seg[field] = String(value || '');
-    scheduleSaveAppStateToDb();
+window.updateSegmentField = function (streamId, parentArcId, linkedIndex, segmentIndex, field, value) {
+  const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+  if (!stream || !Array.isArray(stream.segments)) return;
+  const seg = stream.segments[segmentIndex];
+  if (!seg) return;
+  if (!['duration', 'goals', 'narrative'].includes(field)) return;
+  seg[field] = String(value || '');
+  scheduleSaveAppStateToDb();
 };
 
-window.updateSegmentClipperFields = function(streamId, parentArcId, linkedIndex, segmentIndex, field, value) {
-    let stream = null;
-    if (parentArcId && parentArcId !== 'null') {
-      const parent = arcsData.find((a) => a.id === parentArcId);
-      if (!parent || !Array.isArray(parent.linkedStreams)) return;
-      if (Number.isInteger(linkedIndex) && linkedIndex >= 0) stream = parent.linkedStreams[linkedIndex];
-    } else {
-      stream = arcsData.find((a) => a.id === streamId);
-    }
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    if (field === 'clipVodUrl') seg.clipVodUrl = value;
-    if (field === 'clipDesiredAngle') seg.clipDesiredAngle = value;
-    scheduleSaveAppStateToDb();
+window.updateSegmentClipperFields = function (streamId, parentArcId, linkedIndex, segmentIndex, field, value) {
+  let stream = null;
+  if (parentArcId && parentArcId !== 'null') {
+    const parent = arcsData.find((a) => a.id === parentArcId);
+    if (!parent || !Array.isArray(parent.linkedStreams)) return;
+    if (Number.isInteger(linkedIndex) && linkedIndex >= 0) stream = parent.linkedStreams[linkedIndex];
+  } else {
+    stream = arcsData.find((a) => a.id === streamId);
+  }
+  if (!stream || !Array.isArray(stream.segments)) return;
+  const seg = stream.segments[segmentIndex];
+  if (!seg) return;
+  if (field === 'clipVodUrl') seg.clipVodUrl = value;
+  if (field === 'clipDesiredAngle') seg.clipDesiredAngle = value;
+  scheduleSaveAppStateToDb();
 };
 
-window.updateStreamClipField = function(streamId, parentArcId, linkedIndex, field, value) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream) return;
-    if (field === 'fullVodUrl') stream.fullVodUrl = value;
-    if (field === 'posterUrl') stream.posterUrl = value;
-    if (field === 'posterPostDate') stream.posterPostDate = value;
-    scheduleSaveAppStateToDb();
+window.updateStreamClipField = function (streamId, parentArcId, linkedIndex, field, value) {
+  const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+  if (!stream) return;
+  if (field === 'fullVodUrl') stream.fullVodUrl = value;
+  if (field === 'posterUrl') stream.posterUrl = value;
+  if (field === 'posterPostDate') stream.posterPostDate = value;
+  scheduleSaveAppStateToDb();
 };
 
-window.setActiveClipManagementStream = function(streamKey) {
-    activeClipStreamKey = String(streamKey || '');
-    if (activeClipStreamKey && isMobileDetailDockLayout()) {
-      const mediaTab = document.getElementById('tab-media');
-      if (mediaTab) mediaTab.classList.add('clippers-mgmt-detail-open');
-    }
-    renderClippersBoard();
-};
-
-window.setClipManagementBucket = function(bucket) {
-    const next = String(bucket || '').toLowerCase();
-    if (!['past', 'current', 'future'].includes(next)) return;
-    activeClipStreamBucket = next;
-    activeClipStreamKey = '';
+window.setActiveClipManagementStream = function (streamKey) {
+  activeClipStreamKey = String(streamKey || '');
+  if (activeClipStreamKey && isMobileDetailDockLayout()) {
     const mediaTab = document.getElementById('tab-media');
-    if (mediaTab) mediaTab.classList.remove('clippers-mgmt-detail-open');
-    renderClippersBoard();
+    if (mediaTab) mediaTab.classList.add('clippers-mgmt-detail-open');
+  }
+  renderClippersBoard();
 };
 
-window.setClipBankFilter = function(field, value) {
-    if (!Object.prototype.hasOwnProperty.call(clipBankFilters, field)) return;
-    let caret = null;
-    if (field === 'text') {
-      const active = document.activeElement;
-      if (active && active.tagName === 'INPUT') {
-        caret = {
-          start: Number(active.selectionStart ?? 0),
-          end: Number(active.selectionEnd ?? 0),
-        };
+window.setClipManagementBucket = function (bucket) {
+  const next = String(bucket || '').toLowerCase();
+  if (!['past', 'current', 'future'].includes(next)) return;
+  activeClipStreamBucket = next;
+  activeClipStreamKey = '';
+  const mediaTab = document.getElementById('tab-media');
+  if (mediaTab) mediaTab.classList.remove('clippers-mgmt-detail-open');
+  renderClippersBoard();
+};
+
+window.setClipBankFilter = function (field, value) {
+  if (!Object.prototype.hasOwnProperty.call(clipBankFilters, field)) return;
+  let caret = null;
+  if (field === 'text') {
+    const active = document.activeElement;
+    if (active && active.tagName === 'INPUT') {
+      caret = {
+        start: Number(active.selectionStart ?? 0),
+        end: Number(active.selectionEnd ?? 0),
+      };
+    }
+  }
+  clipBankFilters[field] = String(value || '');
+  renderClippersBoard();
+  if (field === 'text') {
+    requestAnimationFrame(() => {
+      const input = document.querySelector('#clip-bank-board input.form-input');
+      if (!input) return;
+      input.focus({ preventScroll: true });
+      if (caret) {
+        const len = input.value.length;
+        const start = Math.max(0, Math.min(caret.start, len));
+        const end = Math.max(0, Math.min(caret.end, len));
+        input.setSelectionRange(start, end);
       }
-    }
-    clipBankFilters[field] = String(value || '');
-    renderClippersBoard();
-    if (field === 'text') {
-      requestAnimationFrame(() => {
-        const input = document.querySelector('#clip-bank-board input.form-input');
-        if (!input) return;
-        input.focus({ preventScroll: true });
-        if (caret) {
-          const len = input.value.length;
-          const start = Math.max(0, Math.min(caret.start, len));
-          const end = Math.max(0, Math.min(caret.end, len));
-          input.setSelectionRange(start, end);
-        }
-      });
-    }
+    });
+  }
 };
 
-window.addPostedClip = function(streamId, parentArcId, linkedIndex, segmentIndex) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
-    seg.postedClips.push({ title: '', url: '', tags: [], people: [] });
-    renderClippersBoard();
-    scheduleSaveAppStateToDb();
+window.addPostedClip = function (streamId, parentArcId, linkedIndex, segmentIndex) {
+  const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+  if (!stream || !Array.isArray(stream.segments)) return;
+  const seg = stream.segments[segmentIndex];
+  if (!seg) return;
+  if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
+  seg.postedClips.push({ title: '', url: '', tags: [], people: [] });
+  renderClippersBoard();
+  scheduleSaveAppStateToDb();
 };
 
-window.removePostedClip = function(streamId, parentArcId, linkedIndex, segmentIndex, clipIndex) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg || !Array.isArray(seg.postedClips)) return;
-    seg.postedClips.splice(clipIndex, 1);
-    renderClippersBoard();
-    scheduleSaveAppStateToDb();
+window.removePostedClip = function (streamId, parentArcId, linkedIndex, segmentIndex, clipIndex) {
+  const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+  if (!stream || !Array.isArray(stream.segments)) return;
+  const seg = stream.segments[segmentIndex];
+  if (!seg || !Array.isArray(seg.postedClips)) return;
+  seg.postedClips.splice(clipIndex, 1);
+  renderClippersBoard();
+  scheduleSaveAppStateToDb();
 };
 
-window.updatePostedClipField = function(streamId, parentArcId, linkedIndex, segmentIndex, clipIndex, field, value) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
-    const clip = seg.postedClips[clipIndex];
-    if (!clip) return;
-    if (field === 'title' || field === 'url') {
-      clip[field] = value;
-    }
-    if (field === 'tags' || field === 'people') {
-      clip[field] = String(value || '')
-        .split(',')
-        .map((x) => x.trim())
-        .filter(Boolean);
-    }
-    scheduleSaveAppStateToDb();
+window.updatePostedClipField = function (streamId, parentArcId, linkedIndex, segmentIndex, clipIndex, field, value) {
+  const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+  if (!stream || !Array.isArray(stream.segments)) return;
+  const seg = stream.segments[segmentIndex];
+  if (!seg) return;
+  if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
+  const clip = seg.postedClips[clipIndex];
+  if (!clip) return;
+  if (field === 'title' || field === 'url') {
+    clip[field] = value;
+  }
+  if (field === 'tags' || field === 'people') {
+    clip[field] = String(value || '')
+      .split(',')
+      .map((x) => x.trim())
+      .filter(Boolean);
+  }
+  scheduleSaveAppStateToDb();
 };
 
 function syncArcTimelineFilterButtons() {
-    const active = String(arcTimelineFilter.timeline || '').trim().toLowerCase();
-    document.querySelectorAll('#tab-arcs .arc-timeline-btn').forEach((btn) => {
-        const key = String(btn.getAttribute('data-arc-timeline') || '').trim().toLowerCase();
-        btn.classList.toggle('active', key === active);
-    });
+  const active = String(arcTimelineFilter.timeline || '').trim().toLowerCase();
+  document.querySelectorAll('#tab-arcs .arc-timeline-btn').forEach((btn) => {
+    const key = String(btn.getAttribute('data-arc-timeline') || '').trim().toLowerCase();
+    btn.classList.toggle('active', key === active);
+  });
 }
 
 // Render Campaigns/Arcs
 function renderArcs() {
-    const list = document.getElementById('arc-list');
-    const detailPanel = document.getElementById('arc-detail');
-    if (!list) return;
+  const list = document.getElementById('arc-list');
+  const detailPanel = document.getElementById('arc-detail');
+  if (!list) return;
 
-    moveDetailPanelToColumn('arc-detail', '#tab-arcs .campaign-detail-col');
-    list.innerHTML = '';
-    let arcs = arcsData.filter((a) => a.type === 'Arc');
-    const tf = String(arcTimelineFilter.timeline || '').trim().toLowerCase();
-    if (tf === 'past' || tf === 'current' || tf === 'future') {
-        arcs = arcs.filter((a) => getArcTimelineStatus(a).key === tf);
-    }
-    syncArcTimelineFilterButtons();
+  moveDetailPanelToColumn('arc-detail', '#tab-arcs .campaign-detail-col');
+  list.innerHTML = '';
+  let arcs = arcsData.filter((a) => a.type === 'Arc');
+  const tf = String(arcTimelineFilter.timeline || '').trim().toLowerCase();
+  if (tf === 'past' || tf === 'current' || tf === 'future') {
+    arcs = arcs.filter((a) => getArcTimelineStatus(a).key === tf);
+  }
+  syncArcTimelineFilterButtons();
 
-    if (arcs.length === 0) {
-        list.innerHTML =
-            '<div class="empty-state" style="padding: 24px; text-align: center;"><p>No arcs match this filter.</p></div>';
-        if (detailPanel) {
-            detailPanel.innerHTML = `
+  if (arcs.length === 0) {
+    list.innerHTML =
+      '<div class="empty-state" style="padding: 24px; text-align: center;"><p>No arcs match this filter.</p></div>';
+    if (detailPanel) {
+      detailPanel.innerHTML = `
                 <div class="empty-state">
                     <i class="fa-solid fa-bolt empty-icon"></i>
                     <p>Select an arc to view details</p>
                 </div>`;
-        }
-        scheduleDetailDockRetry(syncArcDetailDock);
-        return;
     }
+    scheduleDetailDockRetry(syncArcDetailDock);
+    return;
+  }
 
-    const activeId = arcs.some((a) => a.id === arcListSelectedId) ? arcListSelectedId : null;
-    arcListSelectedId = activeId;
+  const activeId = arcs.some((a) => a.id === arcListSelectedId) ? arcListSelectedId : null;
+  arcListSelectedId = activeId;
 
-    arcs.forEach((arc) => {
-        const card = document.createElement('div');
-        const arcTimeline = getArcTimelineStatus(arc);
-        card.className = `arc-card ${arc.id === activeId ? 'active' : ''}`;
-        card.innerHTML = `
+  arcs.forEach((arc) => {
+    const card = document.createElement('div');
+    const arcTimeline = getArcTimelineStatus(arc);
+    card.className = `arc-card ${arc.id === activeId ? 'active' : ''}`;
+    card.innerHTML = `
             <span class="arc-status status-${arcTimeline.key}">${arcTimeline.label}</span>
             <span class="arc-status status-planning" style="background: rgba(255, 255, 255, 0.1); color: #fff;">${arc.type}</span>
             <h4 class="arc-title" style="margin-top: 8px;">${arc.title}</h4>
@@ -3176,54 +3172,54 @@ function renderArcs() {
             </div>
         `;
 
-        card.addEventListener('click', () => {
-            if (card.classList.contains('active')) {
-                arcListSelectedId = null;
-                card.classList.remove('active');
-                hideDetailPanel('arc-detail', '#tab-arcs .campaign-detail-col');
-                return;
-            }
-            arcListSelectedId = arc.id;
-            document.querySelectorAll('#tab-arcs .arc-card').forEach((c) => c.classList.remove('active'));
-            card.classList.add('active');
-            renderDetail(arc, 'arc-detail');
-            scheduleDetailDockRetry(() =>
-                dockDetailUnderSpecificCard('arc-list', 'arc-detail', '#tab-arcs .campaign-detail-col', card)
-            );
-            if (isMobileCardDetailModeForList('arc-list')) {
-                openMobileCardDetailScreen('tab-arcs', 'arc-detail', '#tab-arcs .campaign-detail-col');
-            }
-        });
-
-        list.appendChild(card);
+    card.addEventListener('click', () => {
+      if (card.classList.contains('active')) {
+        arcListSelectedId = null;
+        card.classList.remove('active');
+        hideDetailPanel('arc-detail', '#tab-arcs .campaign-detail-col');
+        return;
+      }
+      arcListSelectedId = arc.id;
+      document.querySelectorAll('#tab-arcs .arc-card').forEach((c) => c.classList.remove('active'));
+      card.classList.add('active');
+      renderDetail(arc, 'arc-detail');
+      scheduleDetailDockRetry(() =>
+        dockDetailUnderSpecificCard('arc-list', 'arc-detail', '#tab-arcs .campaign-detail-col', card)
+      );
+      if (isMobileCardDetailModeForList('arc-list')) {
+        openMobileCardDetailScreen('tab-arcs', 'arc-detail', '#tab-arcs .campaign-detail-col');
+      }
     });
 
-    if (activeId) {
-        const selected = arcs.find((a) => a.id === activeId);
-        if (selected) renderDetail(selected, 'arc-detail');
-        scheduleDetailDockRetry(syncArcDetailDock);
-    } else {
-        if (detailPanel) {
-            detailPanel.innerHTML = `
+    list.appendChild(card);
+  });
+
+  if (activeId) {
+    const selected = arcs.find((a) => a.id === activeId);
+    if (selected) renderDetail(selected, 'arc-detail');
+    scheduleDetailDockRetry(syncArcDetailDock);
+  } else {
+    if (detailPanel) {
+      detailPanel.innerHTML = `
                 <div class="empty-state">
                     <i class="fa-solid fa-bolt empty-icon"></i>
                     <p>Select an arc to view details</p>
                 </div>`;
-        }
-        hideDetailPanel('arc-detail', '#tab-arcs .campaign-detail-col');
     }
+    hideDetailPanel('arc-detail', '#tab-arcs .campaign-detail-col');
+  }
 }
 
 function renderDetail(arc, targetId, parentArc = null) {
-    const detailPanel = document.getElementById(targetId);
-    if (!detailPanel) return;
-    detailPanel.style.display = '';
-    const canDeleteInDetail = targetId === 'stream-detail' && (arc.type !== 'Arc' || parentArc);
-    const canDeleteArcInDetail = targetId === 'arc-detail' && arc.type === 'Arc';
-    const isStreamLike = arc.type !== 'Arc';
-    const canEditStreamFields = targetId === 'stream-detail' || targetId === 'calendar-event-detail';
-    
-    let html = `
+  const detailPanel = document.getElementById(targetId);
+  if (!detailPanel) return;
+  detailPanel.style.display = '';
+  const canDeleteInDetail = targetId === 'stream-detail' && (arc.type !== 'Arc' || parentArc);
+  const canDeleteArcInDetail = targetId === 'arc-detail' && arc.type === 'Arc';
+  const isStreamLike = arc.type !== 'Arc';
+  const canEditStreamFields = targetId === 'stream-detail' || targetId === 'calendar-event-detail';
+
+  let html = `
         <div class="detail-header">
             ${parentArc ? `<button class="btn btn-outline btn-sm" style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px;" onclick="renderDetail(arcsData.find(a => a.id === '${parentArc.id}'), '${targetId}')"><i class="fa-solid fa-arrow-left"></i> Back to ${parentArc.title}</button>` : ''}
             <div class="detail-header-actions">
@@ -3275,16 +3271,16 @@ function renderDetail(arc, targetId, parentArc = null) {
         <div class="detail-grid">
     `;
 
-    if (arc.type === 'Arc' || arc.goals) {
-        let goalsHtml = '';
-        if (arc.goals) {
-            goalsHtml = Array.isArray(arc.goals) ? arc.goals.map(g => `<li>${g}</li>`).join('') : `<li>${arc.goals}</li>`;
-        }
-        let activitiesHtml = arc.activities ? arc.activities.map(a => `<li>${a}</li>`).join('') : '';
-        let promptsHtml = arc.prompts ? arc.prompts.map(p => `<li>${p}</li>`).join('') : '';
-        let clothingHtml = arc.clothing ? arc.clothing.map(c => `<li>${c}</li>`).join('') : '';
+  if (arc.type === 'Arc' || arc.goals) {
+    let goalsHtml = '';
+    if (arc.goals) {
+      goalsHtml = Array.isArray(arc.goals) ? arc.goals.map(g => `<li>${g}</li>`).join('') : `<li>${arc.goals}</li>`;
+    }
+    let activitiesHtml = arc.activities ? arc.activities.map(a => `<li>${a}</li>`).join('') : '';
+    let promptsHtml = arc.prompts ? arc.prompts.map(p => `<li>${p}</li>`).join('') : '';
+    let clothingHtml = arc.clothing ? arc.clothing.map(c => `<li>${c}</li>`).join('') : '';
 
-        html += `
+    html += `
             <div class="info-group">
                 <div class="info-label"><i class="fa-solid fa-bullseye"></i> Goals</div>
                 <div class="info-content">
@@ -3358,10 +3354,10 @@ function renderDetail(arc, targetId, parentArc = null) {
                 </div>` : ''}
             </div>
         `;
-    }
+  }
 
-    if (arc.collabWith) {
-        html += `
+  if (arc.collabWith) {
+    html += `
                 <div class="info-group" style="grid-column: 1 / -1; background: rgba(255, 255, 255, 0.05);">
                     <div class="info-label"><i class="fa-solid fa-users"></i> Collab Details</div>
                     <div class="info-content">
@@ -3369,11 +3365,11 @@ function renderDetail(arc, targetId, parentArc = null) {
                     </div>
                 </div>
             `;
-    }
+  }
 
-    if (arc.segments) {
-        if (arc.security || arc.driver || arc.logistics) {
-            html += `
+  if (arc.segments) {
+    if (arc.security || arc.driver || arc.logistics) {
+      html += `
                 <div class="info-group" style="grid-column: 1 / -1;">
                     <div class="info-label"><i class="fa-solid fa-shield-halved"></i> Logistics</div>
                     <div class="info-content" style="display: flex; gap: 24px;">
@@ -3383,18 +3379,18 @@ function renderDetail(arc, targetId, parentArc = null) {
                     </div>
                 </div>
             `;
-        }
+    }
 
-        arc.segments.forEach((seg, i) => {
-            const optionsHtml = Array.isArray(seg.options) && seg.options.length > 0
-              ? `
+    arc.segments.forEach((seg, i) => {
+      const optionsHtml = Array.isArray(seg.options) && seg.options.length > 0
+        ? `
                     <div style="margin-top: 10px;">
                   <strong>Activities:</strong>
                   <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
                     ${seg.options.map((opt, optionIndex) => {
-                      const decision = String(opt.decision || 'keep');
-                      if (canEditStreamFields) {
-                        return `<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border-color); padding:6px 8px; border-radius:6px;">
+          const decision = String(opt.decision || 'keep');
+          if (canEditStreamFields) {
+            return `<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border-color); padding:6px 8px; border-radius:6px;">
                           <input type="text" class="form-input stream-detail-managed-field" style="flex:1 1 240px; min-width:0;" value="${(opt.text || '').replace(/"/g, '&quot;')}" oninput="updateSegmentOption('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, ${i}, ${optionIndex}, 'text', this.value)" />
                           <select class="form-input stream-detail-managed-field" style="appearance:auto; background: rgba(0,0,0,0.5); flex:0 0 230px; max-width:100%;" onchange="updateSegmentOption('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, ${i}, ${optionIndex}, 'decision', this.value)">
                             <option value="keep" ${decision === 'keep' ? 'selected' : ''}>Keep</option>
@@ -3402,70 +3398,66 @@ function renderDetail(arc, targetId, parentArc = null) {
                             <option value="save_for_another_stream" ${decision === 'save_for_another_stream' ? 'selected' : ''}>Save for another stream</option>
                           </select>
                         </div>`;
-                      }
-                      const label =
-                        decision === 'save_for_another_stream'
-                          ? 'Save for another stream'
-                          : decision === 'deny'
-                            ? 'Deny'
-                            : 'Keep';
-                      const color =
-                        decision === 'save_for_another_stream'
-                          ? 'rgba(96,165,250,0.2)'
-                          : decision === 'deny'
-                            ? 'rgba(239,68,68,0.2)'
-                            : 'rgba(34,197,94,0.2)';
-                      return `<div style="display:flex; justify-content:space-between; gap:8px; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border-color); padding:6px 8px; border-radius:6px;">
+          }
+          const label =
+            decision === 'save_for_another_stream'
+              ? 'Save for another stream'
+              : decision === 'deny'
+                ? 'Deny'
+                : 'Keep';
+          const color =
+            decision === 'save_for_another_stream'
+              ? 'rgba(96,165,250,0.2)'
+              : decision === 'deny'
+                ? 'rgba(239,68,68,0.2)'
+                : 'rgba(34,197,94,0.2)';
+          return `<div style="display:flex; justify-content:space-between; gap:8px; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border-color); padding:6px 8px; border-radius:6px;">
                         <span>${opt.text || ''}</span>
                         <span class="tag" style="background:${color}; border:none;">${label}</span>
                       </div>`;
-                    }).join('')}
+        }).join('')}
                   </div>
                 </div>
               `
-              : '';
-            html += `
+        : '';
+      html += `
                 <div class="info-group" style="grid-column: 1 / -1; border-color: rgba(204, 255, 0, 0.2);">
                     <div class="info-label" style="color: var(--primary);">Segment ${i + 1}</div>
                     <div class="info-content">
-                        ${
-                          isStreamLike
-                            ? `<div style="margin-bottom: 8px;">
+                        ${isStreamLike
+          ? `<div style="margin-bottom: 8px;">
                                 <strong>Segment name:</strong>
                                 <input class="form-input${canEditStreamFields ? ' stream-detail-managed-field' : ''}" style="width:100%; margin-top:6px;" placeholder="Segment name" value="${escAttr(seg.title || '')}"
                                   ${canEditStreamFields ? `oninput="updateSegmentName('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, ${i}, this.value)"` : 'disabled'} />
                               </div>`
-                            : `<div style="margin-bottom: 8px;"><strong>Name:</strong> ${seg.title || ''}</div>`
-                        }
-                        ${
-                          isStreamLike
-                            ? `<div style="margin-bottom: 8px;">
+          : `<div style="margin-bottom: 8px;"><strong>Name:</strong> ${seg.title || ''}</div>`
+        }
+                        ${isStreamLike
+          ? `<div style="margin-bottom: 8px;">
                                 <strong>Duration:</strong>
                                 <input class="form-input${canEditStreamFields ? ' stream-detail-managed-field' : ''}" style="width:100%; margin-top:6px;" placeholder="e.g. 1h 30m" value="${escAttr(seg.duration || '')}"
                                   ${canEditStreamFields ? `oninput="updateSegmentField('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, ${i}, 'duration', this.value)"` : 'disabled'} />
                               </div>`
-                            : `${seg.duration ? `<div style="margin-bottom: 8px;"><strong>Duration:</strong> ${seg.duration}</div>` : ''}`
-                        }
-                        ${
-                          isStreamLike
-                            ? `<div class="stream-goals-block" style="margin-bottom: 8px;">
+          : `${seg.duration ? `<div style="margin-bottom: 8px;"><strong>Duration:</strong> ${seg.duration}</div>` : ''}`
+        }
+                        ${isStreamLike
+          ? `<div class="stream-goals-block" style="margin-bottom: 8px;">
                                 <strong>Goals:</strong>
                                 <div class="stream-detail-read-only" style="margin-top:6px;">${bulletsHtmlFromText(seg.goals, 'No goals yet.')}</div>
                                 <textarea class="form-input${canEditStreamFields ? ' stream-detail-managed-field stream-detail-edit-only' : ''}" style="width:100%; margin-top:6px; min-height:64px; resize:vertical; display:none;" placeholder="Segment goals"
                                   ${canEditStreamFields ? `oninput="updateSegmentField('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, ${i}, 'goals', this.value)"` : 'disabled'}>${escAttr(seg.goals || '')}</textarea>
                               </div>`
-                            : `<div style="margin-bottom: 8px;"><strong>Goals:</strong> ${seg.goals}</div>`
-                        }
-                        ${
-                          isStreamLike
-                            ? `<div class="stream-narrative-block" style="margin-bottom: 8px;">
+          : `<div style="margin-bottom: 8px;"><strong>Goals:</strong> ${seg.goals}</div>`
+        }
+                        ${isStreamLike
+          ? `<div class="stream-narrative-block" style="margin-bottom: 8px;">
                                 <strong>Clipping Narrative:</strong>
                                 <div class="stream-detail-read-only" style="margin-top:6px;">${bulletsHtmlFromText(seg.narrative, 'No clipping narrative yet.')}</div>
                                 <textarea class="form-input${canEditStreamFields ? ' stream-detail-managed-field stream-detail-edit-only' : ''}" style="width:100%; margin-top:6px; min-height:72px; resize:vertical; display:none;" placeholder="Clipping narrative"
                                   ${canEditStreamFields ? `oninput="updateSegmentField('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, ${i}, 'narrative', this.value)"` : 'disabled'}>${escAttr(seg.narrative || '')}</textarea>
                               </div>`
-                            : `<div style="font-style: italic; color: #aaa;"><strong>Clipping Narrative:</strong> "${seg.narrative}"</div>`
-                        }
+          : `<div style="font-style: italic; color: #aaa;"><strong>Clipping Narrative:</strong> "${seg.narrative}"</div>`
+        }
                         ${isStreamLike ? `<div style="margin-bottom: 8px;">
                           <strong>Segment VOD:</strong>
                           <div class="stream-vod-actions-row" style="margin-top:6px;">
@@ -3479,35 +3471,35 @@ function renderDetail(arc, targetId, parentArc = null) {
                     </div>
                 </div>
             `;
-        });
-        if (isStreamLike && canEditStreamFields) {
-            html += `
+    });
+    if (isStreamLike && canEditStreamFields) {
+      html += `
                 <div class="detail-add-segment-wrap" style="grid-column: 1 / -1; display:none;">
                     <button type="button" class="btn btn-outline btn-sm detail-add-segment-btn" onclick="addSegmentToDetail('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, '${targetId}')">
                         <i class="fa-solid fa-plus"></i> Add Segment
                     </button>
                 </div>
             `;
-        }
     }
-    if (isStreamLike && canEditStreamFields && (!Array.isArray(arc.segments) || arc.segments.length === 0)) {
-        html += `
+  }
+  if (isStreamLike && canEditStreamFields && (!Array.isArray(arc.segments) || arc.segments.length === 0)) {
+    html += `
             <div class="detail-add-segment-wrap" style="grid-column: 1 / -1; display:none;">
                 <button type="button" class="btn btn-outline btn-sm detail-add-segment-btn" onclick="addSegmentToDetail('${arc.id}', ${parentArc ? `'${parentArc.id}'` : 'null'}, ${Number.isInteger(arc.linkedIndex) ? arc.linkedIndex : -1}, '${targetId}')">
                     <i class="fa-solid fa-plus"></i> Add Segment
                 </button>
             </div>
         `;
-    }
+  }
 
-    if (arc.linkedStreams && arc.linkedStreams.length > 0) {
-        html += `
+  if (arc.linkedStreams && arc.linkedStreams.length > 0) {
+    html += `
             <div class="info-group" style="grid-column: 1 / -1; border-color: rgba(204, 255, 0, 0.4);">
                 <div class="info-label" style="font-size: 1.2rem; color: var(--primary);"><i class="fa-solid fa-video"></i> Linked Streams (${arc.linkedStreams.length})</div>
                 <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
         `;
-        arc.linkedStreams.forEach((ls, index) => {
-            html += `
+    arc.linkedStreams.forEach((ls, index) => {
+      html += `
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'" onclick="renderLinkedStream('${arc.id}', ${index}, '${targetId}')">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
                         <strong style="color: var(--primary); font-size: 1.1rem;">${ls.title}</strong>
@@ -3521,13 +3513,13 @@ function renderDetail(arc, targetId, parentArc = null) {
                     <div style="font-size: 0.9rem; color: var(--text-muted);"><strong>Logistics:</strong> ${ls.logistics}</div>
                 </div>
             `;
-        });
-        html += `</div></div>`;
-    }
+    });
+    html += `</div></div>`;
+  }
 
-    const relatedGoals = typeof goalsData !== 'undefined' ? goalsData.filter(g => g.linkedArcs.includes(arc.id) || g.linkedStreams.includes(arc.id)) : [];
-    if (relatedGoals.length > 0) {
-        html += `
+  const relatedGoals = typeof goalsData !== 'undefined' ? goalsData.filter(g => g.linkedArcs.includes(arc.id) || g.linkedStreams.includes(arc.id)) : [];
+  if (relatedGoals.length > 0) {
+    html += `
             <div class="info-group" style="grid-column: 1 / -1; border-color: rgba(204, 255, 0, 0.4);">
                 <div class="info-label"><i class="fa-solid fa-bullseye"></i> Associated Goals</div>
                 <div class="info-content" style="display: flex; gap: 12px; flex-wrap: wrap;">
@@ -3535,157 +3527,157 @@ function renderDetail(arc, targetId, parentArc = null) {
                 </div>
             </div>
         `;
+  }
+
+  html += `</div>`;
+  detailPanel.innerHTML = html;
+
+  if (canEditStreamFields && isStreamLike) {
+    const editBtn = detailPanel.querySelector('.detail-edit-toggle');
+    if (editBtn) {
+      editBtn.classList.remove('editing');
+      editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit Info';
     }
+    detailPanel.querySelectorAll('.detail-add-segment-wrap').forEach((el) => {
+      el.style.display = 'none';
+    });
+  }
+  syncStreamDetailManagedFieldsDisabled(detailPanel);
+  syncStreamDetailReadOnlyBlocks(detailPanel);
 
-    html += `</div>`;
-    detailPanel.innerHTML = html;
-
-    if (canEditStreamFields && isStreamLike) {
-      const editBtn = detailPanel.querySelector('.detail-edit-toggle');
-      if (editBtn) {
-        editBtn.classList.remove('editing');
-        editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit Info';
-      }
-      detailPanel.querySelectorAll('.detail-add-segment-wrap').forEach((el) => {
-        el.style.display = 'none';
-      });
-    }
-    syncStreamDetailManagedFieldsDisabled(detailPanel);
-    syncStreamDetailReadOnlyBlocks(detailPanel);
-
-    if (arc.type === 'Arc') {
-      if (arc.posterUrl == null) arc.posterUrl = '';
-      if (arc.posterPostDate == null) arc.posterPostDate = '';
-      if (arc.trailerShootDate == null) arc.trailerShootDate = '';
-      if (arc.trailerPostDate == null) arc.trailerPostDate = '';
-      const bindArcMediaField = (selector, key) => {
-        const el = detailPanel.querySelector(selector);
-        if (!el) return;
-        const sync = () => {
-          arc[key] = el.value.trim();
+  if (arc.type === 'Arc') {
+    if (arc.posterUrl == null) arc.posterUrl = '';
+    if (arc.posterPostDate == null) arc.posterPostDate = '';
+    if (arc.trailerShootDate == null) arc.trailerShootDate = '';
+    if (arc.trailerPostDate == null) arc.trailerPostDate = '';
+    const bindArcMediaField = (selector, key) => {
+      const el = detailPanel.querySelector(selector);
+      if (!el) return;
+      const sync = () => {
+        arc[key] = el.value.trim();
+        scheduleSaveAppStateToDb();
+      };
+      el.addEventListener('change', sync);
+      el.addEventListener('input', sync);
+    };
+    bindArcMediaField(`.arc-poster-url[data-arc-id="${arc.id}"]`, 'posterUrl');
+    bindArcMediaField(`.arc-poster-post[data-arc-id="${arc.id}"]`, 'posterPostDate');
+    bindArcMediaField(`.arc-trailer-shoot[data-arc-id="${arc.id}"]`, 'trailerShootDate');
+    bindArcMediaField(`.arc-trailer-post[data-arc-id="${arc.id}"]`, 'trailerPostDate');
+    const bindAction = (selector, handler) => {
+      const el = detailPanel.querySelector(selector);
+      if (!el) return;
+      el.addEventListener('click', handler);
+    };
+    bindAction(`.arc-poster-link-btn[data-arc-id="${arc.id}"]`, () => {
+      openQuickFormModal({
+        title: 'Poster Link',
+        submitLabel: 'Save Link',
+        fields: [{ name: 'url', label: 'Poster URL', type: 'url', value: arc.posterUrl || '', placeholder: 'https://...' }],
+        onSubmit: (values) => {
+          arc.posterUrl = String(values.url || '').trim();
+          renderDetail(arc, targetId, parentArc);
           scheduleSaveAppStateToDb();
-        };
-        el.addEventListener('change', sync);
-        el.addEventListener('input', sync);
-      };
-      bindArcMediaField(`.arc-poster-url[data-arc-id="${arc.id}"]`, 'posterUrl');
-      bindArcMediaField(`.arc-poster-post[data-arc-id="${arc.id}"]`, 'posterPostDate');
-      bindArcMediaField(`.arc-trailer-shoot[data-arc-id="${arc.id}"]`, 'trailerShootDate');
-      bindArcMediaField(`.arc-trailer-post[data-arc-id="${arc.id}"]`, 'trailerPostDate');
-      const bindAction = (selector, handler) => {
-        const el = detailPanel.querySelector(selector);
-        if (!el) return;
-        el.addEventListener('click', handler);
-      };
-      bindAction(`.arc-poster-link-btn[data-arc-id="${arc.id}"]`, () => {
-        openQuickFormModal({
-          title: 'Poster Link',
-          submitLabel: 'Save Link',
-          fields: [{ name: 'url', label: 'Poster URL', type: 'url', value: arc.posterUrl || '', placeholder: 'https://...' }],
-          onSubmit: (values) => {
-            arc.posterUrl = String(values.url || '').trim();
-            renderDetail(arc, targetId, parentArc);
-            scheduleSaveAppStateToDb();
-            return true;
-          },
-        });
+          return true;
+        },
       });
-      bindAction(`.arc-trailer-link-btn[data-arc-id="${arc.id}"]`, () => {
-        openQuickFormModal({
-          title: 'Trailer Link',
-          submitLabel: 'Add Link',
-          fields: [{ name: 'url', label: 'Trailer Reference URL', type: 'url', placeholder: 'https://...' }],
-          onSubmit: (values) => {
-            const link = String(values.url || '').trim();
-            if (!link) {
-              setDbStatus('Trailer URL is required.', 'warn');
-              return false;
-            }
-            const base = arc.trailerIdeas ? `${arc.trailerIdeas}\n` : '';
-            arc.trailerIdeas = `${base}Link: ${link}`;
-            renderDetail(arc, targetId, parentArc);
-            scheduleSaveAppStateToDb();
-            return true;
-          },
-        });
+    });
+    bindAction(`.arc-trailer-link-btn[data-arc-id="${arc.id}"]`, () => {
+      openQuickFormModal({
+        title: 'Trailer Link',
+        submitLabel: 'Add Link',
+        fields: [{ name: 'url', label: 'Trailer Reference URL', type: 'url', placeholder: 'https://...' }],
+        onSubmit: (values) => {
+          const link = String(values.url || '').trim();
+          if (!link) {
+            setDbStatus('Trailer URL is required.', 'warn');
+            return false;
+          }
+          const base = arc.trailerIdeas ? `${arc.trailerIdeas}\n` : '';
+          arc.trailerIdeas = `${base}Link: ${link}`;
+          renderDetail(arc, targetId, parentArc);
+          scheduleSaveAppStateToDb();
+          return true;
+        },
       });
-      bindAction(`.arc-poster-upload-btn[data-arc-id="${arc.id}"]`, () => {
-        openQuickFormModal({
-          title: 'Poster Upload URL',
-          submitLabel: 'Save URL',
-          fields: [{ name: 'url', label: 'Uploaded Poster URL', type: 'url', value: arc.posterUrl || '', placeholder: 'https://...' }],
-          onSubmit: (values) => {
-            arc.posterUrl = String(values.url || '').trim();
-            renderDetail(arc, targetId, parentArc);
-            scheduleSaveAppStateToDb();
-            return true;
-          },
-        });
+    });
+    bindAction(`.arc-poster-upload-btn[data-arc-id="${arc.id}"]`, () => {
+      openQuickFormModal({
+        title: 'Poster Upload URL',
+        submitLabel: 'Save URL',
+        fields: [{ name: 'url', label: 'Uploaded Poster URL', type: 'url', value: arc.posterUrl || '', placeholder: 'https://...' }],
+        onSubmit: (values) => {
+          arc.posterUrl = String(values.url || '').trim();
+          renderDetail(arc, targetId, parentArc);
+          scheduleSaveAppStateToDb();
+          return true;
+        },
       });
-      bindAction(`.arc-trailer-upload-btn[data-arc-id="${arc.id}"]`, () => {
-        openQuickFormModal({
-          title: 'Trailer Upload URL',
-          submitLabel: 'Save URL',
-          fields: [{ name: 'url', label: 'Uploaded Trailer URL', type: 'url', placeholder: 'https://...' }],
-          onSubmit: (values) => {
-            const link = String(values.url || '').trim();
-            if (!link) {
-              setDbStatus('Trailer URL is required.', 'warn');
-              return false;
-            }
-            const base = arc.trailerIdeas ? `${arc.trailerIdeas}\n` : '';
-            arc.trailerIdeas = `${base}Upload: ${link}`;
-            renderDetail(arc, targetId, parentArc);
-            scheduleSaveAppStateToDb();
-            return true;
-          },
-        });
+    });
+    bindAction(`.arc-trailer-upload-btn[data-arc-id="${arc.id}"]`, () => {
+      openQuickFormModal({
+        title: 'Trailer Upload URL',
+        submitLabel: 'Save URL',
+        fields: [{ name: 'url', label: 'Uploaded Trailer URL', type: 'url', placeholder: 'https://...' }],
+        onSubmit: (values) => {
+          const link = String(values.url || '').trim();
+          if (!link) {
+            setDbStatus('Trailer URL is required.', 'warn');
+            return false;
+          }
+          const base = arc.trailerIdeas ? `${arc.trailerIdeas}\n` : '';
+          arc.trailerIdeas = `${base}Upload: ${link}`;
+          renderDetail(arc, targetId, parentArc);
+          scheduleSaveAppStateToDb();
+          return true;
+        },
+      });
+    });
+  }
+
+  if (canDeleteInDetail) {
+    const delBtn = document.getElementById('delete-detail-stream-btn');
+    if (delBtn) {
+      delBtn.addEventListener('click', () => {
+        deleteStreamRecord(arc, parentArc || null);
       });
     }
+  }
 
-    if (canDeleteInDetail) {
-      const delBtn = document.getElementById('delete-detail-stream-btn');
-      if (delBtn) {
-        delBtn.addEventListener('click', () => {
-          deleteStreamRecord(arc, parentArc || null);
-        });
-      }
+  if (canDeleteArcInDetail) {
+    const delArcBtn = document.getElementById('delete-detail-arc-btn');
+    if (delArcBtn) {
+      delArcBtn.addEventListener('click', () => {
+        deleteArcRecord(arc);
+      });
     }
+  }
 
-    if (canDeleteArcInDetail) {
-      const delArcBtn = document.getElementById('delete-detail-arc-btn');
-      if (delArcBtn) {
-        delArcBtn.addEventListener('click', () => {
-          deleteArcRecord(arc);
-        });
-      }
-    }
+  if (targetId === 'stream-detail') injectMobileBackButton(detailPanel, 'tab-streams');
+  if (targetId === 'arc-detail') injectMobileBackButton(detailPanel, 'tab-arcs');
 
-    if (targetId === 'stream-detail') injectMobileBackButton(detailPanel, 'tab-streams');
-    if (targetId === 'arc-detail') injectMobileBackButton(detailPanel, 'tab-arcs');
-
-    if (targetId === 'stream-detail') scheduleDetailDockRetry(syncStreamDetailDock);
-    else if (targetId === 'arc-detail') scheduleDetailDockRetry(syncArcDetailDock);
+  if (targetId === 'stream-detail') scheduleDetailDockRetry(syncStreamDetailDock);
+  else if (targetId === 'arc-detail') scheduleDetailDockRetry(syncArcDetailDock);
 }
 
-window.renderLinkedStream = function(arcId, streamIndex, targetId) {
-    const parentArc = arcsData.find(a => a.id === arcId);
-    if (!parentArc) return;
-    const stream = parentArc.linkedStreams[streamIndex];
-    if (!stream) return;
-    renderDetail(stream, targetId, parentArc);
+window.renderLinkedStream = function (arcId, streamIndex, targetId) {
+  const parentArc = arcsData.find(a => a.id === arcId);
+  if (!parentArc) return;
+  const stream = parentArc.linkedStreams[streamIndex];
+  if (!stream) return;
+  renderDetail(stream, targetId, parentArc);
 };
 
 // Render Narratives
 function renderNarratives() {
-    const container = document.getElementById('narrative-cards');
-    if (!container) return;
-    container.innerHTML = '';
+  const container = document.getElementById('narrative-cards');
+  if (!container) return;
+  container.innerHTML = '';
 
-    narratives.forEach(nar => {
-        const goalsHtml = nar.goals.map(g => `<span class="goal-pill">${g}</span>`).join('');
-        
-        container.innerHTML += `
+  narratives.forEach(nar => {
+    const goalsHtml = nar.goals.map(g => `<span class="goal-pill">${g}</span>`).join('');
+
+    container.innerHTML += `
             <div class="narrative-card">
                 <h4>${nar.title}</h4>
                 <p>${nar.desc}</p>
@@ -3694,23 +3686,23 @@ function renderNarratives() {
                 </div>
             </div>
         `;
-    });
+  });
 }
 
 // Render Media Assets
 function renderAssets() {
-    const list = document.getElementById('asset-list');
-    if (!list) return;
-    moveDetailPanelToColumn('asset-detail', '#media-pane-social .campaign-detail-col');
-    list.innerHTML = '';
+  const list = document.getElementById('asset-list');
+  if (!list) return;
+  moveDetailPanelToColumn('asset-detail', '#media-pane-social .campaign-detail-col');
+  list.innerHTML = '';
 
-    const hasSelectedAsset = mediaAssets.some((a) => `${a.platform}::${a.handle}` === assetListSelectedKey);
+  const hasSelectedAsset = mediaAssets.some((a) => `${a.platform}::${a.handle}` === assetListSelectedKey);
 
-    mediaAssets.forEach((asset) => {
-        const card = document.createElement('div');
-        const assetKey = `${asset.platform}::${asset.handle}`;
-        card.className = `arc-card ${assetListSelectedKey === assetKey ? 'active' : ''}`;
-        card.innerHTML = `
+  mediaAssets.forEach((asset) => {
+    const card = document.createElement('div');
+    const assetKey = `${asset.platform}::${asset.handle}`;
+    card.className = `arc-card ${assetListSelectedKey === assetKey ? 'active' : ''}`;
+    card.innerHTML = `
             <div style="display: flex; align-items: center; gap: 12px;">
                 <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(204, 255, 0, 0.1); overflow:hidden; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem;">
                     <img src="${escAttr(CINDY_PLATFORM_PHOTO)}" alt="Cindy" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';" />
@@ -3722,71 +3714,71 @@ function renderAssets() {
                 </div>
             </div>
         `;
-        
-        card.addEventListener('click', () => {
-            if (card.classList.contains('active')) {
-                assetListSelectedKey = null;
-                card.classList.remove('active');
-                hideDetailPanel('asset-detail', '#media-pane-social .campaign-detail-col');
-                return;
-            }
-            document.querySelectorAll('#tab-media .arc-card').forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
-            assetListSelectedKey = assetKey;
-            renderAssetDetail(asset);
-            scheduleDetailDockRetry(() =>
-                dockDetailUnderSpecificCard('asset-list', 'asset-detail', '#media-pane-social .campaign-detail-col', card)
-            );
-            if (isMobileCardDetailModeForList('asset-list')) {
-                openMobileCardDetailScreen('tab-media', 'asset-detail', '#media-pane-social .campaign-detail-col');
-            }
-        });
 
-        list.appendChild(card);
+    card.addEventListener('click', () => {
+      if (card.classList.contains('active')) {
+        assetListSelectedKey = null;
+        card.classList.remove('active');
+        hideDetailPanel('asset-detail', '#media-pane-social .campaign-detail-col');
+        return;
+      }
+      document.querySelectorAll('#tab-media .arc-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      assetListSelectedKey = assetKey;
+      renderAssetDetail(asset);
+      scheduleDetailDockRetry(() =>
+        dockDetailUnderSpecificCard('asset-list', 'asset-detail', '#media-pane-social .campaign-detail-col', card)
+      );
+      if (isMobileCardDetailModeForList('asset-list')) {
+        openMobileCardDetailScreen('tab-media', 'asset-detail', '#media-pane-social .campaign-detail-col');
+      }
     });
 
-    if (hasSelectedAsset) {
-        const selectedAsset = mediaAssets.find((a) => `${a.platform}::${a.handle}` === assetListSelectedKey);
-        if (selectedAsset) renderAssetDetail(selectedAsset);
-    } else {
-        const detailPanel = document.getElementById('asset-detail');
-        if (detailPanel) {
-            detailPanel.innerHTML = `<div style="color: var(--text-muted); text-align: center; padding: 40px;">Select a platform to view management and creation details</div>`;
-        }
-        hideDetailPanel('asset-detail', '#media-pane-social .campaign-detail-col');
-    }
+    list.appendChild(card);
+  });
 
-    if (mediaAssets.length === 0) {
-        scheduleDetailDockRetry(syncAssetDetailDock);
+  if (hasSelectedAsset) {
+    const selectedAsset = mediaAssets.find((a) => `${a.platform}::${a.handle}` === assetListSelectedKey);
+    if (selectedAsset) renderAssetDetail(selectedAsset);
+  } else {
+    const detailPanel = document.getElementById('asset-detail');
+    if (detailPanel) {
+      detailPanel.innerHTML = `<div style="color: var(--text-muted); text-align: center; padding: 40px;">Select a platform to view management and creation details</div>`;
     }
+    hideDetailPanel('asset-detail', '#media-pane-social .campaign-detail-col');
+  }
+
+  if (mediaAssets.length === 0) {
+    scheduleDetailDockRetry(syncAssetDetailDock);
+  }
 }
 
 function renderAssetDetail(asset) {
-    const detailPanel = document.getElementById('asset-detail');
-    if (!detailPanel) return;
-    detailPanel.style.display = '';
-    if (detailPanel.__mediaDetailAborter) {
-      detailPanel.__mediaDetailAborter.abort();
-      detailPanel.__mediaDetailAborter = null;
-    }
+  const detailPanel = document.getElementById('asset-detail');
+  if (!detailPanel) return;
+  detailPanel.style.display = '';
+  if (detailPanel.__mediaDetailAborter) {
+    detailPanel.__mediaDetailAborter.abort();
+    detailPanel.__mediaDetailAborter = null;
+  }
 
-    if (asset.platform === 'YouTube') {
-      const now = new Date();
-      const weekPeriods = [
-        `Current week: ${formatWeekRangeFromDate(now)}`,
-        `Past week: ${formatWeekRangeFromDate(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000))}`,
-        `Past week: ${formatWeekRangeFromDate(new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000))}`,
-      ];
-      const monthPeriods = [
-        `Current month: ${formatMonthYear(now)}`,
-        `Past month: ${formatMonthYear(new Date(now.getFullYear(), now.getMonth() - 1, 1))}`,
-        `Past month: ${formatMonthYear(new Date(now.getFullYear(), now.getMonth() - 2, 1))}`,
-      ];
-      const weeklyLinks = normalizeRecapPeriodLinks(asset.weeklyRecapLinks, weekPeriods);
-      const monthlyLinks = normalizeRecapPeriodLinks(asset.monthlyRecapLinks, monthPeriods);
-      asset.weeklyRecapLinks = weeklyLinks;
-      asset.monthlyRecapLinks = monthlyLinks;
-      detailPanel.innerHTML = `
+  if (asset.platform === 'YouTube') {
+    const now = new Date();
+    const weekPeriods = [
+      `Current week: ${formatWeekRangeFromDate(now)}`,
+      `Past week: ${formatWeekRangeFromDate(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000))}`,
+      `Past week: ${formatWeekRangeFromDate(new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000))}`,
+    ];
+    const monthPeriods = [
+      `Current month: ${formatMonthYear(now)}`,
+      `Past month: ${formatMonthYear(new Date(now.getFullYear(), now.getMonth() - 1, 1))}`,
+      `Past month: ${formatMonthYear(new Date(now.getFullYear(), now.getMonth() - 2, 1))}`,
+    ];
+    const weeklyLinks = normalizeRecapPeriodLinks(asset.weeklyRecapLinks, weekPeriods);
+    const monthlyLinks = normalizeRecapPeriodLinks(asset.monthlyRecapLinks, monthPeriods);
+    asset.weeklyRecapLinks = weeklyLinks;
+    asset.monthlyRecapLinks = monthlyLinks;
+    detailPanel.innerHTML = `
         <div class="detail-header" style="display: flex; align-items: center; gap: 16px;">
             <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(204, 255, 0, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem;">
                 <i class="fa-brands ${asset.icon}"></i>
@@ -3802,14 +3794,14 @@ function renderAssetDetail(asset) {
                 <div class="info-content">
                     <div style="display:flex; flex-direction:column; gap:8px;">
                       ${weeklyLinks
-                        .map(
-                          (row, idx) => `
+        .map(
+          (row, idx) => `
                         <div class="yt-recap-row">
                           <input class="form-input yt-weekly-period" data-index="${idx}" value="${String(row.period).replace(/"/g, '&quot;')}" />
                           <input class="form-input yt-weekly-url" data-index="${idx}" placeholder="https://..." value="${String(row.url || '').replace(/"/g, '&quot;')}" />
                         </div>`
-                        )
-                        .join('')}
+        )
+        .join('')}
                     </div>
                     <div style="margin-top:8px; font-size:0.82rem; color:var(--text-muted);">Set period labels and URLs for current/past weeks.</div>
                 </div>
@@ -3819,49 +3811,49 @@ function renderAssetDetail(asset) {
                 <div class="info-content">
                     <div style="display:flex; flex-direction:column; gap:8px;">
                       ${monthlyLinks
-                        .map(
-                          (row, idx) => `
+        .map(
+          (row, idx) => `
                         <div class="yt-recap-row">
                           <input class="form-input yt-monthly-period" data-index="${idx}" value="${String(row.period).replace(/"/g, '&quot;')}" />
                           <input class="form-input yt-monthly-url" data-index="${idx}" placeholder="https://..." value="${String(row.url || '').replace(/"/g, '&quot;')}" />
                         </div>`
-                        )
-                        .join('')}
+        )
+        .join('')}
                     </div>
                     <div style="margin-top:8px; font-size:0.82rem; color:var(--text-muted);">Set period labels and URLs for current/past months.</div>
                 </div>
             </div>
         </div>
       `;
-      const onChange = () => {
-        const nextWeekly = [...detailPanel.querySelectorAll('.yt-weekly-period')].map((periodEl) => {
-          const idx = Number(periodEl.getAttribute('data-index'));
-          const urlEl = detailPanel.querySelector(`.yt-weekly-url[data-index="${idx}"]`);
-          return { period: periodEl.value.trim(), url: urlEl?.value?.trim() || '' };
-        });
-        const nextMonthly = [...detailPanel.querySelectorAll('.yt-monthly-period')].map((periodEl) => {
-          const idx = Number(periodEl.getAttribute('data-index'));
-          const urlEl = detailPanel.querySelector(`.yt-monthly-url[data-index="${idx}"]`);
-          return { period: periodEl.value.trim(), url: urlEl?.value?.trim() || '' };
-        });
-        asset.weeklyRecapLinks = nextWeekly;
-        asset.monthlyRecapLinks = nextMonthly;
-        scheduleSaveAppStateToDb();
-      };
-      detailPanel.querySelectorAll('.yt-weekly-period, .yt-weekly-url, .yt-monthly-period, .yt-monthly-url').forEach((el) => {
-        el.addEventListener('input', onChange);
+    const onChange = () => {
+      const nextWeekly = [...detailPanel.querySelectorAll('.yt-weekly-period')].map((periodEl) => {
+        const idx = Number(periodEl.getAttribute('data-index'));
+        const urlEl = detailPanel.querySelector(`.yt-weekly-url[data-index="${idx}"]`);
+        return { period: periodEl.value.trim(), url: urlEl?.value?.trim() || '' };
       });
-      injectMobileBackButton(detailPanel, 'tab-media');
-      scheduleDetailDockRetry(syncAssetDetailDock);
-      return;
-    }
+      const nextMonthly = [...detailPanel.querySelectorAll('.yt-monthly-period')].map((periodEl) => {
+        const idx = Number(periodEl.getAttribute('data-index'));
+        const urlEl = detailPanel.querySelector(`.yt-monthly-url[data-index="${idx}"]`);
+        return { period: periodEl.value.trim(), url: urlEl?.value?.trim() || '' };
+      });
+      asset.weeklyRecapLinks = nextWeekly;
+      asset.monthlyRecapLinks = nextMonthly;
+      scheduleSaveAppStateToDb();
+    };
+    detailPanel.querySelectorAll('.yt-weekly-period, .yt-weekly-url, .yt-monthly-period, .yt-monthly-url').forEach((el) => {
+      el.addEventListener('input', onChange);
+    });
+    injectMobileBackButton(detailPanel, 'tab-media');
+    scheduleDetailDockRetry(syncAssetDetailDock);
+    return;
+  }
 
-    if (asset.platform === 'TikTok') {
-      if (!Array.isArray(asset.tiktokSoloTrendLinks)) asset.tiktokSoloTrendLinks = [];
-      if (!Array.isArray(asset.tiktokCollabTrendLinks)) asset.tiktokCollabTrendLinks = [];
-      const soloRows = renderTikTokTrendRowsMarkup(asset.tiktokSoloTrendLinks);
-      const collabRows = renderTikTokTrendRowsMarkup(asset.tiktokCollabTrendLinks);
-      detailPanel.innerHTML = `
+  if (asset.platform === 'TikTok') {
+    if (!Array.isArray(asset.tiktokSoloTrendLinks)) asset.tiktokSoloTrendLinks = [];
+    if (!Array.isArray(asset.tiktokCollabTrendLinks)) asset.tiktokCollabTrendLinks = [];
+    const soloRows = renderTikTokTrendRowsMarkup(asset.tiktokSoloTrendLinks);
+    const collabRows = renderTikTokTrendRowsMarkup(asset.tiktokCollabTrendLinks);
+    detailPanel.innerHTML = `
         <div class="detail-header" style="display: flex; align-items: center; gap: 16px;">
             <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(204, 255, 0, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem;">
                 <i class="fa-brands ${asset.icon}"></i>
@@ -3890,18 +3882,18 @@ function renderAssetDetail(asset) {
             </div>
         </div>
       `;
-      bindTikTokMediaTrendEditors(detailPanel, asset);
-      injectMobileBackButton(detailPanel, 'tab-media');
-      scheduleDetailDockRetry(syncAssetDetailDock);
-      return;
-    }
+    bindTikTokMediaTrendEditors(detailPanel, asset);
+    injectMobileBackButton(detailPanel, 'tab-media');
+    scheduleDetailDockRetry(syncAssetDetailDock);
+    return;
+  }
 
-    let managementHtml = (asset.management || []).map(m => `<li>${m}</li>`).join('');
-    let creationHtml = (asset.creation || []).map(c => `<li>${c}</li>`).join('');
-    const isXPlatform = String(asset.platform || '').toLowerCase().includes('x');
-    const showManagementBlock = String(asset.platform || '').toLowerCase() !== 'snapchat';
+  let managementHtml = (asset.management || []).map(m => `<li>${m}</li>`).join('');
+  let creationHtml = (asset.creation || []).map(c => `<li>${c}</li>`).join('');
+  const isXPlatform = String(asset.platform || '').toLowerCase().includes('x');
+  const showManagementBlock = String(asset.platform || '').toLowerCase() !== 'snapchat';
 
-    detailPanel.innerHTML = `
+  detailPanel.innerHTML = `
         <div class="detail-header" style="display: flex; align-items: center; gap: 16px;">
             <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(204, 255, 0, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 2rem;">
                 <i class="fa-brands ${asset.icon}"></i>
@@ -3916,9 +3908,8 @@ function renderAssetDetail(asset) {
             <div class="info-group" style="grid-column: 1 / -1;">
                 <div class="info-label"><i class="fa-solid fa-bullseye"></i> Goal & Strategy</div>
                 <div class="info-content" style="font-size: 1.05rem;">
-                    ${
-                      isXPlatform
-                        ? `<div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+                    ${isXPlatform
+      ? `<div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
                              <button type="button" class="btn btn-outline btn-sm x-edit-toggle"><i class="fa-solid fa-pen"></i> Edit Info</button>
                            </div>
                            <div class="x-readonly-view">
@@ -3939,15 +3930,14 @@ function renderAssetDetail(asset) {
                                <button type="button" class="btn btn-primary btn-sm x-save-btn"><i class="fa-solid fa-check"></i> Save</button>
                              </div>
                            </div>`
-                        : `<div style="margin-bottom: 12px;"><strong>Goal:</strong> ${asset.goal}</div>
+      : `<div style="margin-bottom: 12px;"><strong>Goal:</strong> ${asset.goal}</div>
                            <div style="color: var(--text-muted);"><strong>Strategy:</strong> ${asset.strategy}</div>`
-                    }
+    }
                 </div>
             </div>
 
-            ${
-              showManagementBlock
-                ? `<div class="info-group">
+            ${showManagementBlock
+      ? `<div class="info-group">
                 <div class="info-label"><i class="fa-solid fa-users-gear"></i> Management Workflow</div>
                 <div class="info-content">
                     <ul style="padding-left: 20px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
@@ -3955,8 +3945,8 @@ function renderAssetDetail(asset) {
                     </ul>
                 </div>
             </div>`
-                : ''
-            }
+      : ''
+    }
 
             <div class="info-group">
                 <div class="info-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Content Creation</div>
@@ -3968,58 +3958,58 @@ function renderAssetDetail(asset) {
             </div>
         </div>
     `;
-    if (isXPlatform) {
-      const toggleBtn = detailPanel.querySelector('.x-edit-toggle');
-      const saveBtn = detailPanel.querySelector('.x-save-btn');
-      const cancelBtn = detailPanel.querySelector('.x-cancel-btn');
-      const readView = detailPanel.querySelector('.x-readonly-view');
-      const editView = detailPanel.querySelector('.x-edit-view');
-      const goalInput = detailPanel.querySelector('.x-goal-input');
-      const strategyInput = detailPanel.querySelector('.x-strategy-input');
-      const goalRead = detailPanel.querySelector('.x-goal-read');
-      const strategyRead = detailPanel.querySelector('.x-strategy-read');
-      toggleBtn?.addEventListener('click', () => {
-        if (readView) readView.style.display = 'none';
-        if (editView) editView.style.display = '';
-      });
-      cancelBtn?.addEventListener('click', () => {
-        if (goalInput) goalInput.value = String(asset.goal || '');
-        if (strategyInput) strategyInput.value = String(asset.strategy || '');
-        if (readView) readView.style.display = '';
-        if (editView) editView.style.display = 'none';
-      });
-      saveBtn?.addEventListener('click', () => {
-        asset.goal = String(goalInput?.value || '').trim();
-        asset.strategy = String(strategyInput?.value || '').trim();
-        if (goalRead) goalRead.textContent = asset.goal;
-        if (strategyRead) strategyRead.textContent = asset.strategy;
-        if (readView) readView.style.display = '';
-        if (editView) editView.style.display = 'none';
-        scheduleSaveAppStateToDb();
-      });
-    }
-    injectMobileBackButton(detailPanel, 'tab-media');
-    scheduleDetailDockRetry(syncAssetDetailDock);
+  if (isXPlatform) {
+    const toggleBtn = detailPanel.querySelector('.x-edit-toggle');
+    const saveBtn = detailPanel.querySelector('.x-save-btn');
+    const cancelBtn = detailPanel.querySelector('.x-cancel-btn');
+    const readView = detailPanel.querySelector('.x-readonly-view');
+    const editView = detailPanel.querySelector('.x-edit-view');
+    const goalInput = detailPanel.querySelector('.x-goal-input');
+    const strategyInput = detailPanel.querySelector('.x-strategy-input');
+    const goalRead = detailPanel.querySelector('.x-goal-read');
+    const strategyRead = detailPanel.querySelector('.x-strategy-read');
+    toggleBtn?.addEventListener('click', () => {
+      if (readView) readView.style.display = 'none';
+      if (editView) editView.style.display = '';
+    });
+    cancelBtn?.addEventListener('click', () => {
+      if (goalInput) goalInput.value = String(asset.goal || '');
+      if (strategyInput) strategyInput.value = String(asset.strategy || '');
+      if (readView) readView.style.display = '';
+      if (editView) editView.style.display = 'none';
+    });
+    saveBtn?.addEventListener('click', () => {
+      asset.goal = String(goalInput?.value || '').trim();
+      asset.strategy = String(strategyInput?.value || '').trim();
+      if (goalRead) goalRead.textContent = asset.goal;
+      if (strategyRead) strategyRead.textContent = asset.strategy;
+      if (readView) readView.style.display = '';
+      if (editView) editView.style.display = 'none';
+      scheduleSaveAppStateToDb();
+    });
+  }
+  injectMobileBackButton(detailPanel, 'tab-media');
+  scheduleDetailDockRetry(syncAssetDetailDock);
 }
 
 // Render Goals
-window.renderGoals = function() {
-    const list = document.getElementById('goals-list');
-    if (!list) return;
-    moveDetailPanelToColumn('goal-detail', '#tab-goals .campaign-detail-col');
-    list.innerHTML = '';
+window.renderGoals = function () {
+  const list = document.getElementById('goals-list');
+  if (!list) return;
+  moveDetailPanelToColumn('goal-detail', '#tab-goals .campaign-detail-col');
+  list.innerHTML = '';
 
-    const categories = [...new Set(goalsData.map(g => g.category))];
-    if (!categories.includes(goalListSelectedCategory)) goalListSelectedCategory = null;
+  const categories = [...new Set(goalsData.map(g => g.category))];
+  if (!categories.includes(goalListSelectedCategory)) goalListSelectedCategory = null;
 
-    categories.forEach(category => {
-        const card = document.createElement('div');
-        card.className = `arc-card ${goalListSelectedCategory === category ? 'active' : ''}`;
-        
-        const categoryGoals = goalsData.filter(g => g.category === category);
-        const inProgress = categoryGoals.filter(g => g.status === 'In Progress').length;
-        
-        card.innerHTML = `
+  categories.forEach(category => {
+    const card = document.createElement('div');
+    card.className = `arc-card ${goalListSelectedCategory === category ? 'active' : ''}`;
+
+    const categoryGoals = goalsData.filter(g => g.category === category);
+    const inProgress = categoryGoals.filter(g => g.status === 'In Progress').length;
+
+    card.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <h4 class="arc-title" style="margin: 0; font-size: 1.1rem; text-transform: uppercase; min-width:0;">${category}</h4>
                 <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;" onclick="event.stopPropagation()">
@@ -4031,50 +4021,50 @@ window.renderGoals = function() {
                 <i class="fa-solid fa-layer-group"></i> ${categoryGoals.length} Subgoals <span style="opacity: 0.5;">(${inProgress} Active)</span>
             </div>
         `;
-        
-        card.addEventListener('click', () => {
-            if (goalListSelectedCategory === category) {
-                goalListSelectedCategory = null;
-                card.classList.remove('active');
-                hideDetailPanel('goal-detail', '#tab-goals .campaign-detail-col');
-                return;
-            }
-            document.querySelectorAll('#tab-goals .arc-card').forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
-            goalListSelectedCategory = category;
-            renderCategoryDetail(category);
-            if (isMobileCardDetailModeForList('goals-list')) {
-                openMobileCardDetailScreen('tab-goals', 'goal-detail', '#tab-goals .campaign-detail-col');
-            }
-        });
 
-        list.appendChild(card);
+    card.addEventListener('click', () => {
+      if (goalListSelectedCategory === category) {
+        goalListSelectedCategory = null;
+        card.classList.remove('active');
+        hideDetailPanel('goal-detail', '#tab-goals .campaign-detail-col');
+        return;
+      }
+      document.querySelectorAll('#tab-goals .arc-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      goalListSelectedCategory = category;
+      renderCategoryDetail(category);
+      if (isMobileCardDetailModeForList('goals-list')) {
+        openMobileCardDetailScreen('tab-goals', 'goal-detail', '#tab-goals .campaign-detail-col');
+      }
     });
 
-    if (goalListSelectedCategory) {
-        renderCategoryDetail(goalListSelectedCategory);
-    } else {
-        const detailPanel = document.getElementById('goal-detail');
-        if (detailPanel) {
-            detailPanel.innerHTML = `
+    list.appendChild(card);
+  });
+
+  if (goalListSelectedCategory) {
+    renderCategoryDetail(goalListSelectedCategory);
+  } else {
+    const detailPanel = document.getElementById('goal-detail');
+    if (detailPanel) {
+      detailPanel.innerHTML = `
                 <div class="empty-state">
                     <i class="fa-solid fa-layer-group empty-icon"></i>
                     <p>Select a category to view subgoals</p>
                 </div>
             `;
-        }
-        hideDetailPanel('goal-detail', '#tab-goals .campaign-detail-col');
     }
+    hideDetailPanel('goal-detail', '#tab-goals .campaign-detail-col');
+  }
 }
 
-window.renderCategoryDetail = function(category) {
-    const detailPanel = document.getElementById('goal-detail');
-    if (!detailPanel) return;
-    detailPanel.style.display = '';
+window.renderCategoryDetail = function (category) {
+  const detailPanel = document.getElementById('goal-detail');
+  if (!detailPanel) return;
+  detailPanel.style.display = '';
 
-    const categoryGoals = goalsData.filter(g => g.category === category);
+  const categoryGoals = goalsData.filter(g => g.category === category);
 
-    let html = `
+  let html = `
         <div class="detail-header" style="padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05);">
             <h2 style="margin-bottom: 12px; font-size: 2rem; text-transform: uppercase;">${category}</h2>
             <div style="color: var(--text-muted);">Expand subgoals below to view or edit details.</div>
@@ -4082,22 +4072,22 @@ window.renderCategoryDetail = function(category) {
         <div style="display: flex; flex-direction: column; gap: 16px;">
     `;
 
-    categoryGoals.forEach((goal, index) => {
-        let actionsHtml = goal.actionItems.map(a => `<li style="margin-bottom: 6px;">${a}</li>`).join('');
-        
-        let linkedHtml = '';
-        const linkedObjects = [];
-        goal.linkedArcs.forEach(id => {
-            const arc = arcsData.find(a => a.id === id);
-            if (arc) linkedObjects.push({ title: arc.title, type: 'Arc', icon: 'fa-bolt' });
-        });
-        goal.linkedStreams.forEach(id => {
-            const stream = arcsData.find(a => a.id === id);
-            if (stream) linkedObjects.push({ title: stream.title, type: 'Stream', icon: 'fa-video' });
-        });
+  categoryGoals.forEach((goal, index) => {
+    let actionsHtml = goal.actionItems.map(a => `<li style="margin-bottom: 6px;">${a}</li>`).join('');
 
-        if (linkedObjects.length > 0) {
-            linkedHtml = `
+    let linkedHtml = '';
+    const linkedObjects = [];
+    goal.linkedArcs.forEach(id => {
+      const arc = arcsData.find(a => a.id === id);
+      if (arc) linkedObjects.push({ title: arc.title, type: 'Arc', icon: 'fa-bolt' });
+    });
+    goal.linkedStreams.forEach(id => {
+      const stream = arcsData.find(a => a.id === id);
+      if (stream) linkedObjects.push({ title: stream.title, type: 'Stream', icon: 'fa-video' });
+    });
+
+    if (linkedObjects.length > 0) {
+      linkedHtml = `
                 <div class="info-group" style="grid-column: 1 / -1; margin-top: 16px;">
                     <div class="info-label"><i class="fa-solid fa-link"></i> Linked Content</div>
                     <div class="info-content" style="display: flex; gap: 12px; flex-wrap: wrap;">
@@ -4109,9 +4099,9 @@ window.renderCategoryDetail = function(category) {
                     </div>
                 </div>
             `;
-        }
+    }
 
-        html += `
+    html += `
             <div class="glass-panel" style="padding: 0; overflow: hidden; position: relative;">
                 <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'" onclick="toggleGoalAccordion('goal-body-${index}', this)">
                     <h3 style="margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 12px; min-width:0;">
@@ -4148,54 +4138,54 @@ window.renderCategoryDetail = function(category) {
                 </div>
             </div>
         `;
-    });
+  });
 
-    html += `</div>`;
-    detailPanel.innerHTML = html;
-    injectMobileBackButton(detailPanel, 'tab-goals');
-    scheduleDetailDockRetry(syncGoalDetailDock);
+  html += `</div>`;
+  detailPanel.innerHTML = html;
+  injectMobileBackButton(detailPanel, 'tab-goals');
+  scheduleDetailDockRetry(syncGoalDetailDock);
 }
 
-window.toggleGoalAccordion = function(bodyId, headerElement) {
-    const body = document.getElementById(bodyId);
-    const chevron = headerElement.querySelector('.chevron-icon');
-    
-    if (body.style.display === 'none') {
-        body.style.display = 'block';
-        chevron.style.transform = 'rotate(90deg)';
-        headerElement.style.background = 'rgba(255,255,255,0.08)';
-        headerElement.onmouseout = function() { this.style.background='rgba(255,255,255,0.08)' };
-    } else {
-        body.style.display = 'none';
-        chevron.style.transform = 'rotate(0deg)';
-        headerElement.style.background = 'rgba(255,255,255,0.02)';
-        headerElement.onmouseout = function() { this.style.background='rgba(255,255,255,0.02)' };
-    }
+window.toggleGoalAccordion = function (bodyId, headerElement) {
+  const body = document.getElementById(bodyId);
+  const chevron = headerElement.querySelector('.chevron-icon');
+
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    chevron.style.transform = 'rotate(90deg)';
+    headerElement.style.background = 'rgba(255,255,255,0.08)';
+    headerElement.onmouseout = function () { this.style.background = 'rgba(255,255,255,0.08)' };
+  } else {
+    body.style.display = 'none';
+    chevron.style.transform = 'rotate(0deg)';
+    headerElement.style.background = 'rgba(255,255,255,0.02)';
+    headerElement.onmouseout = function () { this.style.background = 'rgba(255,255,255,0.02)' };
+  }
 }
 
 function renderReachOutContacts() {
-    const board = document.getElementById('reachout-contacts-board');
-    if (!board) return;
-    const groups = [
-      { key: 'artists', label: 'Artists' },
-      { key: 'athletes', label: 'Athletes' },
-      { key: 'actors', label: 'Actors' },
-      { key: 'streamers', label: 'Streamers' },
-      { key: 'youtubers', label: 'YouTubers' },
-    ];
-    board.innerHTML = groups
-      .map((group) => {
-        const bucket = (reachOutContactsData && reachOutContactsData[group.key]) || {};
-        const subCats = Object.keys(bucket);
-        const subHtml = subCats
-          .map((sub) => {
-            const val = bucket[sub];
-            if (Array.isArray(val)) {
-              const entries = val;
-              const chips = entries.length
-                ? entries.map((name) => `<span class="tag">${escAttr(name)}</span>`).join('')
-                : `<span style="font-size:0.82rem; color:var(--text-muted);">No contacts added yet.</span>`;
-              return `
+  const board = document.getElementById('reachout-contacts-board');
+  if (!board) return;
+  const groups = [
+    { key: 'artists', label: 'Artists' },
+    { key: 'athletes', label: 'Athletes' },
+    { key: 'actors', label: 'Actors' },
+    { key: 'streamers', label: 'Streamers' },
+    { key: 'youtubers', label: 'YouTubers' },
+  ];
+  board.innerHTML = groups
+    .map((group) => {
+      const bucket = (reachOutContactsData && reachOutContactsData[group.key]) || {};
+      const subCats = Object.keys(bucket);
+      const subHtml = subCats
+        .map((sub) => {
+          const val = bucket[sub];
+          if (Array.isArray(val)) {
+            const entries = val;
+            const chips = entries.length
+              ? entries.map((name) => `<span class="tag">${escAttr(name)}</span>`).join('')
+              : `<span style="font-size:0.82rem; color:var(--text-muted);">No contacts added yet.</span>`;
+            return `
                 <div class="glass-panel" style="padding:12px;">
                   <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
                     <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted);">${escAttr(sub)}</div>
@@ -4204,15 +4194,15 @@ function renderReachOutContacts() {
                   <div style="display:flex; flex-wrap:wrap; gap:8px;">${chips}</div>
                 </div>
               `;
-            }
-            const teamKeys = Object.keys(val || {});
-            const teamCards = teamKeys
-              .map((team) => {
-                const teamEntries = Array.isArray(val[team]) ? val[team] : [];
-                const teamChips = teamEntries.length
-                  ? teamEntries.map((name) => `<span class="tag">${escAttr(name)}</span>`).join('')
-                  : `<span style="font-size:0.8rem; color:var(--text-muted);">No names yet.</span>`;
-                return `
+          }
+          const teamKeys = Object.keys(val || {});
+          const teamCards = teamKeys
+            .map((team) => {
+              const teamEntries = Array.isArray(val[team]) ? val[team] : [];
+              const teamChips = teamEntries.length
+                ? teamEntries.map((name) => `<span class="tag">${escAttr(name)}</span>`).join('')
+                : `<span style="font-size:0.8rem; color:var(--text-muted);">No names yet.</span>`;
+              return `
                   <div class="glass-panel" style="padding:10px;">
                     <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;">
                       <div style="font-size:0.78rem; color:var(--text-main);">${escAttr(team)}</div>
@@ -4221,9 +4211,9 @@ function renderReachOutContacts() {
                     <div style="display:flex; flex-wrap:wrap; gap:8px;">${teamChips}</div>
                   </div>
                 `;
-              })
-              .join('');
-            return `
+            })
+            .join('');
+          return `
               <div class="glass-panel" style="padding:12px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:10px;">
                   <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted);">${escAttr(sub)}</div>
@@ -4234,9 +4224,9 @@ function renderReachOutContacts() {
                 </div>
               </div>
             `;
-          })
-          .join('');
-        return `
+        })
+        .join('');
+      return `
           <div class="glass-panel" style="padding:14px;">
             <h4 style="margin-bottom:10px;">${group.label}</h4>
             <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap:10px;">
@@ -4244,128 +4234,128 @@ function renderReachOutContacts() {
             </div>
           </div>
         `;
-      })
-      .join('');
+    })
+    .join('');
 }
 
 function addReachOutContactViaForm(prefill = {}) {
-    const options = [];
-    const groups = [
-      { key: 'artists', label: 'Artists' },
-      { key: 'athletes', label: 'Athletes' },
-      { key: 'actors', label: 'Actors' },
-      { key: 'streamers', label: 'Streamers' },
-      { key: 'youtubers', label: 'YouTubers' },
-    ];
-    groups.forEach((group) => {
-      const bucket = (reachOutContactsData && reachOutContactsData[group.key]) || {};
-      Object.keys(bucket).forEach((sub) => {
-        if (Array.isArray(bucket[sub])) {
-          options.push({ value: `${group.key}::${sub}`, label: `${group.label} - ${sub}` });
-        } else {
-          Object.keys(bucket[sub] || {}).forEach((team) => {
-            options.push({ value: `${group.key}::${sub}::${team}`, label: `${group.label} - ${sub} - ${team}` });
-          });
-        }
-      });
+  const options = [];
+  const groups = [
+    { key: 'artists', label: 'Artists' },
+    { key: 'athletes', label: 'Athletes' },
+    { key: 'actors', label: 'Actors' },
+    { key: 'streamers', label: 'Streamers' },
+    { key: 'youtubers', label: 'YouTubers' },
+  ];
+  groups.forEach((group) => {
+    const bucket = (reachOutContactsData && reachOutContactsData[group.key]) || {};
+    Object.keys(bucket).forEach((sub) => {
+      if (Array.isArray(bucket[sub])) {
+        options.push({ value: `${group.key}::${sub}`, label: `${group.label} - ${sub}` });
+      } else {
+        Object.keys(bucket[sub] || {}).forEach((team) => {
+          options.push({ value: `${group.key}::${sub}::${team}`, label: `${group.label} - ${sub} - ${team}` });
+        });
+      }
     });
-    const initial =
-      prefill && prefill.groupKey && prefill.subKey
-        ? prefill.teamKey
-          ? `${prefill.groupKey}::${prefill.subKey}::${prefill.teamKey}`
-          : `${prefill.groupKey}::${prefill.subKey}`
-        : options[0]?.value || '';
-    openQuickFormModal({
-      title: 'Add Reach-Out Contact',
-      submitLabel: 'Add',
-      fields: [
-        { name: 'name', label: 'Name', type: 'text', placeholder: 'Contact name' },
-        { name: 'bucket', label: 'Category', type: 'select', options, value: initial },
-      ],
-      onSubmit: (values) => {
-        const name = String(values.name || '').trim();
-        const bucket = String(values.bucket || '');
-        if (!name || !bucket.includes('::')) return false;
-        const parts = bucket.split('::');
-        const groupKey = parts[0];
-        const subKey = parts[1];
-        const teamKey = parts[2];
-        if (!reachOutContactsData[groupKey]) return false;
-        let target = null;
-        if (teamKey) {
-          if (!reachOutContactsData[groupKey][subKey] || !Array.isArray(reachOutContactsData[groupKey][subKey][teamKey])) return false;
-          target = reachOutContactsData[groupKey][subKey][teamKey];
-        } else {
-          if (!Array.isArray(reachOutContactsData[groupKey][subKey])) return false;
-          target = reachOutContactsData[groupKey][subKey];
-        }
-        if (!target.some((x) => String(x).toLowerCase() === name.toLowerCase())) target.push(name);
-        renderReachOutContacts();
-        scheduleSaveAppStateToDb();
-        return true;
-      },
-    });
+  });
+  const initial =
+    prefill && prefill.groupKey && prefill.subKey
+      ? prefill.teamKey
+        ? `${prefill.groupKey}::${prefill.subKey}::${prefill.teamKey}`
+        : `${prefill.groupKey}::${prefill.subKey}`
+      : options[0]?.value || '';
+  openQuickFormModal({
+    title: 'Add Reach-Out Contact',
+    submitLabel: 'Add',
+    fields: [
+      { name: 'name', label: 'Name', type: 'text', placeholder: 'Contact name' },
+      { name: 'bucket', label: 'Category', type: 'select', options, value: initial },
+    ],
+    onSubmit: (values) => {
+      const name = String(values.name || '').trim();
+      const bucket = String(values.bucket || '');
+      if (!name || !bucket.includes('::')) return false;
+      const parts = bucket.split('::');
+      const groupKey = parts[0];
+      const subKey = parts[1];
+      const teamKey = parts[2];
+      if (!reachOutContactsData[groupKey]) return false;
+      let target = null;
+      if (teamKey) {
+        if (!reachOutContactsData[groupKey][subKey] || !Array.isArray(reachOutContactsData[groupKey][subKey][teamKey])) return false;
+        target = reachOutContactsData[groupKey][subKey][teamKey];
+      } else {
+        if (!Array.isArray(reachOutContactsData[groupKey][subKey])) return false;
+        target = reachOutContactsData[groupKey][subKey];
+      }
+      if (!target.some((x) => String(x).toLowerCase() === name.toLowerCase())) target.push(name);
+      renderReachOutContacts();
+      scheduleSaveAppStateToDb();
+      return true;
+    },
+  });
 }
 
-window.addReachOutContactToBucket = function(groupKey, subKey, teamKey) {
+window.addReachOutContactToBucket = function (groupKey, subKey, teamKey) {
   addReachOutContactViaForm({ groupKey, subKey, teamKey });
 };
 
 // Render Network
 function renderNetwork() {
-    const container = document.getElementById('network-grid');
-    if (!container) return;
-    
-    container.innerHTML = '';
-    const query = String(networkFilters.query || '').trim().toLowerCase();
-    const tagFilter = String(networkFilters.tag || '').trim().toLowerCase();
-    const nameFilter = String(networkFilters.name || '').trim().toLowerCase();
-    const filtered = networkData.filter((person) => {
-        const name = String(person.name || '').toLowerCase();
-        const tags = Array.isArray(person.tags) ? person.tags.map((t) => String(t).toLowerCase()) : [];
-        const matchQuery = !query || name.includes(query) || tags.some((t) => t.includes(query));
-        const matchName = !nameFilter || name === nameFilter;
-        const matchTag = !tagFilter || tags.includes(tagFilter);
-        return matchQuery && matchName && matchTag;
-    });
+  const container = document.getElementById('network-grid');
+  if (!container) return;
 
-    const metricMap = new Map();
-    const getMetrics = (person) => {
-      const key = person;
-      if (!metricMap.has(key)) metricMap.set(key, getNetworkPersonMetrics(person));
-      return metricMap.get(key);
-    };
-    const sorted = [...filtered].sort((a, b) => {
-      const mode = String(networkFilters.sort || 'name_asc');
-      if (mode === 'most_streamed_with') {
-        const diff = getMetrics(b).streamCount - getMetrics(a).streamCount;
-        if (diff !== 0) return diff;
-      } else if (mode === 'most_clips_with') {
-        const diff = getMetrics(b).clipCount - getMetrics(a).clipCount;
-        if (diff !== 0) return diff;
-      } else if (mode === 'recent_streamed_with') {
-        const aTs = getMetrics(a).recentStreamTs ?? -Infinity;
-        const bTs = getMetrics(b).recentStreamTs ?? -Infinity;
-        if (bTs !== aTs) return bTs - aTs;
-      }
-      return String(a.name || '').localeCompare(String(b.name || ''));
-    });
+  container.innerHTML = '';
+  const query = String(networkFilters.query || '').trim().toLowerCase();
+  const tagFilter = String(networkFilters.tag || '').trim().toLowerCase();
+  const nameFilter = String(networkFilters.name || '').trim().toLowerCase();
+  const filtered = networkData.filter((person) => {
+    const name = String(person.name || '').toLowerCase();
+    const tags = Array.isArray(person.tags) ? person.tags.map((t) => String(t).toLowerCase()) : [];
+    const matchQuery = !query || name.includes(query) || tags.some((t) => t.includes(query));
+    const matchName = !nameFilter || name === nameFilter;
+    const matchTag = !tagFilter || tags.includes(tagFilter);
+    return matchQuery && matchName && matchTag;
+  });
 
-    sorted.forEach((person) => {
-        const index = networkData.indexOf(person);
-        const contacts = Array.isArray(person.contacts) ? person.contacts : [];
-        const ideas = Array.isArray(person.ideas) ? person.ideas : [];
-        const tags = Array.isArray(person.tags) ? person.tags : [];
-        let contactsHtml = contacts.map(c => `
+  const metricMap = new Map();
+  const getMetrics = (person) => {
+    const key = person;
+    if (!metricMap.has(key)) metricMap.set(key, getNetworkPersonMetrics(person));
+    return metricMap.get(key);
+  };
+  const sorted = [...filtered].sort((a, b) => {
+    const mode = String(networkFilters.sort || 'name_asc');
+    if (mode === 'most_streamed_with') {
+      const diff = getMetrics(b).streamCount - getMetrics(a).streamCount;
+      if (diff !== 0) return diff;
+    } else if (mode === 'most_clips_with') {
+      const diff = getMetrics(b).clipCount - getMetrics(a).clipCount;
+      if (diff !== 0) return diff;
+    } else if (mode === 'recent_streamed_with') {
+      const aTs = getMetrics(a).recentStreamTs ?? -Infinity;
+      const bTs = getMetrics(b).recentStreamTs ?? -Infinity;
+      if (bTs !== aTs) return bTs - aTs;
+    }
+    return String(a.name || '').localeCompare(String(b.name || ''));
+  });
+
+  sorted.forEach((person) => {
+    const index = networkData.indexOf(person);
+    const contacts = Array.isArray(person.contacts) ? person.contacts : [];
+    const ideas = Array.isArray(person.ideas) ? person.ideas : [];
+    const tags = Array.isArray(person.tags) ? person.tags : [];
+    let contactsHtml = contacts.map(c => `
             <a href="#" class="contact-pill" onclick="event.stopPropagation(); return false;">
                 <i class="fa-${c.type} ${c.icon}"></i> ${c.handle}
             </a>
         `).join('');
 
-        let ideasHtml = ideas.map(i => `<li>${i}</li>`).join('');
-        let tagsHtml = tags.map(t => `<span style="background: rgba(204,255,0,0.1); color: var(--primary); padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; margin-right: 4px; text-transform: uppercase;">${t}</span>`).join('');
+    let ideasHtml = ideas.map(i => `<li>${i}</li>`).join('');
+    let tagsHtml = tags.map(t => `<span style="background: rgba(204,255,0,0.1); color: var(--primary); padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; margin-right: 4px; text-transform: uppercase;">${t}</span>`).join('');
 
-        container.innerHTML += `
+    container.innerHTML += `
             <div class="network-card" style="cursor:pointer;" onclick="openNetworkPersonDetail(${index})">
                 <div class="network-header network-header-actions">
                     <div style="display:flex; align-items:flex-start; gap:12px; min-width:0; flex:1 1 auto;">
@@ -4394,107 +4384,107 @@ function renderNetwork() {
                 </div>
             </div>
         `;
-    });
-    if (sorted.length === 0) {
-      container.innerHTML = `<div class="glass-panel" style="padding:12px; color:var(--text-muted);">No contacts match this filter.</div>`;
-    }
+  });
+  if (sorted.length === 0) {
+    container.innerHTML = `<div class="glass-panel" style="padding:12px; color:var(--text-muted);">No contacts match this filter.</div>`;
+  }
 }
 
-window.editNetworkPerson = function(index) {
+window.editNetworkPerson = function (index) {
   editNetworkPersonViaForm(index);
 };
-window.openNetworkPersonDetail = function(index) {
+window.openNetworkPersonDetail = function (index) {
   showNetworkPersonDetail(index);
 };
 
 function syncStreamDetailManagedFieldsDisabled(panel) {
-    if (!panel) return;
-    const editBtn = panel.querySelector('.detail-edit-toggle');
-    const locked = !editBtn || !editBtn.classList.contains('editing');
-    panel.querySelectorAll('.stream-detail-managed-field').forEach((el) => {
-        el.disabled = locked;
-    });
+  if (!panel) return;
+  const editBtn = panel.querySelector('.detail-edit-toggle');
+  const locked = !editBtn || !editBtn.classList.contains('editing');
+  panel.querySelectorAll('.stream-detail-managed-field').forEach((el) => {
+    el.disabled = locked;
+  });
 }
 
 function syncStreamDetailReadOnlyBlocks(panel) {
-    if (!panel) return;
-    const editBtn = panel.querySelector('.detail-edit-toggle');
-    const isEditing = !!(editBtn && editBtn.classList.contains('editing'));
+  if (!panel) return;
+  const editBtn = panel.querySelector('.detail-edit-toggle');
+  const isEditing = !!(editBtn && editBtn.classList.contains('editing'));
 
-    panel.querySelectorAll('.stream-goals-block').forEach((block) => {
-        const read = block.querySelector('.stream-detail-read-only');
-        const input = block.querySelector('textarea');
-        if (!read || !input) return;
-        if (!isEditing) read.innerHTML = bulletsHtmlFromText(input.value, 'No goals yet.');
-        read.style.display = isEditing ? 'none' : '';
-        input.style.display = isEditing ? '' : 'none';
-    });
-    panel.querySelectorAll('.stream-narrative-block').forEach((block) => {
-        const read = block.querySelector('.stream-detail-read-only');
-        const input = block.querySelector('textarea');
-        if (!read || !input) return;
-        if (!isEditing) read.innerHTML = bulletsHtmlFromText(input.value, 'No clipping narrative yet.');
-        read.style.display = isEditing ? 'none' : '';
-        input.style.display = isEditing ? '' : 'none';
-    });
+  panel.querySelectorAll('.stream-goals-block').forEach((block) => {
+    const read = block.querySelector('.stream-detail-read-only');
+    const input = block.querySelector('textarea');
+    if (!read || !input) return;
+    if (!isEditing) read.innerHTML = bulletsHtmlFromText(input.value, 'No goals yet.');
+    read.style.display = isEditing ? 'none' : '';
+    input.style.display = isEditing ? '' : 'none';
+  });
+  panel.querySelectorAll('.stream-narrative-block').forEach((block) => {
+    const read = block.querySelector('.stream-detail-read-only');
+    const input = block.querySelector('textarea');
+    if (!read || !input) return;
+    if (!isEditing) read.innerHTML = bulletsHtmlFromText(input.value, 'No clipping narrative yet.');
+    read.style.display = isEditing ? 'none' : '';
+    input.style.display = isEditing ? '' : 'none';
+  });
 }
 
-window.toggleEditMode = function(btn) {
-    const container = btn.closest('.glass-panel');
-    const isEditing = btn.classList.contains('editing');
-    const addSegmentWrappers = container ? container.querySelectorAll('.detail-add-segment-wrap') : [];
-    
-    if (isEditing) {
-        // Save
-        btn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit Info';
-        btn.classList.remove('editing');
-        addSegmentWrappers.forEach((el) => { el.style.display = 'none'; });
-        
-        container.querySelectorAll('.info-content, .detail-tags, p').forEach(el => {
-            if (el.classList.contains('btn')) return;
-            el.contentEditable = false;
-            el.style.border = 'none';
-            el.style.padding = '0';
-            el.style.backgroundColor = 'transparent';
-        });
-        syncStreamDetailManagedFieldsDisabled(container);
-        syncStreamDetailReadOnlyBlocks(container);
-        scheduleSaveAppStateToDb();
-    } else {
-        // Edit
-        btn.innerHTML = '<i class="fa-solid fa-check"></i> Save';
-        btn.classList.add('editing');
-        addSegmentWrappers.forEach((el) => { el.style.display = ''; });
-        
-        container.querySelectorAll('.info-content, .detail-tags, p').forEach(el => {
-            if (el.classList.contains('btn')) return;
-            el.contentEditable = true;
-            el.style.border = '1px dashed var(--primary)';
-            el.style.padding = '8px';
-            el.style.backgroundColor = 'rgba(255,255,255,0.05)';
-            el.style.borderRadius = '4px';
-            el.style.outline = 'none';
-        });
-        syncStreamDetailManagedFieldsDisabled(container);
-        syncStreamDetailReadOnlyBlocks(container);
-    }
+window.toggleEditMode = function (btn) {
+  const container = btn.closest('.glass-panel');
+  const isEditing = btn.classList.contains('editing');
+  const addSegmentWrappers = container ? container.querySelectorAll('.detail-add-segment-wrap') : [];
+
+  if (isEditing) {
+    // Save
+    btn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit Info';
+    btn.classList.remove('editing');
+    addSegmentWrappers.forEach((el) => { el.style.display = 'none'; });
+
+    container.querySelectorAll('.info-content, .detail-tags, p').forEach(el => {
+      if (el.classList.contains('btn')) return;
+      el.contentEditable = false;
+      el.style.border = 'none';
+      el.style.padding = '0';
+      el.style.backgroundColor = 'transparent';
+    });
+    syncStreamDetailManagedFieldsDisabled(container);
+    syncStreamDetailReadOnlyBlocks(container);
+    scheduleSaveAppStateToDb();
+  } else {
+    // Edit
+    btn.innerHTML = '<i class="fa-solid fa-check"></i> Save';
+    btn.classList.add('editing');
+    addSegmentWrappers.forEach((el) => { el.style.display = ''; });
+
+    container.querySelectorAll('.info-content, .detail-tags, p').forEach(el => {
+      if (el.classList.contains('btn')) return;
+      el.contentEditable = true;
+      el.style.border = '1px dashed var(--primary)';
+      el.style.padding = '8px';
+      el.style.backgroundColor = 'rgba(255,255,255,0.05)';
+      el.style.borderRadius = '4px';
+      el.style.outline = 'none';
+    });
+    syncStreamDetailManagedFieldsDisabled(container);
+    syncStreamDetailReadOnlyBlocks(container);
+  }
 };
 
-window.addSegmentToDetail = function(streamId, parentArcId, linkedIndex, targetId) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream) return;
-    const parentArc = parentArcId && parentArcId !== 'null' ? arcsData.find((a) => a.id === parentArcId) || null : null;
-    if (!Array.isArray(stream.segments)) stream.segments = [];
-    stream.segments.push({
-        title: '',
-        duration: '1 hr',
-        goals: '',
-        narrative: '',
-        options: [],
-        clipVodUrl: '',
-    });
-    renderDetail(stream, targetId, parentArc);
-    scheduleSaveAppStateToDb();
+window.addSegmentToDetail = function (streamId, parentArcId, linkedIndex, targetId) {
+  const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
+  if (!stream) return;
+  const parentArc = parentArcId && parentArcId !== 'null' ? arcsData.find((a) => a.id === parentArcId) || null : null;
+  if (!Array.isArray(stream.segments)) stream.segments = [];
+  stream.segments.push({
+    title: '',
+    duration: '1 hr',
+    goals: '',
+    narrative: '',
+    options: [],
+    clipVodUrl: '',
+  });
+  renderDetail(stream, targetId, parentArc);
+  scheduleSaveAppStateToDb();
 };
 
 function handleCreateDraftSubmit(modal) {
@@ -4703,23 +4693,23 @@ let activeSegmentBankCategory = 0;
 let activeSegmentBankCard = null;
 
 function setupSegmentBankModal() {
-    const modal = document.getElementById('segment-bank-modal');
-    const closeBtn = document.getElementById('segment-bank-close-btn');
-    const tabs = document.getElementById('segment-bank-tabs');
-    const items = document.getElementById('segment-bank-items');
-    if (!modal || !closeBtn || !tabs || !items) return;
+  const modal = document.getElementById('segment-bank-modal');
+  const closeBtn = document.getElementById('segment-bank-close-btn');
+  const tabs = document.getElementById('segment-bank-tabs');
+  const items = document.getElementById('segment-bank-items');
+  if (!modal || !closeBtn || !tabs || !items) return;
 
-    const renderTabs = () => {
-        tabs.innerHTML = SEGMENT_BANK_CATEGORIES.map((c, idx) => `
+  const renderTabs = () => {
+    tabs.innerHTML = SEGMENT_BANK_CATEGORIES.map((c, idx) => `
           <button type="button" class="segment-bank-tab ${idx === activeSegmentBankCategory ? 'active' : ''}" data-segment-bank-tab="${idx}">
             ${escAttr(c.name)}
           </button>
         `).join('');
-    };
+  };
 
-    const renderItems = () => {
-        const category = SEGMENT_BANK_CATEGORIES[activeSegmentBankCategory];
-        items.innerHTML = category.items.map((item) => `
+  const renderItems = () => {
+    const category = SEGMENT_BANK_CATEGORIES[activeSegmentBankCategory];
+    items.innerHTML = category.items.map((item) => `
           <div class="segment-bank-item-row">
             <span>${escAttr(item)}</span>
             <button type="button" class="btn btn-outline btn-sm" data-segment-bank-add="${escAttr(item)}">
@@ -4727,56 +4717,56 @@ function setupSegmentBankModal() {
             </button>
           </div>
         `).join('');
-    };
+  };
 
-    const render = () => {
-        renderTabs();
-        renderItems();
-    };
+  const render = () => {
+    renderTabs();
+    renderItems();
+  };
+  render();
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+
+  tabs.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-segment-bank-tab]');
+    if (!btn) return;
+    const idx = Number(btn.getAttribute('data-segment-bank-tab'));
+    if (Number.isNaN(idx) || idx < 0 || idx >= SEGMENT_BANK_CATEGORIES.length) return;
+    activeSegmentBankCategory = idx;
     render();
+  });
 
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-        }
-    });
-
-    tabs.addEventListener('click', (e) => {
-        const btn = e.target.closest('[data-segment-bank-tab]');
-        if (!btn) return;
-        const idx = Number(btn.getAttribute('data-segment-bank-tab'));
-        if (Number.isNaN(idx) || idx < 0 || idx >= SEGMENT_BANK_CATEGORIES.length) return;
-        activeSegmentBankCategory = idx;
-        render();
-    });
-
-    items.addEventListener('click', (e) => {
-        const btn = e.target.closest('[data-segment-bank-add]');
-        if (!btn || !activeSegmentBankCard) return;
-        const text = btn.getAttribute('data-segment-bank-add') || '';
-        const optionsList = activeSegmentBankCard.querySelector('.segment-options-list');
-        if (!optionsList) return;
-        const wrap = document.createElement('div');
-        wrap.innerHTML = getSegmentOptionHtml();
-        const row = wrap.firstElementChild;
-        if (!row) return;
-        const input = row.querySelector('.option-text');
-        if (input) input.value = text;
-        optionsList.appendChild(row);
-        modal.classList.remove('active');
-    });
+  items.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-segment-bank-add]');
+    if (!btn || !activeSegmentBankCard) return;
+    const text = btn.getAttribute('data-segment-bank-add') || '';
+    const optionsList = activeSegmentBankCard.querySelector('.segment-options-list');
+    if (!optionsList) return;
+    const wrap = document.createElement('div');
+    wrap.innerHTML = getSegmentOptionHtml();
+    const row = wrap.firstElementChild;
+    if (!row) return;
+    const input = row.querySelector('.option-text');
+    if (input) input.value = text;
+    optionsList.appendChild(row);
+    modal.classList.remove('active');
+  });
 }
 
-window.openSegmentBankModal = function(triggerEl) {
-    const segmentCard = triggerEl && triggerEl.closest ? triggerEl.closest('.segment-card') : null;
-    if (segmentCard) activeSegmentBankCard = segmentCard;
-    const modal = document.getElementById('segment-bank-modal');
-    if (!modal) return;
-    modal.classList.add('active');
+window.openSegmentBankModal = function (triggerEl) {
+  const segmentCard = triggerEl && triggerEl.closest ? triggerEl.closest('.segment-card') : null;
+  if (segmentCard) activeSegmentBankCard = segmentCard;
+  const modal = document.getElementById('segment-bank-modal');
+  if (!modal) return;
+  modal.classList.add('active');
 };
 
 function walkReachOutContactNames(node, outSet) {
@@ -4992,35 +4982,35 @@ function setupCollabWithAutocomplete(modal) {
 }
 
 function setupModal() {
-    const modal = document.getElementById('new-item-modal');
-    const closeBtn = document.getElementById('close-modal-btn');
-    const typeBtns = document.querySelectorAll('#modal-type-selector .type-btn');
-    const dynamicContainer = document.getElementById('dynamic-fields-container');
-    const renderTypeTemplate = (type) => {
-        if (templates[type]) {
-            dynamicContainer.innerHTML = templates[type];
-            if (modal.querySelector('.collab-with-wrap')) setupCollabWithAutocomplete(modal);
-        }
-    };
+  const modal = document.getElementById('new-item-modal');
+  const closeBtn = document.getElementById('close-modal-btn');
+  const typeBtns = document.querySelectorAll('#modal-type-selector .type-btn');
+  const dynamicContainer = document.getElementById('dynamic-fields-container');
+  const renderTypeTemplate = (type) => {
+    if (templates[type]) {
+      dynamicContainer.innerHTML = templates[type];
+      if (modal.querySelector('.collab-with-wrap')) setupCollabWithAutocomplete(modal);
+    }
+  };
 
-    mainActionBtn.addEventListener('click', () => {
-        const activeTab = document.querySelector('.nav-item.active')?.getAttribute('data-tab') || 'calendar';
-        if (activeTab === 'goals' || activeTab === 'network') return;
-        const activeTypeBtn = modal.querySelector('#modal-type-selector .type-btn.active');
-        renderTypeTemplate(activeTypeBtn?.getAttribute('data-value') || 'Desktop');
-        modal.classList.add('active');
-    });
+  mainActionBtn.addEventListener('click', () => {
+    const activeTab = document.querySelector('.nav-item.active')?.getAttribute('data-tab') || 'calendar';
+    if (activeTab === 'goals' || activeTab === 'network') return;
+    const activeTypeBtn = modal.querySelector('#modal-type-selector .type-btn.active');
+    renderTypeTemplate(activeTypeBtn?.getAttribute('data-value') || 'Desktop');
+    modal.classList.add('active');
+  });
 
-    closeBtn.addEventListener('click', () => {
-        modal.classList.remove('active');
-    });
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.classList.remove('active');
-    });
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('active');
+  });
 
-    const templates = {
-        'Desktop': `
+  const templates = {
+    'Desktop': `
             ${getNewItemCollabWithFieldHtml()}
             <div class="segments-section">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
@@ -5032,29 +5022,7 @@ function setupModal() {
                 </div>
             </div>
         `,
-        'IRL': `
-            ${getNewItemCollabWithFieldHtml()}
-            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-                <div>
-                    <label>Assign Security</label>
-                    <input type="text" class="form-input field-security" placeholder="e.g. Big Mike" style="width: 100%; margin-top: 8px;">
-                </div>
-                <div>
-                    <label>Assign Driver</label>
-                    <input type="text" class="form-input field-driver" placeholder="e.g. John" style="width: 100%; margin-top: 8px;">
-                </div>
-            </div>
-            <div class="segments-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                    <label>Segments</label>
-                    <button class="btn btn-outline btn-sm" type="button" onclick="addSegment()"><i class="fa-solid fa-plus"></i> Add Segment</button>
-                </div>
-                <div id="segments-list" style="display: flex; flex-direction: column; gap: 12px;">
-                    ${getSegmentCardHtml(1)}
-                </div>
-            </div>
-        `,
-        'Collab': `
+    'IRL': `
             ${getNewItemCollabWithFieldHtml()}
             <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
                 <div>
@@ -5076,7 +5044,29 @@ function setupModal() {
                 </div>
             </div>
         `,
-        'Arc': `
+    'Collab': `
+            ${getNewItemCollabWithFieldHtml()}
+            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div>
+                    <label>Assign Security</label>
+                    <input type="text" class="form-input field-security" placeholder="e.g. Big Mike" style="width: 100%; margin-top: 8px;">
+                </div>
+                <div>
+                    <label>Assign Driver</label>
+                    <input type="text" class="form-input field-driver" placeholder="e.g. John" style="width: 100%; margin-top: 8px;">
+                </div>
+            </div>
+            <div class="segments-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <label>Segments</label>
+                    <button class="btn btn-outline btn-sm" type="button" onclick="addSegment()"><i class="fa-solid fa-plus"></i> Add Segment</button>
+                </div>
+                <div id="segments-list" style="display: flex; flex-direction: column; gap: 12px;">
+                    ${getSegmentCardHtml(1)}
+                </div>
+            </div>
+        `,
+    'Arc': `
             <div class="form-group" style="margin-bottom: 16px;">
                 <label>Budget</label>
                 <input type="text" id="arc-budget" class="form-input" placeholder="e.g. $50,000 (Production)" style="width: 100%; margin-top: 8px;">
@@ -5134,57 +5124,57 @@ function setupModal() {
                 </div>
             </div>
         `
-    };
+  };
 
-    typeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            typeBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const type = btn.getAttribute('data-value');
-            renderTypeTemplate(type);
-        });
+  typeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      typeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const type = btn.getAttribute('data-value');
+      renderTypeTemplate(type);
     });
+  });
 
-    renderTypeTemplate('Desktop');
+  renderTypeTemplate('Desktop');
 
-    const createBtn = document.getElementById('create-draft-btn');
-    if (createBtn) {
-        createBtn.addEventListener('click', () => {
-            handleCreateDraftSubmit(modal);
-        });
-    }
+  const createBtn = document.getElementById('create-draft-btn');
+  if (createBtn) {
+    createBtn.addEventListener('click', () => {
+      handleCreateDraftSubmit(modal);
+    });
+  }
 }
 
 // Global function for adding segments
-window.addSegment = function() {
-    const list = document.getElementById('segments-list');
-    if (!list) return;
-    const segmentNumber = list.querySelectorAll('.segment-card').length + 1;
-    const card = document.createElement('div');
-    card.innerHTML = getSegmentCardHtml(segmentNumber);
-    list.appendChild(card.firstElementChild);
+window.addSegment = function () {
+  const list = document.getElementById('segments-list');
+  if (!list) return;
+  const segmentNumber = list.querySelectorAll('.segment-card').length + 1;
+  const card = document.createElement('div');
+  card.innerHTML = getSegmentCardHtml(segmentNumber);
+  list.appendChild(card.firstElementChild);
 };
 
-window.addSegmentOption = function(btn) {
-    const card = btn.closest('.segment-card');
-    if (!card) return;
-    const optionsList = card.querySelector('.segment-options-list');
-    if (!optionsList) return;
-    const wrap = document.createElement('div');
-    wrap.innerHTML = getSegmentOptionHtml();
-    optionsList.appendChild(wrap.firstElementChild);
+window.addSegmentOption = function (btn) {
+  const card = btn.closest('.segment-card');
+  if (!card) return;
+  const optionsList = card.querySelector('.segment-options-list');
+  if (!optionsList) return;
+  const wrap = document.createElement('div');
+  wrap.innerHTML = getSegmentOptionHtml();
+  optionsList.appendChild(wrap.firstElementChild);
 };
 
 // Global function for adding streams to an arc
-window.addArcStream = function() {
-    const list = document.getElementById('arc-streams-list');
-    if (!list) return;
-    
-    const card = document.createElement('div');
-    card.className = 'segment-card';
-    card.style.cssText = 'background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-sm); position: relative;';
-    card.innerHTML = `
+window.addArcStream = function () {
+  const list = document.getElementById('arc-streams-list');
+  if (!list) return;
+
+  const card = document.createElement('div');
+  card.className = 'segment-card';
+  card.style.cssText = 'background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: var(--radius-sm); position: relative;';
+  card.innerHTML = `
         <button onclick="this.parentElement.remove()" style="position: absolute; right: 8px; top: 8px; background: none; border: none; color: var(--text-muted); cursor: pointer;"><i class="fa-solid fa-xmark"></i></button>
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 8px; margin-bottom: 12px; width: calc(100% - 20px);">
             <input type="text" class="form-input arc-stream-title" placeholder="Stream Title (e.g. Scotiabank Arena)" style="width: 100%;">
@@ -5202,5 +5192,5 @@ window.addArcStream = function() {
         <input type="text" class="form-input arc-stream-logistics" placeholder="Logistics (Security / Driver / Collabs)" style="width: 100%;">
     `;
 
-    list.appendChild(card);
+  list.appendChild(card);
 };
