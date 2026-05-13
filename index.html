@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cindy | Creative Management</title>
+    <meta name="description" content="A comprehensive creative management platform for Cindy's streams, campaigns, and clippers.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Ambient Background Effects -->
+    <div class="ambient-glow glow-top-left"></div>
+    <div class="ambient-glow glow-bottom-right"></div>
+    <div class="noise-overlay"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo">
+                    <span class="logo-text">Cindy</span>
+                </div>
+                <div class="subtitle">CREATIVE SYSTEM</div>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="calendar">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>Calendar Overview</span>
+                </button>
+                <button class="nav-item" data-tab="streams">
+                    <i class="fa-solid fa-video"></i>
+                    <span>Streams</span>
+                </button>
+                <button class="nav-item" data-tab="arcs">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Arcs</span>
+                </button>
+                <button class="nav-item" data-tab="media">
+                    <i class="fa-solid fa-photo-film"></i>
+                    <span>Media & Narrative</span>
+                </button>
+                <button class="nav-item" data-tab="goals">
+                    <i class="fa-solid fa-bullseye"></i>
+                    <span>Goals</span>
+                </button>
+                <button class="nav-item" data-tab="network">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Network</span>
+                </button>
+            </nav>
+            
+            <div class="user-profile" style="cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'" onclick="document.getElementById('creative-director-modal').classList.add('active')">
+                <div class="avatar">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <div class="user-info">
+                    <div class="user-name">LITO</div>
+                    <div class="user-status">
+                        <span class="status-dot"></span> Creative Director
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-titles">
+                    <h1 id="page-title">Calendar Overview</h1>
+                    <p id="page-desc">Manage upcoming streams, posters, and trailers schedule.</p>
+                </div>
+                <div class="action-buttons" style="align-items: center; gap: 10px;">
+                    <button class="btn btn-secondary" id="notifications-btn"><i class="fa-solid fa-bell"></i></button>
+                    <button class="btn btn-primary" id="main-action-btn"><i class="fa-solid fa-plus"></i> Add Event</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- Tab: Calendar -->
+                <div id="tab-calendar" class="tab-pane active">
+                    <div id="calendar-main-view">
+                        <div class="calendar-controls">
+                            <div class="calendar-nav">
+                                <button class="icon-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                                <h2 class="current-month">September 2026</h2>
+                                <button class="icon-btn"><i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                            <div class="calendar-filters">
+                                <span class="filter-pill active">All</span>
+                                <span class="filter-pill"><span class="dot dot-stream"></span> Streams</span>
+                                <span class="filter-pill"><span class="dot dot-promo"></span> Promos & Posters</span>
+                            </div>
+                        </div>
+                        <div class="calendar-grid-header">
+                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- Rendered via JS -->
+                        </div>
+                    </div>
+                    
+                    <div id="calendar-detail-view" style="display: none;">
+                        <button class="btn btn-outline btn-sm" style="margin-bottom: 24px; display: inline-flex; align-items: center; gap: 8px;" onclick="closeCalendarDetail()">
+                            <i class="fa-solid fa-arrow-left"></i> Back to Calendar
+                        </button>
+                        <div class="glass-panel detail-panel" id="calendar-event-detail">
+                            <!-- Details injected via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Streams -->
+                <div id="tab-streams" class="tab-pane">
+                    <div class="campaigns-layout">
+                        <!-- Stream List -->
+                        <div class="campaign-list-col">
+                            <div class="section-header">
+                                <h3>Streams</h3>
+                                <div style="display:flex; gap:6px;">
+                                    <button type="button" id="streams-bucket-past" class="btn btn-outline btn-sm streams-bucket-btn" onclick="setStreamsBucket('past')">Past</button>
+                                    <button type="button" id="streams-bucket-current" class="btn btn-outline btn-sm streams-bucket-btn" onclick="setStreamsBucket('current')">Current</button>
+                                    <button type="button" id="streams-bucket-future" class="btn btn-outline btn-sm streams-bucket-btn" onclick="setStreamsBucket('future')">Upcoming</button>
+                                </div>
+                            </div>
+                            <div class="arc-list" id="stream-list">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+                        
+                        <!-- Stream Detail -->
+                        <div class="campaign-detail-col">
+                            <div class="glass-panel detail-panel" id="stream-detail">
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-video empty-icon"></i>
+                                    <p>Select a stream to view details</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Arcs -->
+                <div id="tab-arcs" class="tab-pane">
+                    <div class="campaigns-layout">
+                        <!-- Arc List -->
+                        <div class="campaign-list-col">
+                            <div class="section-header">
+                                <h3>Arcs</h3>
+                                <div id="arc-timeline-filters" class="arc-timeline-filters" role="group" aria-label="Filter arcs by timeline">
+                                    <button type="button" class="type-btn arc-timeline-btn active" data-arc-timeline="">All</button>
+                                    <button type="button" class="type-btn arc-timeline-btn" data-arc-timeline="past">Past</button>
+                                    <button type="button" class="type-btn arc-timeline-btn" data-arc-timeline="current">Current</button>
+                                    <button type="button" class="type-btn arc-timeline-btn" data-arc-timeline="future">Future</button>
+                                </div>
+                            </div>
+                            <div class="arc-list" id="arc-list">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+                        
+                        <!-- Arc Detail -->
+                        <div class="campaign-detail-col">
+                            <div class="glass-panel detail-panel" id="arc-detail">
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-bolt empty-icon"></i>
+                                    <p>Select an arc to view details</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Goals -->
+                <div id="tab-goals" class="tab-pane">
+                    <div class="campaigns-layout">
+                        <!-- Goals List -->
+                        <div class="campaign-list-col">
+                            <div class="section-header" style="margin-bottom: 16px;">
+                                <h3>Active Goals</h3>
+                                <button class="btn btn-primary btn-sm" id="new-goal-btn"><i class="fa-solid fa-plus"></i> New Goal</button>
+                            </div>
+                            <div class="arc-list" id="goals-list">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Goal Detail -->
+                        <div class="campaign-detail-col">
+                            <div id="goal-detail" style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
+                                <div class="empty-state">
+                                    <i class="fa-solid fa-layer-group empty-icon"></i>
+                                    <p>Select a category to view subgoals</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Media & Narrative -->
+                <div id="tab-media" class="tab-pane">
+                    <div class="type-selector" id="media-subtab-selector" style="grid-template-columns: repeat(2, minmax(140px, 220px)); margin-bottom: 16px; max-width: 500px;">
+                        <button class="type-btn active" data-media-subtab="social">
+                            <i class="fa-solid fa-share-nodes"></i> Social
+                        </button>
+                        <button class="type-btn" data-media-subtab="clippers">
+                            <i class="fa-solid fa-scissors"></i> Clippers
+                        </button>
+                    </div>
+
+                    <div id="media-pane-social" class="media-subtab-pane active">
+                      <div class="campaigns-layout">
+                        <!-- Assets List -->
+                        <div class="campaign-list-col">
+                            <div class="section-header" style="margin-bottom: 16px;">
+                                <h3 style="font-size: 1.2rem; margin: 0;">Social Platforms</h3>
+                            </div>
+                            <div class="arc-list" id="asset-list">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Asset Detail -->
+                        <div class="campaign-detail-col">
+                            <div class="glass-panel detail-panel" id="asset-detail">
+                                <div style="color: var(--text-muted); text-align: center; padding: 40px;">Select a platform to view management and creation details</div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="media-pane-clippers" class="media-subtab-pane" style="display:none;">
+                        <div class="type-selector" id="clippers-subtab-selector" style="grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 16px; max-width: 820px;">
+                            <button class="type-btn active" data-clippers-subtab="management">
+                                <i class="fa-solid fa-scissors"></i> Clipping Management
+                            </button>
+                            <button class="type-btn" data-clippers-subtab="bank">
+                                <i class="fa-solid fa-box-archive"></i> Clip Bank
+                            </button>
+                            <button class="type-btn" data-clippers-subtab="segment-bank">
+                                <i class="fa-solid fa-book-open"></i> Segment Bank
+                            </button>
+                        </div>
+
+                        <div id="clippers-pane-management" class="clippers-subtab-pane active">
+                            <div class="glass-panel" style="padding: 20px; margin-bottom: 16px;">
+                                <h3 style="margin-bottom: 6px;">Clipping Management</h3>
+                                <p style="color: var(--text-muted);">Pick a stream to manage full VOD, segment cuts, raw pulls, and posted clips with searchable metadata.</p>
+                            </div>
+                            <div id="clippers-segment-board" style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <div id="clippers-pane-bank" class="clippers-subtab-pane" style="display:none;">
+                            <div class="glass-panel" style="padding: 20px; margin-bottom: 16px;">
+                                <h3 style="margin-bottom: 6px;">Clip Bank</h3>
+                                <p style="color: var(--text-muted);">Search raw pulls and posted clips by vibe tags and tagged people.</p>
+                            </div>
+                            <div id="clip-bank-board" style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <div id="clippers-pane-segment-bank" class="clippers-subtab-pane" style="display:none;">
+                            <div class="glass-panel" style="padding: 20px; margin-bottom: 16px;">
+                                <h3 style="margin-bottom: 6px;">Segment Bank</h3>
+                                <p style="color: var(--text-muted);">Idea library for segment activities. Copy a line into a stream plan, or use it while writing clipping angles.</p>
+                            </div>
+                            <div id="clippers-segment-bank-board" style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <div class="glass-panel" style="padding: 20px; margin-bottom: 16px;">
+                            <h3 style="margin-bottom: 6px;">Narrative Lanes</h3>
+                            <p style="color: var(--text-muted);">High-level themes for clippers/editors.</p>
+                        </div>
+                        <div id="narrative-cards" class="narrative-grid">
+                            <!-- Rendered via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Network -->
+                <div id="tab-network" class="tab-pane">
+                    <div class="type-selector" id="network-subtab-selector" style="grid-template-columns: repeat(2, minmax(170px, 260px)); margin-bottom: 16px; max-width: 560px;">
+                        <button class="type-btn active" data-network-subtab="current">
+                            <i class="fa-solid fa-users"></i> Current Network
+                        </button>
+                        <button class="type-btn" data-network-subtab="reachout">
+                            <i class="fa-solid fa-bullhorn"></i> Contacts to Reach Out To
+                        </button>
+                    </div>
+
+                    <div id="network-pane-current" class="network-subtab-pane active">
+                        <div class="section-header">
+                            <h3>Current Network</h3>
+                            <div class="action-buttons">
+                                <button class="btn btn-outline btn-sm" id="network-filter-btn"><i class="fa-solid fa-filter"></i> Filter</button>
+                                <button class="btn btn-outline btn-sm" id="network-sort-btn"><i class="fa-solid fa-arrow-down-wide-short"></i> Sort By</button>
+                                <button class="btn btn-primary btn-sm" id="add-person-btn"><i class="fa-solid fa-plus"></i> Add Person</button>
+                            </div>
+                        </div>
+                        <div class="network-grid" id="network-grid">
+                            <!-- Rendered via JS -->
+                        </div>
+                    </div>
+
+                    <div id="network-pane-reachout" class="network-subtab-pane" style="display:none;">
+                        <div class="section-header">
+                            <h3>Contacts to Reach Out To</h3>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm" id="add-reachout-contact-btn"><i class="fa-solid fa-plus"></i> Add Contact</button>
+                            </div>
+                        </div>
+                        <div id="reachout-contacts-board" style="display:flex; flex-direction:column; gap:14px;">
+                            <!-- Rendered via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    </div>
+
+    <!-- Modal for New Stream/Arc -->
+    <div id="new-item-modal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>Create New</h2>
+                <button class="icon-btn" id="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <div class="form-group">
+                    <label>Type</label>
+                    <div class="type-selector" id="modal-type-selector">
+                        <button class="type-btn active" data-value="Desktop">Desktop</button>
+                        <button class="type-btn" data-value="IRL">IRL</button>
+                        <button class="type-btn" data-value="Collab">Collab</button>
+                        <button class="type-btn" data-value="Arc">Arc</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="new-item-title" class="form-input" placeholder="Enter title...">
+                </div>
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div>
+                        <label>Date / Schedule</label>
+                        <input type="datetime-local" id="new-item-date" class="form-input" style="width: 100%; margin-top: 8px; color-scheme: dark;">
+                    </div>
+                    <div>
+                        <label>Location</label>
+                        <input type="text" id="new-item-location" class="form-input" placeholder="e.g. Miami Setup" style="width: 100%; margin-top: 8px;">
+                    </div>
+                </div>
+
+                <!-- Dynamic Fields Container -->
+                <div id="dynamic-fields-container">
+                    <!-- Default to Desktop fields -->
+                    <div class="segments-section">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label>Segments</label>
+                            <button class="btn btn-outline btn-sm" onclick="addSegment()"><i class="fa-solid fa-plus"></i> Add segment</button>
+                        </div>
+                        <div id="segments-list" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div class="segment-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: var(--radius-sm); position: relative;">
+                                <div style="display:flex; justify-content: space-between; align-items:center; gap:8px; margin-bottom: 8px;">
+                                    <div style="font-size: 0.82rem; color: var(--primary); text-transform: uppercase;">Segment 1</div>
+                                    <button type="button" class="btn btn-outline btn-sm" onclick="openSegmentBankModal(this)"><i class="fa-solid fa-book-open"></i> Segment Bank</button>
+                                </div>
+                                <div style="display:grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin-bottom: 8px;">
+                                    <input type="text" class="form-input segment-activity" placeholder="Activity" style="width: 100%;">
+                                    <button type="button" class="btn btn-outline btn-sm" onclick="addSegmentOption(this)"><i class="fa-solid fa-plus"></i> Add option</button>
+                                </div>
+                                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                                    <select class="form-input" style="flex: 1; appearance: auto; background: rgba(0,0,0,0.5);">
+                                        <option value="" disabled selected>Hours</option>
+                                        <option value="0">0 hrs</option>
+                                        <option value="1">1 hr</option>
+                                        <option value="2">2 hrs</option>
+                                        <option value="3">3 hrs</option>
+                                        <option value="4">4 hrs</option>
+                                        <option value="5">5 hrs</option>
+                                        <option value="6">6 hrs</option>
+                                    </select>
+                                    <select class="form-input" style="flex: 1; appearance: auto; background: rgba(0,0,0,0.5);">
+                                        <option value="" disabled selected>Minutes</option>
+                                        <option value="0">0 mins</option>
+                                        <option value="15">15 mins</option>
+                                        <option value="30">30 mins</option>
+                                        <option value="45">45 mins</option>
+                                    </select>
+                                </div>
+                                <input type="text" class="form-input" placeholder="Clipping Narrative" style="width: 100%; margin-bottom: 10px;">
+                                <div class="segment-options-list" style="display:flex; flex-direction: column; gap: 8px;">
+                                    <div class="segment-option-row" style="display:grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;">
+                                        <input type="text" class="form-input option-text" placeholder="Activity">
+                                        <button type="button" class="btn btn-outline btn-sm" onclick="this.closest('.segment-option-row').remove()"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary" id="create-draft-btn" style="width: 100%; margin-top: 16px;">Create Draft</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Segment Bank Modal -->
+    <div id="segment-bank-modal" class="modal-overlay">
+        <div class="modal-content glass-panel segment-bank-modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-list-check"></i> Segment Bank</h2>
+                <button class="icon-btn" id="segment-bank-close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body segment-bank-modal-body">
+                <div id="segment-bank-tabs" class="segment-bank-tabs"></div>
+                <div id="segment-bank-items" class="segment-bank-items"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reusable In-App Form Modal -->
+    <div id="quick-form-modal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2 id="quick-form-title">Form</h2>
+                <button class="icon-btn" id="quick-form-close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="quick-form-body" class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                <!-- Dynamic form fields -->
+            </form>
+            <div style="padding: 0 24px 24px; display:flex; justify-content:flex-end; gap:10px;">
+                <button type="button" class="btn btn-outline" id="quick-form-cancel-btn">Cancel</button>
+                <button type="submit" class="btn btn-primary" form="quick-form-body" id="quick-form-submit-btn">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Clip / TikTok / YouTube in-app embed preview -->
+    <div id="tiktok-trend-preview-modal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="width: min(920px, calc(100vw - 32px)); max-height: calc(100vh - 48px); display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <h2 style="margin: 0;" id="clip-media-preview-title">Preview</h2>
+                <button type="button" class="icon-btn" id="tiktok-trend-preview-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="padding: 0; flex: 1; min-height: 0; display: flex; flex-direction: column;">
+                <iframe id="tiktok-trend-preview-iframe" title="Video embed" style="flex: 1; width: 100%; min-height: min(560px, 70vh); border: 0; display: none;"></iframe>
+                <div id="tiktok-trend-preview-fallback" style="padding: 24px; text-align: center; display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Network Person Detail Modal -->
+    <div id="network-detail-modal" class="modal-overlay">
+        <div class="modal-content glass-panel" style="max-width: 760px; max-height: calc(100vh - 48px); display:flex; flex-direction:column;">
+            <div class="modal-header">
+                <h2 id="network-detail-title"><i class="fa-solid fa-id-card"></i> Contact Detail</h2>
+                <button class="icon-btn" id="network-detail-close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="overflow-y:auto; overflow-x:hidden;">
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin-bottom:14px; min-width:0;">
+                    <div class="glass-panel" style="padding:12px; min-width:0;">
+                        <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">Streams done together</div>
+                        <div id="network-detail-streams" style="display:flex; flex-direction:column; gap:8px; min-width:0;"></div>
+                    </div>
+                    <div class="glass-panel" style="padding:12px; min-width:0;">
+                        <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">Tagged clips</div>
+                        <div id="network-detail-clips" style="display:flex; flex-direction:column; gap:8px; min-width:0;"></div>
+                    </div>
+                </div>
+                <div class="glass-panel" style="padding:12px;">
+                    <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">Stream ideas</div>
+                    <textarea id="network-detail-ideas" class="form-input" style="width:100%; min-height:110px; resize:vertical; margin-bottom:12px;" placeholder="One idea per line..."></textarea>
+                    <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">Notes</div>
+                    <textarea id="network-detail-notes" class="form-input" style="width:100%; min-height:110px; resize:vertical;" placeholder="Add relationship notes, campaign notes, follow-up items..."></textarea>
+                </div>
+            </div>
+            <div style="padding: 0 24px 24px; display:flex; justify-content:flex-end; gap:10px;">
+                <button type="button" class="btn btn-outline" id="network-detail-cancel-btn">Close</button>
+                <button type="button" class="btn btn-primary" id="network-detail-save-btn"><i class="fa-solid fa-check"></i> Save Notes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Creative Director Modal -->
+    <div class="modal-overlay" id="creative-director-modal">
+        <div class="modal-content" style="width: min(860px, calc(100vw - 32px)); height: min(760px, calc(100vh - 48px)); display: flex; flex-direction: column;">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-user-astronaut" style="color: var(--primary);"></i> Creative Director Role</h2>
+                <button class="btn btn-outline btn-sm" onclick="document.getElementById('creative-director-modal').classList.remove('active')"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="modal-body" style="padding-top: 16px; overflow-y: auto; overflow-x: hidden; min-height: 0; flex: 1 1 auto;">
+                <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">LITO · Creative Director</div>
+                <div id="creative-director-tab-selector" style="display:flex; flex-direction:column; gap:8px; margin-bottom: 14px;">
+                    <div class="type-selector" style="grid-template-columns: minmax(0, 1fr);">
+                        <button class="type-btn active" data-creative-director-tab="about-me">
+                            <i class="fa-solid fa-user"></i> About LITO
+                        </button>
+                    </div>
+                    <div class="type-selector" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+                    <button class="type-btn" data-creative-director-tab="what-i-do">
+                        <i class="fa-solid fa-list-check"></i> What I Will Do
+                    </button>
+                    <button class="type-btn" data-creative-director-tab="benefits">
+                        <i class="fa-solid fa-star"></i> Benefits of Having Me
+                    </button>
+                    <button class="type-btn" data-creative-director-tab="how-i-start">
+                        <i class="fa-solid fa-rocket"></i> How I Will Start
+                    </button>
+                    </div>
+                </div>
+
+                <div id="creative-director-pane-about-me" class="creative-director-pane active">
+                    <h4 style="color: var(--primary); margin-bottom: 10px; font-size: 1rem; text-transform: uppercase;">About Me</h4>
+                    <div class="about-me-section-tabs">
+                        <button type="button" class="type-btn active" data-about-me-section="personally">Personally</button>
+                        <button type="button" class="type-btn" data-about-me-section="professionally">Professionally</button>
+                        <button type="button" class="type-btn" data-about-me-section="motive">Motive</button>
+                    </div>
+                    <div class="about-me-sections-grid" style="display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; color: var(--text-muted);">
+                        <div class="about-me-section-pane active" id="about-me-section-personally">
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Personally</div>
+                            <ul style="margin: 0; padding-left: 18px; display:flex; flex-direction:column; gap:4px;">
+                                <li>I do not smoke or drink.</li>
+                                <li>Socially aware.</li>
+                                <li>Emotionally intelligent.</li>
+                                <li>Don't party.</li>
+                                <li>Prefer not to be on camera but don't mind.</li>
+                                <li>Respectful.</li>
+                                <li>Polite.</li>
+                                <li>Clean.</li>
+                                <li>Curious; likes to learn.</li>
+                                <li>Patient.</li>
+                                <li>Loyal.</li>
+                            </ul>
+                        </div>
+                        <div class="about-me-section-pane" id="about-me-section-professionally">
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Professionally</div>
+                            <ul style="margin: 0; padding-left: 18px; display:flex; flex-direction:column; gap:4px;">
+                                <li>Organized.</li>
+                                <li>Punctual.</li>
+                                <li>Relentless.</li>
+                                <li>Disciplined.</li>
+                                <li>Consistent.</li>
+                                <li>Discreet.</li>
+                                <li>Innovative.</li>
+                                <li>Persistent.</li>
+                                <li>Team player.</li>
+                                <li>Long-term thinker.</li>
+                                <li>Fast.</li>
+                                <li>Quality oriented.</li>
+                                <li>Attention to details.</li>
+                                <li>Able to handle stress.</li>
+                            </ul>
+                        </div>
+                        <div class="about-me-section-pane" id="about-me-section-motive">
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Motive</div>
+                            <ul style="margin: 0; padding-left: 18px; display:flex; flex-direction:column; gap:4px;">
+                                <li>Be able to do meaningful work every day.</li>
+                                <li>Have an impact on people’s lives.</li>
+                                <li>Live life on my own terms.</li>
+                                <li>Contribute value to a pioneer team.</li>
+                                <li>Achieve greatness.</li>
+                                <li>Be around grinders who understand how limitless we are.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="creative-director-pane-what-i-do" class="creative-director-pane" style="display:none;">
+                    <h4 style="color: var(--primary); margin-bottom: 14px; font-size: 1.1rem; text-transform: uppercase;">What I will do for the team</h4>
+                    <div style="display: flex; flex-direction: column; gap: 14px; color: var(--text-muted);">
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Whatever the team needs</div>
+                            <div>Anything that the teams need for success.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Weekly & Monthly Recaps</div>
+                            <div>Run recap systems and publish short- and long-form highlights across YouTube and X, because people forget that they forget, so key moments stay visible and reusable when we need them.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Clippers Operations</div>
+                            <div>Organize full VODs, segment VODs, and posted clips into a searchable clip bank/database so we can find exact moments in seconds, repurpose more content, and support clippers, editors, and campaign execution.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Campaign Execution</div>
+                            <div>Coordinate posters, trailers, trend planning, and distribution so each stream launches with momentum.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Quality Control</div>
+                            <div>Turn stream narratives into clear production checklists to improve pacing, story flow, and post-stream conversion.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="creative-director-pane-benefits" class="creative-director-pane" style="display:none;">
+                    <h4 style="color: var(--primary); margin-bottom: 14px; font-size: 1.1rem; text-transform: uppercase;">Benefits of having me on the team</h4>
+                    <div style="display: flex; flex-direction: column; gap: 14px; color: var(--text-muted);">
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">More bandwidth for Mia on essentials</div>
+                            <div>Frees Mia to handle core operations, scheduling, and high-priority tasks without creative bottlenecks.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">More research and location prep</div>
+                            <div>Gives the team more time to research places/content and contact cities or venues for stronger stream quality checks, and makes long-term planning much stronger.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">More collaboration outreach</div>
+                            <div>Creates room for Mia to reach out to contacts and brands for collabs and partnership opportunities.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Smoother streams with better flow</div>
+                            <div>Improves pre-stream planning so streams have cleaner pacing, better transitions, and stronger narrative rhythm.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Full clipping-industry upside</div>
+                            <div>Builds a clipping database for repurposing (weekly highlights, monthly highlights) that drives omnipresence and repeat discovery.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Brand positioning and awards readiness</div>
+                            <div>Creates weekly/monthly proof, arc evidence, and repurposed assets so award campaign ammo is always ready when needed.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Health, recovery, and high-level creativity</div>
+                            <div>Protects sleep and recovery time for Cindy, which unlocks better energy, sharper stream concepts, and next-level ideas.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="creative-director-pane-how-i-start" class="creative-director-pane" style="display:none;">
+                    <h4 style="color: var(--primary); margin-bottom: 14px; font-size: 1.1rem; text-transform: uppercase;">How I will start</h4>
+                    <div style="display: flex; flex-direction: column; gap: 14px; color: var(--text-muted);">
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Connect with current clippers</div>
+                            <div>Connect the platform with the clippers who are currently clipping so we can immediately start building the content database.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Connect with poster makers</div>
+                            <div>Connect with poster makers so each stream has posters posted in advance for anticipation and hype building.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Align with editors for recap output</div>
+                            <div>Connect with editors for weekly highlights and monthly highlights across YouTube and X.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Sync with production</div>
+                            <div>Connect with the production team so we can organize workflows for arc trailers, music videos, brand partnerships, and related campaign content.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Lock into the team schedule</div>
+                            <div>Get aligned with the schedule so I can build real synergy with the team early.</div>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Understand team goals deeply</div>
+                            <div>Understand the team goals clearly so I can contribute properly and bring real value.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Render: https://render.com/docs/blueprint-spec
+# Set DATABASE_URL in the dashboard (Supabase pooler URI). Do not commit secrets.
+services:
+  - type: web
+    name: cindy-platform
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: KEEP_ALIVE_ENABLED
+        value: "true"
+      - key: KEEP_ALIVE_INTERVAL_MS
+        value: "480000"
