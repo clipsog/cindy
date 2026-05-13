@@ -1,7 +1,7 @@
 import re
 import os
 
-app_js_path = '/Users/duboisca/.gemini/antigravity/scratch/cindy-platform/app.js'
+app_js_path = '/Users/duboisca/cindy-platform/app.js'
 
 with open(app_js_path, 'r', encoding='utf-8') as f:
     content = f.read()

@@ -17,7 +17,7 @@
     --text-inverse: #000000;
 
     --border-color: rgba(255, 255, 255, 0.08);
-    --border-focus: rgba(204, 255, 0, 0.4);
+    --border-focus: rgba(0, 136, 255, 0.4);
 
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
@@ -293,7 +293,7 @@ h6 {
 .btn-primary:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(204, 255, 0, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 136, 255, 0.4);
 }
 
 .btn-secondary {
@@ -479,7 +479,7 @@ h6 {
 
 .calendar-day.today {
     border-color: var(--primary);
-    background: rgba(204, 255, 0, 0.05);
+    background: rgba(0, 136, 255, 0.05);
 }
 
 .calendar-day.today .day-number {
@@ -505,9 +505,9 @@ h6 {
 }
 
 .event-stream {
-    background: rgba(204, 255, 0, 0.1);
+    background: rgba(0, 136, 255, 0.1);
     color: var(--primary);
-    border: 1px solid rgba(204, 255, 0, 0.2);
+    border: 1px solid rgba(0, 136, 255, 0.2);
 }
 
 .event-promo {
@@ -680,8 +680,8 @@ h6 {
 }
 
 .streams-bucket-btn.streams-bucket-btn--active {
-    border-color: rgba(204, 255, 0, 0.55) !important;
-    background: rgba(204, 255, 0, 0.12) !important;
+    border-color: rgba(0, 136, 255, 0.55) !important;
+    background: rgba(0, 136, 255, 0.12) !important;
     color: var(--primary);
 }
 
@@ -744,7 +744,7 @@ h6 {
 }
 
 .status-active {
-    background: rgba(204, 255, 0, 0.15);
+    background: rgba(0, 136, 255, 0.15);
     color: var(--primary);
 }
 
@@ -754,7 +754,7 @@ h6 {
 }
 
 .status-current {
-    background: rgba(204, 255, 0, 0.15);
+    background: rgba(0, 136, 255, 0.15);
     color: var(--primary);
 }
 
@@ -871,7 +871,7 @@ h6 {
 .segment-bank-tab:hover {
     color: var(--text-main);
     border-color: var(--primary);
-    background: rgba(204, 255, 0, 0.12);
+    background: rgba(0, 136, 255, 0.12);
 }
 
 .segment-bank-items {
@@ -1043,7 +1043,7 @@ h6 {
     width: 60px;
     height: 60px;
     border-radius: var(--radius-sm);
-    background: rgba(204, 255, 0, 0.1);
+    background: rgba(0, 136, 255, 0.1);
     color: var(--primary);
     font-size: 1.5rem;
     display: flex;
@@ -1229,7 +1229,7 @@ h6 {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(204, 255, 0, 0.1);
+    background: rgba(0, 136, 255, 0.1);
     color: var(--primary);
     display: flex;
     align-items: center;
@@ -1247,7 +1247,7 @@ h6 {
 }
 
 .network-avatar--fallback {
-    background: rgba(204, 255, 0, 0.1);
+    background: rgba(0, 136, 255, 0.1);
     color: var(--primary);
     display: flex;
     align-items: center;
@@ -1440,7 +1440,7 @@ h6 {
 }
 
 .type-btn.active {
-    background: rgba(204, 255, 0, 0.15);
+    background: rgba(0, 136, 255, 0.15);
     border-color: var(--primary);
     color: var(--primary);
 }
@@ -1488,7 +1488,7 @@ h6 {
 }
 
 .clip-bank-card:hover {
-    border-color: rgba(204, 255, 0, 0.45);
+    border-color: rgba(0, 136, 255, 0.45);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }

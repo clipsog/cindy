@@ -1,7 +1,7 @@
 import json
 import os
 
-base_dir = '/Users/duboisca/.gemini/antigravity/scratch/cindy-platform'
+base_dir = '/Users/duboisca/cindy-platform'
 
 # 1. Update styles.css
 css_path = os.path.join(base_dir, 'styles.css')

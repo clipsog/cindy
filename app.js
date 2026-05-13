@@ -226,7 +226,7 @@ const SEED_ARCS = [
         ]
     }
 ];
-let arcsData = cloneSeed(SEED_ARCS);
+let arcsData = [];
 
 const SEED_GOALS = [
     {
@@ -266,7 +266,7 @@ const SEED_GOALS = [
     { id: 'goal-11', category: 'Streaming Awards', title: 'Best Reality Streamer', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Blur the line between reality TV and live streaming.', actionItems: ['Use multi-cam setups for major IRL events'] },
     { id: 'goal-12', category: 'Streaming Awards', title: 'Best Stream Duo', status: 'Planning', linkedArcs: [], linkedStreams: [], description: 'Form a legendary streaming duo for specific segments.', actionItems: ['Find a permanent co-host for specific arcs'] }
 ];
-let goalsData = cloneSeed(SEED_GOALS);
+let goalsData = [];
 
 const SEED_CALENDAR = [];
 let calendarEvents = cloneSeed(SEED_CALENDAR);
@@ -437,7 +437,7 @@ const SEED_REACH_OUT_CONTACTS = {
     Podcast: [],
   },
 };
-let reachOutContactsData = cloneSeed(SEED_REACH_OUT_CONTACTS);
+let reachOutContactsData = {};
 
 const SEED_MEDIA = [
     { 
@@ -733,7 +733,7 @@ const SEED_NETWORK = [
         ideas: []
     }
 ];
-let networkData = cloneSeed(SEED_NETWORK);
+let networkData = [];
 const networkFilters = { query: '', tag: '', name: '', sort: 'name_asc' };
 /** '' = all arcs; otherwise past | current | future (matches getArcTimelineStatus().key) */
 const arcTimelineFilter = { timeline: '' };
@@ -809,7 +809,7 @@ function applyAppState(payload) {
   if (payload.reachOutContactsData && typeof payload.reachOutContactsData === 'object') {
     reachOutContactsData = payload.reachOutContactsData;
   }
-  normalizeReachOutContactsData();
+  // normalizeReachOutContactsData();
 }
 
 /** If disk/local backup predates a new built-in arc, append it once. */
@@ -2095,11 +2095,11 @@ const pages = {
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
   // Boot UI immediately so navigation/tabs are always interactive.
-  ensureCollegeTakeoverArc();
-  ensureF1LinkedStreams();
-  ensureSeedNetworkPeople();
-  ensureNetworkPhotoDefaults();
-  normalizeReachOutContactsData();
+  // ensureCollegeTakeoverArc();
+  // ensureF1LinkedStreams();
+  // ensureSeedNetworkPeople();
+  // ensureNetworkPhotoDefaults();
+  // normalizeReachOutContactsData();
   setupNavigation();
   renderCalendar();
   renderStreams();
@@ -2148,11 +2148,11 @@ document.addEventListener('DOMContentLoaded', () => {
       new Promise((resolve) => setTimeout(() => resolve(false), 2500)),
     ]);
     if (!loaded) return;
-    ensureCollegeTakeoverArc();
-    ensureF1LinkedStreams();
-    ensureSeedNetworkPeople();
-    ensureNetworkPhotoDefaults();
-    normalizeReachOutContactsData();
+    // ensureCollegeTakeoverArc();
+    // ensureF1LinkedStreams();
+    // ensureSeedNetworkPeople();
+    // ensureNetworkPhotoDefaults();
+    // normalizeReachOutContactsData();
     refreshAllViews();
   })();
 
