@@ -222,7 +222,7 @@ const SEED_ARCS = [
         security: 'Big Mike',
         driver: 'John',
         segments: [
-            { title: 'Pitching the Stadium Tour', duration: '1 hr', goals: 'Get the player cosign', narrative: "Players laughing at Cindy's ambitious stadium tour plans." }
+            { title: 'Pitching the Stadium Tour', duration: '1 hr', goals: 'Get the player cosign', narrative: 'Players laughing at Cindy's ambitious stadium tour plans.' }
         ]
     }
 ];
@@ -924,7 +924,6 @@ function refreshAllViews() {
   renderArcs();
   renderNarratives();
   renderClippersBoard();
-  renderClippersSegmentBankBoard();
   renderAssets();
   renderGoals();
   renderNetwork();
@@ -969,7 +968,6 @@ function setupClippersSubtabs() {
         if (isMatch) pane.classList.add('active');
         else pane.classList.remove('active');
       });
-      if (target === 'segment-bank') renderClippersSegmentBankBoard();
     });
   });
 }
@@ -1473,11 +1471,6 @@ function getPersonRelatedStreams(personName) {
         seg.postedClips.some((clip) => {
           const people = Array.isArray(clip?.people) ? clip.people : String(clip?.people || '').split(',');
           return people.some((p) => isLikelySamePersonName(p, personName));
-        })) ||
-      (Array.isArray(seg?.rawClips) &&
-        seg.rawClips.some((clip) => {
-          const people = Array.isArray(clip?.people) ? clip.people : String(clip?.people || '').split(',');
-          return people.some((p) => isLikelySamePersonName(p, personName));
         }))
     );
   });
@@ -1574,7 +1567,7 @@ function normalizeRecapPeriodLinks(raw, fallbackPeriods) {
 
 let activeClipStreamKey = '';
 let goalListSelectedCategory = null;
-const clipBankFilters = { text: '', tag: '', person: '', kind: '' };
+const clipBankFilters = { text: '', tag: '', person: '' };
 let activeClipStreamBucket = 'future';
 const CINDY_PLATFORM_PHOTO = '';
 
@@ -1721,30 +1714,24 @@ function getClipBankEntries(streams) {
   const entries = [];
   streams.forEach((stream) => {
     (stream.segments || []).forEach((seg, segIndex) => {
-      const appendClips = (list, clipKind) => {
-        const arr = Array.isArray(list) ? list : [];
-        arr.forEach((clip, clipIndex) => {
-          const tags = Array.isArray(clip.tags)
-            ? clip.tags.map((t) => String(t).trim()).filter(Boolean)
-            : String(clip.tags || '').split(',').map((t) => t.trim()).filter(Boolean);
-          const people = Array.isArray(clip.people)
-            ? clip.people.map((p) => String(p).trim()).filter(Boolean)
-            : String(clip.people || '').split(',').map((p) => p.trim()).filter(Boolean);
-          entries.push({
-            streamTitle: stream.title,
-            segmentTitle: seg.title || `Segment ${segIndex + 1}`,
-            url: String(clip.url || ''),
-            title: String(clip.title || ''),
-            notes: String(clip.notes || ''),
-            tags,
-            people,
-            clipIndex,
-            clipKind,
-          });
+      const posted = Array.isArray(seg.postedClips) ? seg.postedClips : [];
+      posted.forEach((clip, clipIndex) => {
+        const tags = Array.isArray(clip.tags)
+          ? clip.tags.map((t) => String(t).trim()).filter(Boolean)
+          : String(clip.tags || '').split(',').map((t) => t.trim()).filter(Boolean);
+        const people = Array.isArray(clip.people)
+          ? clip.people.map((p) => String(p).trim()).filter(Boolean)
+          : String(clip.people || '').split(',').map((p) => p.trim()).filter(Boolean);
+        entries.push({
+          streamTitle: stream.title,
+          segmentTitle: seg.title || `Segment ${segIndex + 1}`,
+          url: String(clip.url || ''),
+          title: String(clip.title || ''),
+          tags,
+          people,
+          clipIndex,
         });
-      };
-      appendClips(seg.postedClips, 'posted');
-      appendClips(seg.rawClips, 'raw');
+      });
     });
   });
   return entries;
@@ -1818,14 +1805,13 @@ function renderClippersBoard() {
                 <a href="${escAttr(activeStream.fullVodUrl || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="if(!(this.closest('div').querySelector('.stream-full-vod-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('div').querySelector('.stream-full-vod-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
               </div>
             `
-            : `<div style="font-size:0.9rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px; margin-bottom:10px;">Select a stream to manage full VOD, segment VODs, raw pulls, and posted clips.</div>`
+            : `<div style="font-size:0.9rem; color:var(--text-muted); border:1px dashed var(--border-color); border-radius:8px; padding:10px; margin-bottom:10px;">Select a stream to manage full VOD, segment VODs, and posted clips.</div>`
         }
         <div style="display:flex; flex-direction:column; gap:10px; min-width:0;">
           ${activeSegments
             .map((seg, segIndex) => {
               const vod = seg.clipVodUrl || '';
               const angle = seg.clipDesiredAngle || '';
-              const rawClips = Array.isArray(seg.rawClips) ? seg.rawClips : [];
               const postedClips = Array.isArray(seg.postedClips) ? seg.postedClips : [];
               return `
                 <div style="border:1px solid var(--border-color); border-radius:8px; padding:10px; background:rgba(255,255,255,0.02); min-width:0;">
@@ -1838,33 +1824,6 @@ function renderClippersBoard() {
                   </div>
                   <textarea class="form-input" style="width:100%; min-height:72px; resize:vertical; margin-bottom:8px;" placeholder="Desired angle for clippers"
                     oninput="updateSegmentClipperFields('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, 'clipDesiredAngle', this.value)">${escAttr(angle)}</textarea>
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                    <strong style="font-size:0.82rem;">Raw clips</strong>
-                    <button type="button" class="btn btn-outline btn-sm" onclick="addRawClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex})"><i class="fa-solid fa-plus"></i> Add raw</button>
-                  </div>
-                  <div style="display:flex; flex-direction:column; gap:8px; min-width:0; margin-bottom:10px;">
-                    ${rawClips
-                      .map(
-                        (clip, clipIndex) => `
-                        <div class="raw-clip-row">
-                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Label (e.g. reaction cam A)" value="${escAttr(clip.title || '')}"
-                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'title', this.value)" />
-                          <input type="text" class="form-input raw-clip-url" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="File / drive / unlisted URL" value="${escAttr(clip.url || '')}"
-                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'url', this.value)" />
-                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Notes (timestamp, reel, etc.)" value="${escAttr(clip.notes || '')}"
-                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'notes', this.value)" />
-                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Tags (funny, wild)" value="${escAttr(Array.isArray(clip.tags) ? clip.tags.join(', ') : (clip.tags || ''))}"
-                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'tags', this.value)" />
-                          <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="People (Iggy, Von Miller)" value="${escAttr(Array.isArray(clip.people) ? clip.people.join(', ') : (clip.people || ''))}"
-                            oninput="updateRawClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'people', this.value)" />
-                          <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.raw-clip-row').querySelector('.raw-clip-url').value)"><i class="fa-solid fa-play"></i></button>
-                          <a href="${escAttr(clip.url || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link" onclick="if(!(this.closest('.raw-clip-row').querySelector('.raw-clip-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('.raw-clip-row').querySelector('.raw-clip-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
-                          <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="removeRawClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex})"><i class="fa-solid fa-xmark"></i></button>
-                        </div>`
-                      )
-                      .join('')}
-                    ${rawClips.length === 0 ? `<div style="font-size:0.82rem; color:var(--text-muted);">No raw pulls logged yet (rough cuts, ISOs, or temp links).</div>` : ''}
-                  </div>
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                     <strong style="font-size:0.82rem;">Posted Clips</strong>
                     <button type="button" class="btn btn-outline btn-sm" onclick="addPostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex})"><i class="fa-solid fa-plus"></i> Add clip</button>
@@ -1914,24 +1873,21 @@ function renderClippersBoard() {
   const allPeople = [...new Set(entries.flatMap((e) => e.people))].sort((a, b) => a.localeCompare(b));
   const query = clipBankFilters.text.trim().toLowerCase();
   const filtered = entries.filter((entry) => {
-    const notes = String(entry.notes || '').toLowerCase();
     const inQuery =
       !query ||
       entry.title.toLowerCase().includes(query) ||
       entry.streamTitle.toLowerCase().includes(query) ||
-      notes.includes(query) ||
       entry.tags.some((t) => t.toLowerCase().includes(query)) ||
       entry.people.some((p) => p.toLowerCase().includes(query));
     const inTag = !clipBankFilters.tag || entry.tags.includes(clipBankFilters.tag);
     const inPerson = !clipBankFilters.person || entry.people.includes(clipBankFilters.person);
-    const inKind = !clipBankFilters.kind || entry.clipKind === clipBankFilters.kind;
-    return inQuery && inTag && inPerson && inKind;
+    return inQuery && inTag && inPerson;
   });
 
   bankBoard.innerHTML = `
     <div class="glass-panel" style="padding:16px;">
       <div class="clip-bank-filters-grid">
-        <input class="form-input" placeholder="Search stream, notes, tag, person..." value="${escAttr(clipBankFilters.text)}" oninput="setClipBankFilter('text', this.value)" />
+        <input class="form-input" placeholder="Search by stream, tag, person..." value="${escAttr(clipBankFilters.text)}" oninput="setClipBankFilter('text', this.value)" />
         <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('tag', this.value)">
           <option value="">All tags</option>
           ${allTags.map((tag) => `<option value="${escAttr(tag)}" ${clipBankFilters.tag === tag ? 'selected' : ''}>${escAttr(tag)}</option>`).join('')}
@@ -1939,11 +1895,6 @@ function renderClippersBoard() {
         <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('person', this.value)">
           <option value="">All people</option>
           ${allPeople.map((p) => `<option value="${escAttr(p)}" ${clipBankFilters.person === p ? 'selected' : ''}>${escAttr(p)}</option>`).join('')}
-        </select>
-        <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('kind', this.value)">
-          <option value="" ${!clipBankFilters.kind ? 'selected' : ''}>All clips</option>
-          <option value="raw" ${clipBankFilters.kind === 'raw' ? 'selected' : ''}>Raw only</option>
-          <option value="posted" ${clipBankFilters.kind === 'posted' ? 'selected' : ''}>Posted only</option>
         </select>
       </div>
       <div class="clip-bank-scroll" style="max-height: 520px; overflow: auto; min-width: 0;">
@@ -1966,11 +1917,6 @@ function renderClippersBoard() {
                       hostKind === 'tiktok'
                         ? '<i class="fa-brands fa-tiktok clip-bank-card-thumb-icon clip-bank-card-thumb-icon--tiktok"></i>'
                         : '<i class="fa-solid fa-film clip-bank-card-thumb-icon"></i>';
-                    const kindBadge =
-                      clip.clipKind === 'raw'
-                        ? `<span class="tag clip-bank-kind-badge" style="background:rgba(251,191,36,0.15); border-color:rgba(251,191,36,0.35); color:#fbbf24;">Raw</span>`
-                        : `<span class="tag clip-bank-kind-badge" style="background:rgba(34,197,94,0.12); border-color:rgba(34,197,94,0.35); color:#86efac;">Posted</span>`;
-                    const notesLine = clip.notes ? `<div class="clip-bank-card-notes">${escAttr(clip.notes)}</div>` : '';
                     return `
                 <div role="button" tabindex="0" class="clip-bank-card" onclick="void window.openMediaEmbedPreview(${JSON.stringify(clip.url)})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();void window.openMediaEmbedPreview(${JSON.stringify(clip.url)});}">
                   <div class="clip-bank-card-thumb">
@@ -1981,11 +1927,9 @@ function renderClippersBoard() {
                     <div class="clip-bank-card-title">${escAttr(clip.title || 'Untitled clip')}</div>
                     <div class="clip-bank-card-meta">${escAttr(clip.streamTitle)} · ${escAttr(clip.segmentTitle)}</div>
                     <div class="clip-bank-card-tags">
-                      ${kindBadge}
                       ${clip.tags.map((tag) => `<span class="tag">${escAttr(tag)}</span>`).join('')}
                       ${clip.people.map((person) => `<span class="tag clip-bank-card-person">${escAttr(person)}</span>`).join('')}
                     </div>
-                    ${notesLine}
                     <div style="display:flex; justify-content:flex-end; gap:6px; margin-top:8px;">
                       <a href="${href}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="font-size:0.75rem; padding:4px 10px;" onclick="event.stopPropagation();">Open</a>
                     </div>
@@ -2162,7 +2106,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderArcs();
   renderNarratives();
   renderClippersBoard();
-  renderClippersSegmentBankBoard();
   renderAssets();
   renderGoals();
   renderNetwork();
@@ -3168,47 +3111,6 @@ window.updatePostedClipField = function(streamId, parentArcId, linkedIndex, segm
     const clip = seg.postedClips[clipIndex];
     if (!clip) return;
     if (field === 'title' || field === 'url') {
-      clip[field] = value;
-    }
-    if (field === 'tags' || field === 'people') {
-      clip[field] = String(value || '')
-        .split(',')
-        .map((x) => x.trim())
-        .filter(Boolean);
-    }
-    scheduleSaveAppStateToDb();
-};
-
-window.addRawClip = function(streamId, parentArcId, linkedIndex, segmentIndex) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    if (!Array.isArray(seg.rawClips)) seg.rawClips = [];
-    seg.rawClips.push({ title: '', url: '', notes: '', tags: [], people: [] });
-    renderClippersBoard();
-    scheduleSaveAppStateToDb();
-};
-
-window.removeRawClip = function(streamId, parentArcId, linkedIndex, segmentIndex, clipIndex) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg || !Array.isArray(seg.rawClips)) return;
-    seg.rawClips.splice(clipIndex, 1);
-    renderClippersBoard();
-    scheduleSaveAppStateToDb();
-};
-
-window.updateRawClipField = function(streamId, parentArcId, linkedIndex, segmentIndex, clipIndex, field, value) {
-    const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
-    if (!stream || !Array.isArray(stream.segments)) return;
-    const seg = stream.segments[segmentIndex];
-    if (!seg) return;
-    if (!Array.isArray(seg.rawClips)) seg.rawClips = [];
-    const clip = seg.rawClips[clipIndex];
-    if (!clip) return;
-    if (field === 'title' || field === 'url' || field === 'notes') {
       clip[field] = value;
     }
     if (field === 'tags' || field === 'people') {
@@ -4590,9 +4492,6 @@ window.addSegmentToDetail = function(streamId, parentArcId, linkedIndex, targetI
         narrative: '',
         options: [],
         clipVodUrl: '',
-        clipDesiredAngle: '',
-        postedClips: [],
-        rawClips: [],
     });
     renderDetail(stream, targetId, parentArc);
     scheduleSaveAppStateToDb();
@@ -4802,59 +4701,6 @@ const SEGMENT_BANK_CATEGORIES = [
 ];
 let activeSegmentBankCategory = 0;
 let activeSegmentBankCard = null;
-
-function renderClippersSegmentBankBoard() {
-  const board = document.getElementById('clippers-segment-bank-board');
-  if (!board) return;
-  const category = SEGMENT_BANK_CATEGORIES[activeSegmentBankCategory];
-  if (!category) return;
-  board.innerHTML = `
-    <div class="glass-panel" style="padding:16px; min-width:0;">
-      <div class="segment-bank-inline-tabs" style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px;">
-        ${SEGMENT_BANK_CATEGORIES.map(
-          (c, idx) => `
-          <button type="button" class="btn btn-outline btn-sm" style="${
-            idx === activeSegmentBankCategory ? 'border-color:rgba(204,255,0,0.55); background:rgba(204,255,0,0.12);' : ''
-          }"
-            onclick="setClippersSegmentBankCategory(${idx})">${escAttr(c.name)}</button>
-        `
-        ).join('')}
-      </div>
-      <div style="font-size:0.78rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px;">${escAttr(category.name)}</div>
-      <div style="max-height:520px; overflow:auto; display:flex; flex-direction:column; gap:6px; min-width:0;">
-        ${category.items
-          .map(
-            (item) => `
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 10px; border:1px solid var(--border-color); border-radius:8px; background:rgba(255,255,255,0.02);">
-            <span style="font-size:0.92rem; min-width:0;">${escAttr(item)}</span>
-            <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="copySegmentBankIdeaToClipboard(${JSON.stringify(
-              item
-            )})" title="Copy to clipboard"><i class="fa-regular fa-copy"></i></button>
-          </div>
-        `
-          )
-          .join('')}
-      </div>
-    </div>
-  `;
-}
-
-window.setClippersSegmentBankCategory = function (idx) {
-  const n = Number(idx);
-  if (Number.isNaN(n) || n < 0 || n >= SEGMENT_BANK_CATEGORIES.length) return;
-  activeSegmentBankCategory = n;
-  renderClippersSegmentBankBoard();
-};
-
-window.copySegmentBankIdeaToClipboard = function (text) {
-  const t = String(text || '');
-  if (!t) return;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    void navigator.clipboard.writeText(t).then(() => setDbStatus('Copied to clipboard', 'ok')).catch(() => setDbStatus('Copy failed', 'err'));
-  } else {
-    setDbStatus('Clipboard unavailable in this browser context', 'warn');
-  }
-};
 
 function setupSegmentBankModal() {
     const modal = document.getElementById('segment-bank-modal');
