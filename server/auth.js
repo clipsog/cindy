@@ -99,7 +99,9 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
     if (!isAuthEnabled()) {
       return res.json({
         authDisabled: true,
-        user: { id: 'dev', email: 'local', role: 'lead', displayName: 'Dev' },
+        authHint:
+          'The server has no CINDY_LOGIN_SECRET, so sign-in is skipped. Add that env var (and DATABASE_URL) on the host to show Register / Sign in.',
+        user: { id: 'dev', email: '', role: 'lead', displayName: 'Local workspace' },
       });
     }
     const user = readUserFromReq(req);

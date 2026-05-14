@@ -573,6 +573,8 @@ const AUTO_SAVE_MS = 25000;
 window.__authUser = null;
 /** True when server has no CINDY_LOGIN_SECRET (local dev). */
 window.__authDisabled = false;
+/** True when /api/me failed (wrong origin or server down). */
+window.__authOffline = false;
 
 function getAuthRole() {
   return window.__authUser?.role || null;
@@ -594,8 +596,12 @@ function syncAuthChrome() {
   const roleEl = document.getElementById('sidebar-user-role');
   if (nameEl) nameEl.textContent = window.__authUser?.displayName || '—';
   if (roleEl) {
-    const labels = { lead: 'Lead', coordinator: 'Creative Coordinator', clipper: 'Clipper' };
-    roleEl.textContent = labels[getAuthRole()] || 'Guest';
+    if (window.__authDisabled) {
+      roleEl.textContent = window.__authOffline ? 'App server unreachable' : 'No sign-in configured';
+    } else {
+      const labels = { lead: 'Lead', coordinator: 'Creative Coordinator', clipper: 'Clipper' };
+      roleEl.textContent = labels[getAuthRole()] || 'Guest';
+    }
   }
   const lo = document.getElementById('auth-logout-btn');
   if (lo) lo.style.display = window.__authDisabled ? 'none' : '';
@@ -2337,9 +2343,16 @@ async function bootApplication() {
     me = await r.json();
     if (!r.ok) throw new Error('bad');
   } catch {
-    me = { authDisabled: true, user: { id: 'local', email: 'local', role: 'lead', displayName: 'Local' } };
+    me = {
+      authDisabled: true,
+      offline: true,
+      authHint: 'Could not reach the app server — open the site from the Node server (e.g. http://localhost:3847/index.html) so sign-in can load.',
+      user: { id: 'local', email: '', role: 'lead', displayName: 'Offline' },
+    };
   }
   window.__authDisabled = Boolean(me.authDisabled);
+  window.__authOffline = Boolean(me.offline);
+  window.__authHint = typeof me.authHint === 'string' ? me.authHint : '';
   window.__authUser = me.user || null;
   const overlay = document.getElementById('auth-login-overlay');
   if (!window.__authDisabled && !window.__authUser) {
