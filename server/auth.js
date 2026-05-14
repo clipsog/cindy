@@ -197,12 +197,10 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
 
     try {
       const { rows: cnt } = await pool.query('SELECT COUNT(*)::int AS c FROM cindy_users');
-      const existingCount = Number(cnt[0]?.c || 0);
-      const isFirst = existingCount === 0;
-      let role = isFirst ? 'lead' : 'clipper';
-      const envRole = roleOverrideFromEnv(email);
-      // Signups 2–3 may be promoted via CINDY_*_EMAILS env. From the 4th account onward, new users are always clippers.
-      if (!isFirst && existingCount < 3 && envRole) role = envRole;
+      const isFirst = Number(cnt[0]?.c || 0) === 0;
+      // Self-serve signup: first user on an empty DB becomes lead; everyone else is a clipper.
+      // Core team roles (e.g. coordinator) are set by the host in the database, not here.
+      const role = isFirst ? 'lead' : 'clipper';
 
       const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
       const { rows } = await pool.query(
