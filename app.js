@@ -921,6 +921,28 @@ function normalizeReachOutContactsData() {
   reachOutContactsData.__version = seed.__version;
 }
 
+function renderSegmentBankBoard() {
+  const board = document.getElementById('segment-bank-board-main');
+  if (!board) return;
+  if (!segmentBankData.length) {
+    board.innerHTML =
+      '<p style="color:var(--text-muted); font-size:0.9rem;">No standalone segments yet. Use <strong>New Segment</strong> to add one.</p>';
+    return;
+  }
+  board.innerHTML = segmentBankData
+    .map((s) => {
+      const title = escAttr(s.title || 'Untitled segment');
+      return `<div class="glass-panel" style="padding:12px 14px;"><span style="font-weight:600;">${title}</span></div>`;
+    })
+    .join('');
+}
+
+window.addNewStandaloneSegment = function () {
+  segmentBankData.push({ id: `standalone-${Date.now()}`, title: 'New segment' });
+  renderSegmentBankBoard();
+  scheduleSaveAppStateToDb();
+};
+
 function refreshAllViews() {
   renderCalendar();
   renderStreams();
