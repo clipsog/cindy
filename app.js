@@ -565,239 +565,18 @@ const SEED_MEDIA = [
 ];
 let mediaAssets = cloneSeed(SEED_MEDIA);
 
-const SEED_NETWORK = [
-  {
-    name: 'LaMelo Ball',
-    city: 'Charlotte, NC',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/LaMelo_Ball_%28cropped%29.jpg/960px-LaMelo_Ball_%28cropped%29.jpg',
-    tags: ['NBA', 'Athlete'],
-    contacts: [
-      { type: 'brands', icon: 'fa-instagram', handle: '@melo' },
-      { type: 'solid', icon: 'fa-envelope', handle: 'Team ops (David)' }
-    ],
-    ideas: [
-      'Sneaker culture Q&A stream',
-      'LA sneaker spots walking tour',
-      'PIG with a handicap'
-    ]
-  },
-  {
-    name: 'Central Cee',
-    city: 'London, UK',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Central_cee-5.jpg/960px-Central_cee-5.jpg',
-    tags: ['Artist'],
-    contacts: [
-      { type: 'brands', icon: 'fa-instagram', handle: '@centralcee' }
-    ],
-    ideas: [
-      'London slang translation stream',
-      'Driving around London in a Rolls',
-      'UK Drill outfit rating'
-    ]
-  },
-  {
-    name: 'Dillon Brooks',
-    city: 'Houston, TX',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg/960px-2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg',
-    tags: ['NBA', 'Athlete'],
-    contacts: [
-      { type: 'brands', icon: 'fa-instagram', handle: '@dillonbrooks24' }
-    ],
-    ideas: [
-      'Trash talking tier list',
-      '1v1 basketball defense challenge'
-    ]
-  },
-  {
-    name: 'Gerald Green',
-    city: 'Houston, TX',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Gerald_Green_2017_v_Wizards.jpg/960px-Gerald_Green_2017_v_Wizards.jpg',
-    tags: ['NBA', 'Athlete', 'Dunker'],
-    contacts: [
-      { type: 'brands', icon: 'fa-instagram', handle: '@g.green14' }
-    ],
-    ideas: [
-      'Dunk contest judging',
-      'Training stream: how to increase vertical'
-    ]
-  },
-  {
-    name: 'Alex Antetokounmpo',
-    city: 'Milwaukee, WI',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Alex_Antetokounmpo_%28cropped%29.jpg/960px-Alex_Antetokounmpo_%28cropped%29.jpg',
-    tags: ['NBA', 'Athlete'],
-    contacts: [
-      { type: 'brands', icon: 'fa-instagram', handle: '@alex_ante34' }
-    ],
-    ideas: [
-      'Greek food tasting stream',
-      'Brotherhood and basketball chat'
-    ]
-  },
-  {
-    name: 'LiAngelo (Gelo) Ball',
-    city: 'Los Angeles, CA',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/LiAngelo_Ball_Vytautas.jpg/960px-LiAngelo_Ball_Vytautas.jpg',
-    tags: ['Athlete', 'Basketball'],
-    contacts: [
-      { type: 'brands', icon: 'fa-instagram', handle: '@gelo' }
-    ],
-    ideas: [
-      '3-point shootout challenge',
-      'Locker / on-court fit walkthrough'
-    ]
-  },
-  {
-    name: 'Lacy',
-    city: 'TBD',
-    photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/48487d3b-e713-4a49-ad35-dec6ab7d690e-profile_image-600x600.png',
-    tags: ['Creator'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Marlon',
-    city: 'TBD',
-    photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/71f5f92d-c94b-41ba-80f2-480165a94605-profile_image-600x600.png',
-    tags: ['Creator'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'DDG',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/DDG_2025.jpg/960px-DDG_2025.jpg',
-    tags: ['Creator', 'Artist'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Adin Ross',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Adin_Ross_in_2025.png',
-    tags: ['Creator', 'Streamer'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Ryan Garcia',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/RYAN_GARCIA.jpg/960px-RYAN_GARCIA.jpg',
-    tags: ['Athlete', 'Boxing'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Gilbert Arenas',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Gilbert_arenas_2008.jpg/960px-Gilbert_arenas_2008.jpg',
-    tags: ['Athlete', 'Basketball'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Iggy Azalea',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg/960px-Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg',
-    tags: ['Artist'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Young Thug',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Young_Thug_in_2021.png',
-    tags: ['Artist'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Ye',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg/960px-Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg',
-    tags: ['Artist'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Nina Drama',
-    city: 'TBD',
-    photo: 'https://static-cdn.jtvnw.net/jtv_user_pictures/ead64b9a-b753-4673-8ea0-3186fdd826d8-profile_image-600x600.png',
-    tags: ['Host', 'Creator'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Arman',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Arman_Tsarukyan_2019.jpg',
-    tags: ['Creator'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Jason Derulo',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Jason_Derulo_in_2022_%28cropped%29.jpg',
-    tags: ['Artist'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Kevin Gates',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg/960px-Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg',
-    tags: ['Artist'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Von Miller',
-    city: 'TBD',
-    photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Commanders_Training_Camp_-_54752497153.jpg/960px-Commanders_Training_Camp_-_54752497153.jpg',
-    tags: ['Athlete', 'NFL'],
-    contacts: [],
-    ideas: []
-  },
-  {
-    name: 'Alabama Barker',
-    city: 'Los Angeles, CA',
-    tags: ['Creator', 'Artist'],
-    contacts: [],
-    ideas: []
-  }
-];
+const SEED_NETWORK = [];
 let networkData = [];
 const networkFilters = { query: '', tag: '', name: '', sort: 'name_asc' };
 /** '' = all arcs; otherwise past | current | future (matches getArcTimelineStatus().key) */
 const arcTimelineFilter = { timeline: '' };
 let arcListSelectedId = null;
 
-const NETWORK_PHOTO_BY_NAME = {
-  'lamelo ball': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/LaMelo_Ball_%28cropped%29.jpg/960px-LaMelo_Ball_%28cropped%29.jpg',
-  'central cee': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Central_cee-5.jpg/960px-Central_cee-5.jpg',
-  'dillon brooks': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg/960px-2023-08-09_Deutschland_gegen_Kanada_%28Basketball-L%C3%A4nderspiel%29_by_Sandro_Halank%E2%80%93091.jpg',
-  'gerald green': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Gerald_Green_2017_v_Wizards.jpg/960px-Gerald_Green_2017_v_Wizards.jpg',
-  'alex antetokounmpo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Alex_Antetokounmpo_%28cropped%29.jpg/960px-Alex_Antetokounmpo_%28cropped%29.jpg',
-  'liangelo (gelo) ball': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/LiAngelo_Ball_Vytautas.jpg/960px-LiAngelo_Ball_Vytautas.jpg',
-  'liangelo ball': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/LiAngelo_Ball_Vytautas.jpg/960px-LiAngelo_Ball_Vytautas.jpg',
-  'lacy': 'https://static-cdn.jtvnw.net/jtv_user_pictures/48487d3b-e713-4a49-ad35-dec6ab7d690e-profile_image-600x600.png',
-  'marlon': 'https://static-cdn.jtvnw.net/jtv_user_pictures/71f5f92d-c94b-41ba-80f2-480165a94605-profile_image-600x600.png',
-  'ddg': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/DDG_2025.jpg/960px-DDG_2025.jpg',
-  'adin ross': 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Adin_Ross_in_2025.png',
-  'ryan garcia': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/RYAN_GARCIA.jpg/960px-RYAN_GARCIA.jpg',
-  'gilbert arenas': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Gilbert_arenas_2008.jpg/960px-Gilbert_arenas_2008.jpg',
-  'iggy azalea': 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg/960px-Iggy_Azalea%2C_Main_Stage_EXIT_Festival_2022_1_%28cropped2%29.jpg',
-  'young thug': 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Young_Thug_in_2021.png',
-  'ye': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg/960px-Kanye_West_at_the_2009_Tribeca_Film_Festival_%28crop_2%29.jpg',
-  'nina drama': 'https://static-cdn.jtvnw.net/jtv_user_pictures/ead64b9a-b753-4673-8ea0-3186fdd826d8-profile_image-600x600.png',
-  'arman': 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Arman_Tsarukyan_2019.jpg',
-  'jason derulo': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Jason_Derulo_in_2022_%28cropped%29.jpg',
-  'kevin gates': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg/960px-Kevin_Gates_-_Main_Pub_1_-_Photo_Credit.jpg',
-  'von miller': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Commanders_Training_Camp_-_54752497153.jpg/960px-Commanders_Training_Camp_-_54752497153.jpg',
-};
+const NETWORK_PHOTO_BY_NAME = {};
 
 // --- Persistence: Express server saves JSON to server/data/state.json; localStorage backup if offline ---
+/** Bump to clear persisted network + reach-out once (e.g. legacy roster from another property). */
+const CONTACT_DATA_RESET_REVISION = 1;
 const LS_KEY = 'cindy-app-state-v2';
 let __saveDbTimer = null;
 let __lastSavedJson = '';
@@ -816,6 +595,7 @@ function setDbStatus(text, kind) {
 function serializeAppState() {
   return {
     version: 1,
+    contactDataResetRevision: CONTACT_DATA_RESET_REVISION,
     arcsData,
     goalsData,
     calendarEvents,
@@ -846,6 +626,10 @@ function applyAppState(payload) {
   }
   if (payload.reachOutContactsData && typeof payload.reachOutContactsData === 'object') {
     reachOutContactsData = payload.reachOutContactsData;
+  }
+  if (Number(payload.contactDataResetRevision) !== CONTACT_DATA_RESET_REVISION) {
+    networkData = [];
+    reachOutContactsData = cloneSeed(SEED_REACH_OUT_CONTACTS);
   }
 }
 
@@ -975,21 +759,21 @@ function renderSegmentBankBoard() {
             <div style="flex:1 1 220px; min-width:0;">
               <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment name</label>
               <input class="form-input" style="width:100%;" placeholder="Name this segment" value="${escAttr(s.title || '')}"
-                oninput="updateStandaloneSegmentBankField(${sid}, 'title', this.value)" />
+                oninput='updateStandaloneSegmentBankField(${sid}, "title", this.value)' />
             </div>
-            <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0; margin-top:18px;" title="Remove segment" onclick="removeStandaloneSegmentBankEntry(${sid})"><i class="fa-solid fa-trash"></i></button>
+            <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0; margin-top:18px;" title="Remove segment" onclick='removeStandaloneSegmentBankEntry(${sid})'><i class="fa-solid fa-trash"></i></button>
           </div>
           <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment link (VOD, timestamp, or context URL)</label>
           <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center; margin-bottom:14px;">
             <input type="url" class="form-input segment-bank-segment-url" style="width:100%; min-width:0;" placeholder="https://..." value="${escAttr(vod)}"
-              oninput="updateStandaloneSegmentBankField(${sid}, 'segmentUrl', this.value)" />
+              oninput='updateStandaloneSegmentBankField(${sid}, "segmentUrl", this.value)' />
             <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.glass-panel').querySelector('.segment-bank-segment-url').value)"><i class="fa-solid fa-play"></i></button>
             <a href="${escAttr(vod || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link"
               onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-segment-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <strong style="font-size:0.82rem;">Clips for this segment</strong>
-            <button type="button" class="btn btn-outline btn-sm" onclick="addStandaloneSegmentBankClip(${sid})"><i class="fa-solid fa-plus"></i> Add clip</button>
+            <button type="button" class="btn btn-outline btn-sm" onclick='addStandaloneSegmentBankClip(${sid})'><i class="fa-solid fa-plus"></i> Add clip</button>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px; min-width:0;">
             ${postedClips
@@ -997,16 +781,16 @@ function renderSegmentBankBoard() {
                 (clip, clipIndex) => `
               <div class="posted-clip-row">
                 <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Clip title" value="${escAttr(clip.title || '')}"
-                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'title', this.value)" />
+                  oninput='updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, "title", this.value)' />
                 <input type="url" class="form-input posted-clip-url" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Clip URL" value="${escAttr(clip.url || '')}"
-                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'url', this.value)" />
+                  oninput='updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, "url", this.value)' />
                 <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Tags (funny, wild)" value="${escAttr(Array.isArray(clip.tags) ? clip.tags.join(', ') : (clip.tags || ''))}"
-                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'tags', this.value)" />
+                  oninput='updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, "tags", this.value)' />
                 <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="People (Iggy, Von Miller)" value="${escAttr(Array.isArray(clip.people) ? clip.people.join(', ') : (clip.people || ''))}"
-                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'people', this.value)" />
+                  oninput='updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, "people", this.value)' />
                 <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.posted-clip-row').querySelector('.posted-clip-url').value)"><i class="fa-solid fa-play"></i></button>
                 <a href="${escAttr(clip.url || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link" onclick="if(!(this.closest('.posted-clip-row').querySelector('.posted-clip-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('.posted-clip-row').querySelector('.posted-clip-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
-                <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="removeStandaloneSegmentBankClip(${sid}, ${clipIndex})"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick='removeStandaloneSegmentBankClip(${sid}, ${clipIndex})'><i class="fa-solid fa-xmark"></i></button>
               </div>`
               )
               .join('')}
@@ -1031,7 +815,8 @@ window.addNewStandaloneSegment = function () {
 };
 
 function findSegmentBankIndexById(segmentId) {
-  return segmentBankData.findIndex((s) => s && s.id === segmentId);
+  const want = String(segmentId);
+  return segmentBankData.findIndex((s) => s && String(s.id) === want);
 }
 
 window.updateStandaloneSegmentBankField = function (segmentId, field, value) {

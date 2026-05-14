@@ -88,6 +88,14 @@ async function writeState(payload) {
   return writeStateFile(payload);
 }
 
+async function ensurePostgresSchema() {
+  if (!usePostgres) return;
+  const pool = getPgPool();
+  const schemaPath = path.join(__dirname, 'schema.sql');
+  const ddl = await fs.readFile(schemaPath, 'utf8');
+  await pool.query(ddl);
+}
+
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -126,24 +134,35 @@ app.put('/api/state', async (req, res) => {
 
 app.use(express.static(rootDir));
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`CINDY platform: http://localhost:${PORT}/index.html`);
-  console.log(usePostgres ? 'Storage: Supabase Postgres (DATABASE_URL)' : `Storage: file (${stateFile})`);
-  if (keepAliveEnabled && keepAliveUrl) {
-    const pingUrl = `${keepAliveUrl.replace(/\/$/, '')}/api/health`;
-    console.log(`Keep-alive ping enabled: ${pingUrl} every ${Math.round(keepAliveIntervalMs / 1000)}s`);
-    const runPing = async () => {
-      try {
-        await fetch(pingUrl, { method: 'GET', headers: { 'user-agent': 'cindy-keepalive' } });
-      } catch (e) {
-        console.warn('Keep-alive ping failed:', e?.message || e);
-      }
-    };
-    void runPing();
-    setInterval(() => {
-      void runPing();
-    }, keepAliveIntervalMs);
-  } else {
-    console.log('Keep-alive ping disabled (set KEEP_ALIVE_URL to enable).');
+async function start() {
+  try {
+    await ensurePostgresSchema();
+  } catch (e) {
+    console.error('Postgres schema ensure failed:', e);
+    process.exit(1);
   }
-});
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`CINDY platform: http://localhost:${PORT}/index.html`);
+    console.log(usePostgres ? 'Storage: Supabase Postgres (DATABASE_URL)' : `Storage: file (${stateFile})`);
+    if (keepAliveEnabled && keepAliveUrl) {
+      const pingUrl = `${keepAliveUrl.replace(/\/$/, '')}/api/health`;
+      console.log(`Keep-alive ping enabled: ${pingUrl} every ${Math.round(keepAliveIntervalMs / 1000)}s`);
+      const runPing = async () => {
+        try {
+          await fetch(pingUrl, { method: 'GET', headers: { 'user-agent': 'cindy-keepalive' } });
+        } catch (e) {
+          console.warn('Keep-alive ping failed:', e?.message || e);
+        }
+      };
+      void runPing();
+      setInterval(() => {
+        void runPing();
+      }, keepAliveIntervalMs);
+    } else {
+      console.log('Keep-alive ping disabled (set KEEP_ALIVE_URL to enable).');
+    }
+  });
+}
+
+void start();

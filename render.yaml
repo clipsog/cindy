@@ -10,6 +10,8 @@ services:
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
+      - key: DATABASE_URL
+        sync: false
       - key: NODE_ENV
         value: production
       - key: KEEP_ALIVE_ENABLED
