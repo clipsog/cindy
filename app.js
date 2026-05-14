@@ -637,8 +637,8 @@ function setupAuthLoginForm() {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (loginErr) loginErr.textContent = '';
-    const loginId = String(loginForm.elements.username?.value || '').trim();
-    const password = String(loginForm.elements.password?.value || '');
+    const loginId = String(document.getElementById('auth-login-username')?.value || '').trim();
+    const password = String(document.getElementById('auth-login-password')?.value || '');
     try {
       const res = await fetch('/api/login', {
         method: 'POST',

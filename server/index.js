@@ -119,6 +119,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '50mb' }));
 
 const { mountAuth, isAuthEnabled, initJwtSecret } = require('./auth');
+const { seedDemoAccounts } = require('./demo-account-seed');
 mountAuth(app, { readState, writeState, getPgPool });
 
 app.get('/api/health', (_req, res) => {
@@ -137,6 +138,10 @@ async function start() {
   try {
     await ensurePostgresSchema();
     await initJwtSecret(getPgPool);
+    if (usePostgres && String(process.env.CINDY_SEED_DEMO_ACCOUNTS || '').toLowerCase() === 'true') {
+      await seedDemoAccounts(getPgPool());
+      console.log('CINDY_SEED_DEMO_ACCOUNTS: demo accounts upserted (you can turn this env off now).');
+    }
   } catch (e) {
     console.error('Postgres schema / auth init failed:', e);
     process.exit(1);
