@@ -14,11 +14,9 @@ services:
         sync: false
       - key: CINDY_LOGIN_SECRET
         sync: false
-      - key: CINDY_PASSWORD_CINDY
+      - key: CINDY_LEAD_EMAILS
         sync: false
-      - key: CINDY_PASSWORD_LITO
-        sync: false
-      - key: CINDY_PASSWORD_CLIPPER
+      - key: CINDY_COORDINATOR_EMAILS
         sync: false
       - key: NODE_ENV
         value: production

@@ -2043,3 +2043,8 @@ h6 {
 body.role-clipper #new-standalone-segment-btn {
     display: none !important;
 }
+
+.auth-tab-row .auth-tab-btn.active {
+    border-color: rgba(204, 255, 0, 0.55);
+    background: rgba(204, 255, 0, 0.12);
+}

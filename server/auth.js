@@ -1,22 +1,10 @@
-const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const { applyClipperWriteGuard } = require('./merge-clipper-payload');
 
 const COOKIE_NAME = 'cindy_auth';
-
-const ACCOUNTS = [
-  { id: 'cindy', displayName: 'Cindy', role: 'lead', passEnv: 'CINDY_PASSWORD_CINDY' },
-  { id: 'lito', displayName: 'Lito', role: 'coordinator', passEnv: 'CINDY_PASSWORD_LITO' },
-  { id: 'clipper', displayName: 'Clipper', role: 'clipper', passEnv: 'CINDY_PASSWORD_CLIPPER' },
-];
-
-function timingSafeEqualStr(a, b) {
-  const x = Buffer.from(String(a || ''), 'utf8');
-  const y = Buffer.from(String(b || ''), 'utf8');
-  if (x.length !== y.length) return false;
-  return crypto.timingSafeEqual(x, y);
-}
+const BCRYPT_ROUNDS = 12;
 
 function isAuthEnabled() {
   return Boolean(String(process.env.CINDY_LOGIN_SECRET || '').trim());
@@ -26,23 +14,44 @@ function getJwtSecret() {
   return String(process.env.CINDY_LOGIN_SECRET || '').trim();
 }
 
-function getAccountPassword(account) {
-  return String(process.env[account.passEnv] || '').trim();
+function normalizeEmail(raw) {
+  return String(raw || '')
+    .trim()
+    .toLowerCase();
 }
 
-function verifyLogin(username, password) {
-  const u = String(username || '').trim().toLowerCase();
-  const acc = ACCOUNTS.find((a) => a.id === u);
-  if (!acc) return null;
-  const expected = getAccountPassword(acc);
-  if (!expected) return null;
-  if (!timingSafeEqualStr(password, expected)) return null;
-  return { username: acc.id, role: acc.role, displayName: acc.displayName };
+function parseEmailSet(envVal) {
+  const set = new Set();
+  String(envVal || '')
+    .split(',')
+    .map((s) => normalizeEmail(s))
+    .filter(Boolean)
+    .forEach((e) => set.add(e));
+  return set;
+}
+
+/** If email is listed in env, return that role; otherwise null (keep DB role). */
+function roleOverrideFromEnv(email) {
+  const e = normalizeEmail(email);
+  if (parseEmailSet(process.env.CINDY_LEAD_EMAILS).has(e)) return 'lead';
+  if (parseEmailSet(process.env.CINDY_COORDINATOR_EMAILS).has(e)) return 'coordinator';
+  return null;
+}
+
+function isValidEmail(email) {
+  const e = normalizeEmail(email);
+  if (e.length < 3 || e.length > 254) return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 }
 
 function signUser(user) {
   return jwt.sign(
-    { sub: user.username, role: user.role, name: user.displayName },
+    {
+      sub: user.id,
+      role: user.role,
+      name: user.displayName,
+      email: user.email,
+    },
     getJwtSecret(),
     { expiresIn: '7d' }
   );
@@ -50,16 +59,17 @@ function signUser(user) {
 
 function readUserFromReq(req) {
   if (!isAuthEnabled()) {
-    return { username: 'dev', role: 'lead', displayName: 'Dev (auth off)' };
+    return { id: 'dev', email: 'local', role: 'lead', displayName: 'Dev (auth off)' };
   }
   const token = req.cookies?.[COOKIE_NAME];
   if (!token) return null;
   try {
     const p = jwt.verify(token, getJwtSecret());
     return {
-      username: p.sub,
+      id: p.sub,
+      email: p.email || '',
       role: p.role,
-      displayName: p.name || p.sub,
+      displayName: p.name || p.email || 'User',
     };
   } catch {
     return null;
@@ -73,38 +83,137 @@ function requireAuth(req, res, next) {
   next();
 }
 
-function mountAuth(app, { readState, writeState }) {
+function mountAuth(app, { readState, writeState, getPgPool }) {
   app.use(cookieParser());
+
+  async function requireDb(res) {
+    const pool = getPgPool && getPgPool();
+    if (!pool) {
+      res.status(503).json({ error: 'database_required_for_accounts' });
+      return null;
+    }
+    return pool;
+  }
 
   app.get('/api/me', (req, res) => {
     if (!isAuthEnabled()) {
       return res.json({
         authDisabled: true,
-        user: { username: 'dev', role: 'lead', displayName: 'Dev' },
+        user: { id: 'dev', email: 'local', role: 'lead', displayName: 'Dev' },
       });
     }
     const user = readUserFromReq(req);
     return res.json({ authDisabled: false, user });
   });
 
-  app.post('/api/login', (req, res) => {
+  app.post('/api/register', async (req, res) => {
     if (!isAuthEnabled()) {
       return res.status(400).json({ error: 'auth_not_configured' });
     }
-    const username = req.body?.username;
-    const password = req.body?.password;
-    const user = verifyLogin(username, password);
-    if (!user) return res.status(401).json({ error: 'invalid_credentials' });
-    const token = signUser(user);
-    const secure = String(process.env.NODE_ENV || '').toLowerCase() === 'production';
-    res.cookie(COOKIE_NAME, token, {
-      httpOnly: true,
-      secure,
-      sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      path: '/',
-    });
-    return res.json({ ok: true, user });
+    const pool = await requireDb(res);
+    if (!pool) return;
+
+    const email = normalizeEmail(req.body?.email);
+    const password = String(req.body?.password || '');
+    const displayName = String(req.body?.displayName || '').trim().slice(0, 120) || email.split('@')[0] || 'User';
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: 'invalid_email' });
+    }
+    if (password.length < 8 || password.length > 256) {
+      return res.status(400).json({ error: 'invalid_password' });
+    }
+
+    try {
+      const { rows: cnt } = await pool.query('SELECT COUNT(*)::int AS c FROM cindy_users');
+      const isFirst = Number(cnt[0]?.c || 0) === 0;
+      let role = isFirst ? 'lead' : 'clipper';
+      const envRole = roleOverrideFromEnv(email);
+      if (!isFirst && envRole) role = envRole;
+
+      const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
+      const { rows } = await pool.query(
+        `INSERT INTO cindy_users (email, display_name, password_hash, role)
+         VALUES ($1, $2, $3, $4)
+         RETURNING id, email, display_name, role`,
+        [email, displayName, passwordHash, role]
+      );
+      const row = rows[0];
+      const user = {
+        id: row.id,
+        email: row.email,
+        displayName: row.display_name,
+        role: row.role,
+      };
+      const token = signUser(user);
+      const secure = String(process.env.NODE_ENV || '').toLowerCase() === 'production';
+      res.cookie(COOKIE_NAME, token, {
+        httpOnly: true,
+        secure,
+        sameSite: 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        path: '/',
+      });
+      return res.json({ ok: true, user });
+    } catch (e) {
+      if (e && e.code === '23505') {
+        return res.status(409).json({ error: 'email_taken' });
+      }
+      console.error(e);
+      return res.status(500).json({ error: 'register_failed' });
+    }
+  });
+
+  app.post('/api/login', async (req, res) => {
+    if (!isAuthEnabled()) {
+      return res.status(400).json({ error: 'auth_not_configured' });
+    }
+    const pool = await requireDb(res);
+    if (!pool) return;
+
+    const email = normalizeEmail(req.body?.email);
+    const password = String(req.body?.password || '');
+    if (!email || !password) {
+      return res.status(400).json({ error: 'missing_fields' });
+    }
+
+    try {
+      const { rows } = await pool.query(
+        'SELECT id, email, display_name, password_hash, role FROM cindy_users WHERE lower(trim(email)) = $1 LIMIT 1',
+        [email]
+      );
+      const row = rows[0];
+      if (!row) return res.status(401).json({ error: 'invalid_credentials' });
+      const match = await bcrypt.compare(password, row.password_hash);
+      if (!match) return res.status(401).json({ error: 'invalid_credentials' });
+
+      let role = row.role;
+      const envRole = roleOverrideFromEnv(row.email);
+      if (envRole && envRole !== role) {
+        await pool.query('UPDATE cindy_users SET role = $1 WHERE id = $2', [envRole, row.id]);
+        role = envRole;
+      }
+
+      const user = {
+        id: row.id,
+        email: row.email,
+        displayName: row.display_name,
+        role,
+      };
+      const token = signUser(user);
+      const secure = String(process.env.NODE_ENV || '').toLowerCase() === 'production';
+      res.cookie(COOKIE_NAME, token, {
+        httpOnly: true,
+        secure,
+        sameSite: 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        path: '/',
+      });
+      return res.json({ ok: true, user });
+    } catch (e) {
+      console.error(e);
+      return res.status(500).json({ error: 'login_failed' });
+    }
   });
 
   app.post('/api/logout', (req, res) => {

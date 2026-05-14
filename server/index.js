@@ -102,7 +102,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '50mb' }));
 
 const { mountAuth, isAuthEnabled } = require('./auth');
-mountAuth(app, { readState, writeState });
+mountAuth(app, { readState, writeState, getPgPool });
 
 app.get('/api/health', (_req, res) => {
   res.json({
@@ -128,8 +128,8 @@ async function start() {
     console.log(usePostgres ? 'Storage: Supabase Postgres (DATABASE_URL)' : `Storage: file (${stateFile})`);
     console.log(
       isAuthEnabled()
-        ? 'Auth: enabled (CINDY_LOGIN_SECRET + CINDY_PASSWORD_* set)'
-        : 'Auth: disabled (no CINDY_LOGIN_SECRET — set secret + passwords to require sign-in)'
+        ? 'Auth: enabled (CINDY_LOGIN_SECRET + Postgres for cindy_users)'
+        : 'Auth: disabled (no CINDY_LOGIN_SECRET — set secret + DATABASE_URL to require sign-in)'
     );
     if (keepAliveEnabled && keepAliveUrl) {
       const pingUrl = `${keepAliveUrl.replace(/\/$/, '')}/api/health`;

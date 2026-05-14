@@ -677,25 +677,51 @@
     </div>
 
     <div id="auth-login-overlay" class="modal-overlay" style="z-index: 10050;">
-        <div class="modal-content glass-panel" style="max-width: 420px; padding: 24px;">
-            <h2 style="margin: 0 0 8px;">Sign in</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Cindy Creative System</p>
-            <form id="auth-login-form">
-                <div class="form-group">
-                    <label for="auth-login-username">Account</label>
-                    <select id="auth-login-username" name="username" class="form-input" style="width: 100%;">
-                        <option value="cindy">Cindy (lead)</option>
-                        <option value="lito">Lito — Creative Coordinator</option>
-                        <option value="clipper">Clipper</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="auth-login-password">Password</label>
-                    <input id="auth-login-password" type="password" name="password" class="form-input" style="width: 100%;" autocomplete="current-password" required />
-                </div>
-                <p id="auth-login-error" style="color: #f87171; font-size: 0.85rem; min-height: 1.3em; margin: 0 0 8px;"></p>
-                <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fa-solid fa-right-to-bracket"></i> Sign in</button>
-            </form>
+        <div class="modal-content glass-panel" style="max-width: 440px; padding: 24px;">
+            <div class="auth-tab-row" style="display:flex; gap:8px; margin-bottom:18px;">
+                <button type="button" class="btn btn-outline btn-sm auth-tab-btn active" id="auth-tab-login" data-auth-tab="login" style="flex:1;">Sign in</button>
+                <button type="button" class="btn btn-outline btn-sm auth-tab-btn" id="auth-tab-register" data-auth-tab="register" style="flex:1;">Create account</button>
+            </div>
+            <div id="auth-panel-login">
+                <h2 style="margin: 0 0 8px;">Sign in</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Cindy Creative System</p>
+                <form id="auth-login-form">
+                    <div class="form-group">
+                        <label for="auth-login-email">Email</label>
+                        <input id="auth-login-email" type="email" name="email" class="form-input" style="width: 100%;" autocomplete="username" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="auth-login-password">Password</label>
+                        <input id="auth-login-password" type="password" name="password" class="form-input" style="width: 100%;" autocomplete="current-password" required />
+                    </div>
+                    <p id="auth-login-error" style="color: #f87171; font-size: 0.85rem; min-height: 1.3em; margin: 0 0 8px;"></p>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fa-solid fa-right-to-bracket"></i> Sign in</button>
+                </form>
+            </div>
+            <div id="auth-panel-register" style="display: none;">
+                <h2 style="margin: 0 0 8px;">Create account</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">The first person to register becomes lead. Later accounts start as clipper unless your host maps your email to coordinator.</p>
+                <form id="auth-register-form">
+                    <div class="form-group">
+                        <label for="auth-register-email">Email</label>
+                        <input id="auth-register-email" type="email" name="email" class="form-input" style="width: 100%;" autocomplete="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="auth-register-display">Display name</label>
+                        <input id="auth-register-display" type="text" name="displayName" class="form-input" style="width: 100%;" maxlength="120" placeholder="How you appear in the app" autocomplete="name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="auth-register-password">Password</label>
+                        <input id="auth-register-password" type="password" name="password" class="form-input" style="width: 100%;" autocomplete="new-password" required minlength="8" />
+                    </div>
+                    <div class="form-group">
+                        <label for="auth-register-password2">Confirm password</label>
+                        <input id="auth-register-password2" type="password" name="password2" class="form-input" style="width: 100%;" autocomplete="new-password" required minlength="8" />
+                    </div>
+                    <p id="auth-register-error" style="color: #f87171; font-size: 0.85rem; min-height: 1.3em; margin: 0 0 8px;"></p>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fa-solid fa-user-plus"></i> Register</button>
+                </form>
+            </div>
         </div>
     </div>
 

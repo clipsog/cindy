@@ -569,7 +569,7 @@ let __saveDbTimer = null;
 let __lastSavedJson = '';
 const AUTO_SAVE_MS = 25000;
 
-/** @type {{ username: string, role: string, displayName: string } | null} */
+/** @type {{ id?: string, email?: string, role: string, displayName: string } | null} */
 window.__authUser = null;
 /** True when server has no CINDY_LOGIN_SECRET (local dev). */
 window.__authDisabled = false;
@@ -605,33 +605,95 @@ let __authLoginFormWired = false;
 function setupAuthLoginForm() {
   if (__authLoginFormWired) return;
   __authLoginFormWired = true;
-  const form = document.getElementById('auth-login-form');
-  const err = document.getElementById('auth-login-error');
-  if (!form) return;
-  form.addEventListener('submit', async (e) => {
+  const loginForm = document.getElementById('auth-login-form');
+  const registerForm = document.getElementById('auth-register-form');
+  const loginErr = document.getElementById('auth-login-error');
+  const registerErr = document.getElementById('auth-register-error');
+  const panelLogin = document.getElementById('auth-panel-login');
+  const panelRegister = document.getElementById('auth-panel-register');
+  const tabLogin = document.getElementById('auth-tab-login');
+  const tabRegister = document.getElementById('auth-tab-register');
+
+  function showAuthTab(which) {
+    const isReg = which === 'register';
+    if (panelLogin) panelLogin.style.display = isReg ? 'none' : '';
+    if (panelRegister) panelRegister.style.display = isReg ? '' : 'none';
+    tabLogin?.classList.toggle('active', !isReg);
+    tabRegister?.classList.toggle('active', isReg);
+    if (loginErr) loginErr.textContent = '';
+    if (registerErr) registerErr.textContent = '';
+  }
+
+  tabLogin?.addEventListener('click', () => showAuthTab('login'));
+  tabRegister?.addEventListener('click', () => showAuthTab('register'));
+
+  if (!loginForm) return;
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (err) err.textContent = '';
-    const username = String(form.elements.username?.value || '').trim();
-    const password = String(form.elements.password?.value || '');
+    if (loginErr) loginErr.textContent = '';
+    const email = String(loginForm.elements.email?.value || '').trim();
+    const password = String(loginForm.elements.password?.value || '');
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        if (err) err.textContent = data.error === 'invalid_credentials' ? 'Invalid sign-in.' : 'Sign-in failed.';
+        if (loginErr) {
+          if (data.error === 'invalid_credentials') loginErr.textContent = 'Wrong email or password.';
+          else if (data.error === 'database_required_for_accounts') loginErr.textContent = 'Server needs a database for accounts.';
+          else loginErr.textContent = 'Sign-in failed.';
+        }
         return;
       }
       window.__authUser = data.user || null;
       document.getElementById('auth-login-overlay')?.classList.remove('active');
       startMainApplication();
     } catch {
-      if (err) err.textContent = 'Could not reach server.';
+      if (loginErr) loginErr.textContent = 'Could not reach server.';
     }
   });
+
+  registerForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (registerErr) registerErr.textContent = '';
+    const email = String(registerForm.elements.email?.value || '').trim();
+    const displayName = String(registerForm.elements.displayName?.value || '').trim();
+    const password = String(registerForm.elements.password?.value || '');
+    const password2 = String(registerForm.elements.password2?.value || '');
+    if (password !== password2) {
+      if (registerErr) registerErr.textContent = 'Passwords do not match.';
+      return;
+    }
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, displayName }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (registerErr) {
+          if (data.error === 'email_taken') registerErr.textContent = 'That email is already registered.';
+          else if (data.error === 'invalid_email') registerErr.textContent = 'Enter a valid email.';
+          else if (data.error === 'invalid_password') registerErr.textContent = 'Use at least 8 characters.';
+          else if (data.error === 'database_required_for_accounts') registerErr.textContent = 'Server needs a database for accounts.';
+          else registerErr.textContent = 'Registration failed.';
+        }
+        return;
+      }
+      window.__authUser = data.user || null;
+      document.getElementById('auth-login-overlay')?.classList.remove('active');
+      startMainApplication();
+    } catch {
+      if (registerErr) registerErr.textContent = 'Could not reach server.';
+    }
+  });
+
   document.getElementById('auth-logout-btn')?.addEventListener('click', async () => {
     try {
       await fetch('/api/logout', { method: 'POST', credentials: 'include' });
@@ -2275,7 +2337,7 @@ async function bootApplication() {
     me = await r.json();
     if (!r.ok) throw new Error('bad');
   } catch {
-    me = { authDisabled: true, user: { username: 'local', role: 'lead', displayName: 'Local' } };
+    me = { authDisabled: true, user: { id: 'local', email: 'local', role: 'lead', displayName: 'Local' } };
   }
   window.__authDisabled = Boolean(me.authDisabled);
   window.__authUser = me.user || null;
