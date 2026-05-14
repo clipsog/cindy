@@ -2038,3 +2038,8 @@ h6 {
         justify-content: center;
     }
 }
+
+/* Clipper role: hide standalone segment creation (editing is already read-only in JS). */
+body.role-clipper #new-standalone-segment-btn {
+    display: none !important;
+}

@@ -97,39 +97,20 @@ async function ensurePostgresSchema() {
 }
 
 const app = express();
-app.use(cors());
+app.set('trust proxy', 1);
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '50mb' }));
+
+const { mountAuth, isAuthEnabled } = require('./auth');
+mountAuth(app, { readState, writeState });
 
 app.get('/api/health', (_req, res) => {
   res.json({
     ok: true,
+    auth: isAuthEnabled() ? 'required' : 'disabled',
     storage: usePostgres ? 'postgres' : 'file',
     path: usePostgres ? null : stateFile,
   });
-});
-
-app.get('/api/state', async (_req, res) => {
-  try {
-    const payload = await readState();
-    return res.json(payload);
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ error: e.message || 'read_error' });
-  }
-});
-
-app.put('/api/state', async (req, res) => {
-  try {
-    const payload = req.body;
-    if (!payload || typeof payload !== 'object') {
-      return res.status(400).json({ error: 'Expected JSON body' });
-    }
-    await writeState(payload);
-    return res.json({ ok: true });
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json({ error: e.message || 'write_error' });
-  }
 });
 
 app.use(express.static(rootDir));
@@ -145,6 +126,11 @@ async function start() {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`CINDY platform: http://localhost:${PORT}/index.html`);
     console.log(usePostgres ? 'Storage: Supabase Postgres (DATABASE_URL)' : `Storage: file (${stateFile})`);
+    console.log(
+      isAuthEnabled()
+        ? 'Auth: enabled (CINDY_LOGIN_SECRET + CINDY_PASSWORD_* set)'
+        : 'Auth: disabled (no CINDY_LOGIN_SECRET — set secret + passwords to require sign-in)'
+    );
     if (keepAliveEnabled && keepAliveUrl) {
       const pingUrl = `${keepAliveUrl.replace(/\/$/, '')}/api/health`;
       console.log(`Keep-alive ping enabled: ${pingUrl} every ${Math.round(keepAliveIntervalMs / 1000)}s`);

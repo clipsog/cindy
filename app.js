@@ -569,6 +569,81 @@ let __saveDbTimer = null;
 let __lastSavedJson = '';
 const AUTO_SAVE_MS = 25000;
 
+/** @type {{ username: string, role: string, displayName: string } | null} */
+window.__authUser = null;
+/** True when server has no CINDY_LOGIN_SECRET (local dev). */
+window.__authDisabled = false;
+
+function getAuthRole() {
+  return window.__authUser?.role || null;
+}
+
+function isClipperRole() {
+  return getAuthRole() === 'clipper';
+}
+
+function canEditLeadContent() {
+  const r = getAuthRole();
+  return r === 'lead' || r === 'coordinator';
+}
+
+function syncAuthChrome() {
+  document.body.classList.toggle('role-clipper', isClipperRole());
+  document.body.classList.toggle('role-editor', canEditLeadContent());
+  const nameEl = document.getElementById('sidebar-user-name');
+  const roleEl = document.getElementById('sidebar-user-role');
+  if (nameEl) nameEl.textContent = window.__authUser?.displayName || '—';
+  if (roleEl) {
+    const labels = { lead: 'Lead', coordinator: 'Creative Coordinator', clipper: 'Clipper' };
+    roleEl.textContent = labels[getAuthRole()] || 'Guest';
+  }
+  const lo = document.getElementById('auth-logout-btn');
+  if (lo) lo.style.display = window.__authDisabled ? 'none' : '';
+}
+
+let __authLoginFormWired = false;
+function setupAuthLoginForm() {
+  if (__authLoginFormWired) return;
+  __authLoginFormWired = true;
+  const form = document.getElementById('auth-login-form');
+  const err = document.getElementById('auth-login-error');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (err) err.textContent = '';
+    const username = String(form.elements.username?.value || '').trim();
+    const password = String(form.elements.password?.value || '');
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (err) err.textContent = data.error === 'invalid_credentials' ? 'Invalid sign-in.' : 'Sign-in failed.';
+        return;
+      }
+      window.__authUser = data.user || null;
+      document.getElementById('auth-login-overlay')?.classList.remove('active');
+      startMainApplication();
+    } catch {
+      if (err) err.textContent = 'Could not reach server.';
+    }
+  });
+  document.getElementById('auth-logout-btn')?.addEventListener('click', async () => {
+    try {
+      await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+    } catch {
+      /* ignore */
+    }
+    window.location.reload();
+  });
+}
+
+let __mainAppStarted = false;
+
 function setDbStatus(text, kind) {
   const el = document.getElementById('db-status');
   if (!el) return;
@@ -740,38 +815,38 @@ function renderSegmentBankBoard() {
       const sid = JSON.stringify(s.id);
       const vod = s.segmentUrl || '';
       const clipBank = s.clipBankUrl || '';
+      const ro = isClipperRole();
       return `
         <div class="glass-panel" style="padding:14px 16px; min-width:0;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
             <div style="flex:1 1 220px; min-width:0;">
               <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment name</label>
-              <input class="form-input" style="width:100%;" placeholder="Name this segment" value="${escAttr(s.title || '')}"
-                oninput='updateStandaloneSegmentBankField(${sid}, "title", this.value)' />
+              <input class="form-input" style="width:100%;" placeholder="Name this segment" value="${escAttr(s.title || '')}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${sid}, "title", this.value)'`} />
             </div>
-            <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0; margin-top:18px;" title="Remove segment" onclick='removeStandaloneSegmentBankEntry(${sid})'><i class="fa-solid fa-trash"></i></button>
+            ${ro ? '' : `<button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0; margin-top:18px;" title="Remove segment" onclick='removeStandaloneSegmentBankEntry(${sid})'><i class="fa-solid fa-trash"></i></button>`}
           </div>
           <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment link (VOD, timestamp, or context URL)</label>
           <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center; margin-bottom:14px;">
-            <input type="url" class="form-input segment-bank-segment-url" style="width:100%; min-width:0;" placeholder="https://..." value="${escAttr(vod)}"
-              oninput='updateStandaloneSegmentBankField(${sid}, "segmentUrl", this.value)' />
+            <input type="url" class="form-input segment-bank-segment-url" style="width:100%; min-width:0;" placeholder="https://..." value="${escAttr(vod)}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${sid}, "segmentUrl", this.value)'`} />
             <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.glass-panel').querySelector('.segment-bank-segment-url').value)"><i class="fa-solid fa-play"></i></button>
             <a href="${escAttr(vod || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link"
               onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-segment-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
           </div>
           <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Clip bank link (folder, e.g. Google Drive)</label>
           <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center;">
-            <input type="url" class="form-input segment-bank-clip-bank-url" style="width:100%; min-width:0;" placeholder="https://drive.google.com/..." value="${escAttr(clipBank)}"
-              oninput='updateStandaloneSegmentBankField(${sid}, "clipBankUrl", this.value)' />
+            <input type="url" class="form-input segment-bank-clip-bank-url" style="width:100%; min-width:0;" placeholder="https://drive.google.com/..." value="${escAttr(clipBank)}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${sid}, "clipBankUrl", this.value)'`} />
             <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app (if embeddable)" onclick="void window.openMediaEmbedPreview(this.closest('.glass-panel').querySelector('.segment-bank-clip-bank-url').value)"><i class="fa-solid fa-play"></i></button>
             <a href="${escAttr(clipBank || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open clip bank"
               onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-clip-bank-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
           </div>
+          ${ro ? '<p style="margin:10px 0 0; font-size:0.82rem; color:var(--text-muted);">View only (clipper role).</p>' : ''}
         </div>`;
     })
     .join('');
 }
 
 window.addNewStandaloneSegment = function () {
+  if (isClipperRole()) return;
   segmentBankData.push(
     normalizeSegmentBankEntry({
       id: `standalone-${Date.now()}`,
@@ -790,6 +865,7 @@ function findSegmentBankIndexById(segmentId) {
 }
 
 window.updateStandaloneSegmentBankField = function (segmentId, field, value) {
+  if (isClipperRole()) return;
   const idx = findSegmentBankIndexById(segmentId);
   if (idx < 0) return;
   const seg = segmentBankData[idx];
@@ -801,6 +877,7 @@ window.updateStandaloneSegmentBankField = function (segmentId, field, value) {
 };
 
 window.removeStandaloneSegmentBankEntry = function (segmentId) {
+  if (isClipperRole()) return;
   const idx = findSegmentBankIndexById(segmentId);
   if (idx < 0) return;
   segmentBankData.splice(idx, 1);
@@ -820,6 +897,7 @@ function refreshAllViews() {
   renderNetwork();
   renderReachOutContacts();
   renderSegmentBankBoard();
+  syncAuthChrome();
 }
 
 function setupMediaSubtabs() {
@@ -1665,6 +1743,7 @@ function renderClippersBoard() {
   if (!visibleKeys.has(activeClipStreamKey)) activeClipStreamKey = '';
   const activeStream = visibleStreams.find((s) => getClipStreamKey(s) === activeClipStreamKey) || null;
   const activeSegments = activeStream && Array.isArray(activeStream.segments) ? activeStream.segments : [];
+  const clipBankLocked = isClipperRole();
   const showClippersDetailOnly = Boolean(activeStream) && isMobileDetailDockLayout();
   const clippersBackBtn = showClippersDetailOnly
     ? `<button type="button" class="btn btn-outline btn-sm mobile-detail-back-btn" onclick="document.getElementById('tab-media')?.classList.remove('clippers-mgmt-detail-open')"><i class="fa-solid fa-arrow-left"></i> Back to list</button>`
@@ -1730,7 +1809,7 @@ function renderClippersBoard() {
                     oninput="updateSegmentClipperFields('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, 'clipDesiredAngle', this.value)">${escAttr(angle)}</textarea>
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                     <strong style="font-size:0.82rem;">Posted Clips</strong>
-                    <button type="button" class="btn btn-outline btn-sm" onclick="addPostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex})"><i class="fa-solid fa-plus"></i> Add clip</button>
+                    ${clipBankLocked ? '' : `<button type="button" class="btn btn-outline btn-sm" onclick="addPostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex})"><i class="fa-solid fa-plus"></i> Add clip</button>`}
                   </div>
                   <div style="display:flex; flex-direction:column; gap:8px; min-width:0;">
                     ${postedClips
@@ -1738,20 +1817,21 @@ function renderClippersBoard() {
               (clip, clipIndex) => `
                         <div class="posted-clip-row">
                           <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Clip title" value="${escAttr(clip.title || '')}"
-                            oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'title', this.value)" />
+                            ${clipBankLocked ? 'readonly' : `oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'title', this.value)"`} />
                           <input type="url" class="form-input posted-clip-url" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Clip URL" value="${escAttr(clip.url || '')}"
-                            oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'url', this.value)" />
+                            ${clipBankLocked ? 'readonly' : `oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'url', this.value)"`} />
                           <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Tags (funny, wild)" value="${escAttr(Array.isArray(clip.tags) ? clip.tags.join(', ') : (clip.tags || ''))}"
-                            oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'tags', this.value)" />
+                            ${clipBankLocked ? 'readonly' : `oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'tags', this.value)"`} />
                           <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="People (Iggy, Von Miller)" value="${escAttr(Array.isArray(clip.people) ? clip.people.join(', ') : (clip.people || ''))}"
-                            oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'people', this.value)" />
+                            ${clipBankLocked ? 'readonly' : `oninput="updatePostedClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex}, 'people', this.value)"`} />
                           <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.posted-clip-row').querySelector('.posted-clip-url').value)"><i class="fa-solid fa-play"></i></button>
                           <a href="${escAttr(clip.url || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link" onclick="if(!(this.closest('.posted-clip-row').querySelector('.posted-clip-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('.posted-clip-row').querySelector('.posted-clip-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
-                          <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="removePostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex})"><i class="fa-solid fa-xmark"></i></button>
+                          ${clipBankLocked ? '' : `<button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="removePostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, ${clipIndex})"><i class="fa-solid fa-xmark"></i></button>`}
                         </div>`
             )
             .join('')}
                     ${postedClips.length === 0 ? `<div style="font-size:0.82rem; color:var(--text-muted);">No clips posted yet for this segment.</div>` : ''}
+                    ${clipBankLocked ? '<div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;">Posted clips are view-only for your role.</div>' : ''}
                   </div>
                 </div>
               `;
@@ -1789,6 +1869,7 @@ function renderClippersBoard() {
 
   bankBoard.innerHTML = `
     <div class="glass-panel" style="padding:16px;">
+      ${clipBankLocked ? '<p style="margin:0 0 12px; font-size:0.82rem; color:var(--text-muted);">Clip Bank is view-only for your role. You can search and open clips.</p>' : ''}
       <div class="clip-bank-filters-grid">
         <input class="form-input" placeholder="Search by stream, tag, person..." value="${escAttr(clipBankFilters.text)}" oninput="setClipBankFilter('text', this.value)" />
         <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('tag', this.value)">
@@ -1864,18 +1945,18 @@ function loadFromLocalStorage() {
 
 async function loadAppStateFromDb() {
   try {
-    const res = await fetch('/api/state');
-    if (res.ok) {
-      const data = await res.json();
-      if (data && data.arcsData && Array.isArray(data.arcsData)) {
-        applyAppState(data);
-        try {
-          localStorage.setItem(LS_KEY, JSON.stringify(data));
-        } catch {
-          /* quota */
-        }
-        return true;
+    const res = await fetch('/api/state', { credentials: 'include' });
+    if (res.status === 401) return false;
+    if (!res.ok) return loadFromLocalStorage();
+    const data = await res.json();
+    if (data && data.arcsData && Array.isArray(data.arcsData)) {
+      applyAppState(data);
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
+      } catch {
+        /* quota */
       }
+      return true;
     }
   } catch {
     /* not served over http or server down */
@@ -1895,6 +1976,7 @@ async function saveAppStateToDb(options = {}) {
   try {
     const res = await fetch('/api/state', {
       method: 'PUT',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: json,
     });
@@ -1995,7 +2077,10 @@ const pages = {
 };
 
 // Initialize App
-document.addEventListener('DOMContentLoaded', () => {
+function startMainApplication() {
+  if (__mainAppStarted) return;
+  __mainAppStarted = true;
+  syncAuthChrome();
   // Boot UI immediately so navigation/tabs are always interactive.
   // ensureCollegeTakeoverArc();
   // ensureF1LinkedStreams();
@@ -2180,6 +2265,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+}
+
+async function bootApplication() {
+  setupAuthLoginForm();
+  let me;
+  try {
+    const r = await fetch('/api/me', { credentials: 'include' });
+    me = await r.json();
+    if (!r.ok) throw new Error('bad');
+  } catch {
+    me = { authDisabled: true, user: { username: 'local', role: 'lead', displayName: 'Local' } };
+  }
+  window.__authDisabled = Boolean(me.authDisabled);
+  window.__authUser = me.user || null;
+  const overlay = document.getElementById('auth-login-overlay');
+  if (!window.__authDisabled && !window.__authUser) {
+    overlay?.classList.add('active');
+    return;
+  }
+  overlay?.classList.remove('active');
+  startMainApplication();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  void bootApplication();
 });
 
 // Navigation Logic
@@ -2984,6 +3094,7 @@ window.setClipBankFilter = function (field, value) {
 };
 
 window.addPostedClip = function (streamId, parentArcId, linkedIndex, segmentIndex) {
+  if (isClipperRole()) return;
   const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
   if (!stream || !Array.isArray(stream.segments)) return;
   const seg = stream.segments[segmentIndex];
@@ -2995,6 +3106,7 @@ window.addPostedClip = function (streamId, parentArcId, linkedIndex, segmentInde
 };
 
 window.removePostedClip = function (streamId, parentArcId, linkedIndex, segmentIndex, clipIndex) {
+  if (isClipperRole()) return;
   const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
   if (!stream || !Array.isArray(stream.segments)) return;
   const seg = stream.segments[segmentIndex];
@@ -3005,6 +3117,7 @@ window.removePostedClip = function (streamId, parentArcId, linkedIndex, segmentI
 };
 
 window.updatePostedClipField = function (streamId, parentArcId, linkedIndex, segmentIndex, clipIndex, field, value) {
+  if (isClipperRole()) return;
   const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
   if (!stream || !Array.isArray(stream.segments)) return;
   const seg = stream.segments[segmentIndex];
