@@ -1940,7 +1940,8 @@ function getClipBankEntries(streams) {
       });
     });
   });
-  (Array.isArray(segmentBankData) ? segmentBankData : []).forEach((seg) => {
+  (Array.isArray(segmentBankData) ? segmentBankData : []).forEach((raw) => {
+    const seg = normalizeSegmentBankEntry(raw) || raw;
     const bankSegTitle = String(seg.title || 'Untitled segment').trim() || 'Untitled segment';
     const folder = String(seg.clipBankUrl || '').trim();
     const posted = Array.isArray(seg.postedClips) ? seg.postedClips : [];
@@ -1988,11 +1989,10 @@ function renderClippersBoard() {
   const bankBoard = document.getElementById('clip-bank-board');
   if (!board || !bankBoard) return;
   const streams = getUnifiedStreams();
+  let showClippersDetailOnly = false;
   if (streams.length === 0) {
-    board.innerHTML = `<div class="glass-panel" style="padding:16px; color:var(--text-muted);">No streams available yet. Add streams in Streams first.</div>`;
-    bankBoard.innerHTML = '';
-    return;
-  }
+    board.innerHTML = `<div class="glass-panel" style="padding:16px; color:var(--text-muted);">No streams yet. Add streams under <strong>Streams</strong> to manage full VOD and per-stream posted clips. Clips you submit from <strong>Segment Bank</strong> still appear in <strong>Clip Bank</strong> below.</div>`;
+  } else {
   const groupedStreams = { past: [], current: [], future: [] };
   streams.forEach((stream) => {
     const bucket = getClipStreamTimeBucket(stream);
@@ -2007,7 +2007,7 @@ function renderClippersBoard() {
   const activeSegments = activeStream && Array.isArray(activeStream.segments) ? activeStream.segments : [];
   const clipBankLocked = isClipperRole();
   const vodAngleReadOnly = isClipperRole();
-  const showClippersDetailOnly = Boolean(activeStream) && isMobileDetailDockLayout();
+  showClippersDetailOnly = Boolean(activeStream) && isMobileDetailDockLayout();
   const clippersBackBtn = showClippersDetailOnly
     ? `<button type="button" class="btn btn-outline btn-sm mobile-detail-back-btn" onclick="document.getElementById('tab-media')?.classList.remove('clippers-mgmt-detail-open')"><i class="fa-solid fa-arrow-left"></i> Back to list</button>`
     : '';
@@ -2108,9 +2108,10 @@ function renderClippersBoard() {
       </div>
     </div>
   `;
+  }
   const mediaTab = document.getElementById('tab-media');
   if (mediaTab) {
-    if (showClippersDetailOnly) mediaTab.classList.add('clippers-mgmt-detail-open');
+    if (streams.length > 0 && showClippersDetailOnly) mediaTab.classList.add('clippers-mgmt-detail-open');
     else mediaTab.classList.remove('clippers-mgmt-detail-open');
   }
 
