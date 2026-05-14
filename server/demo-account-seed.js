@@ -6,6 +6,10 @@ const bcrypt = require('bcryptjs');
 
 const BCRYPT_ROUNDS = 12;
 
+/** Bump when demo passwords or account set change so hosted DBs resync on deploy. */
+const DEMO_ACCOUNT_SEED_VERSION = 2;
+const DEMO_SEED_VERSION_KEY = 'demo_account_seed_version';
+
 const ACCOUNTS = [
   { username: 'cindy', email: 'cindy@cindyplatform.local', password: 'CindyZheng2026!', role: 'lead', displayName: 'Cindy' },
   { username: 'lito', email: 'lito@cindyplatform.local', password: 'LitoZheng2026!', role: 'coordinator', displayName: 'Lito' },
@@ -50,4 +54,37 @@ async function seedDemoAccounts(pool) {
   }
 }
 
-module.exports = { ACCOUNTS, seedDemoAccounts };
+/**
+ * When DATABASE_URL is set (unless CINDY_SEED_DEMO_ACCOUNTS=false):
+ * - If DB seed version is behind DEMO_ACCOUNT_SEED_VERSION, upserts demo users (fixes missing/wrong clippertest, etc.).
+ * - If CINDY_SEED_DEMO_ACCOUNTS=true, always upserts and bumps version (use to force password reset).
+ */
+async function maybeSyncDemoAccounts(pool) {
+  if (!pool) return;
+  const flag = String(process.env.CINDY_SEED_DEMO_ACCOUNTS || '').toLowerCase();
+  if (flag === 'false') return;
+
+  const force = flag === 'true';
+  if (!force) {
+    const { rows } = await pool.query(
+      'SELECT v FROM cindy_runtime_settings WHERE k = $1 LIMIT 1',
+      [DEMO_SEED_VERSION_KEY]
+    );
+    const dbv = Number(rows[0]?.v || 0);
+    if (dbv >= DEMO_ACCOUNT_SEED_VERSION) return;
+  }
+
+  await seedDemoAccounts(pool);
+  await pool.query(
+    `INSERT INTO cindy_runtime_settings (k, v) VALUES ($1, $2)
+     ON CONFLICT (k) DO UPDATE SET v = EXCLUDED.v, updated_at = now()`,
+    [DEMO_SEED_VERSION_KEY, String(DEMO_ACCOUNT_SEED_VERSION)]
+  );
+  console.log(
+    force
+      ? 'CINDY_SEED_DEMO_ACCOUNTS=true: demo accounts (cindy, lito, clippertest) synced.'
+      : `Demo accounts synced (seed version ${DEMO_ACCOUNT_SEED_VERSION}).`
+  );
+}
+
+module.exports = { ACCOUNTS, DEMO_ACCOUNT_SEED_VERSION, seedDemoAccounts, maybeSyncDemoAccounts };

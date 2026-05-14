@@ -1,7 +1,8 @@
 # Render: https://render.com/docs/blueprint-spec
 # Set DATABASE_URL in the dashboard (Supabase pooler URI). Do not commit secrets.
 # CINDY_LOGIN_SECRET is optional: if unset, the server stores a random JWT secret in Postgres once.
-# Optional one-time: CINDY_SEED_DEMO_ACCOUNTS=true upserts demo users (cindy, lito, clippertest) at boot — remove after first deploy.
+# Optional one-time: CINDY_SEED_DEMO_ACCOUNTS=true forces demo user password sync on every boot.
+# Set CINDY_SEED_DEMO_ACCOUNTS=false to disable automatic demo sync entirely.
 services:
   - type: web
     name: cindy-platform
