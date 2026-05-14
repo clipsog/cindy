@@ -985,7 +985,7 @@ function renderSegmentBankBoard() {
             <label class="info-label" style="display:block; margin:8px 0 4px;">Tags <span style="text-transform:none; color:var(--text-muted);">(optional)</span></label>
             <input type="text" class="form-input ssc-tags" placeholder="funny, viral" />
             <p class="segment-submit-feedback" style="min-height:1.2em; font-size:0.82rem; margin-top:8px; color:var(--text-muted);"></p>
-            <button type="button" class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="submitStandaloneSegmentClipFromRow(${JSON.stringify(sid)})"><i class="fa-solid fa-paper-plane"></i> Submit clip</button>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:12px;" onclick='submitStandaloneSegmentClipFromRow(${JSON.stringify(sid)})'><i class="fa-solid fa-paper-plane"></i> Submit clip</button>
           </div>
         </div>`;
     })
@@ -1284,7 +1284,7 @@ function renderNetworkDetailModal(index) {
         const link = String(c.url || '').trim();
         const clipActions = link
           ? `<div style="display:flex; gap:6px; flex-shrink:0; align-items:center;">
-                <button type="button" class="btn btn-outline btn-sm" title="Play in app" onclick="event.stopPropagation(); void window.openMediaEmbedPreview(${JSON.stringify(link)});"><i class="fa-solid fa-play"></i></button>
+                <button type="button" class="btn btn-outline btn-sm" title="Play in app" onclick='event.stopPropagation(); void window.openMediaEmbedPreview(${JSON.stringify(link)});'><i class="fa-solid fa-play"></i></button>
                 <a href="${escAttr(link)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" onclick="event.stopPropagation();">Open</a>
               </div>`
           : `<span style="font-size:0.75rem; color:var(--text-muted);">No link</span>`;
@@ -2164,7 +2164,7 @@ function renderClippersBoard() {
               ? '<i class="fa-brands fa-tiktok clip-bank-card-thumb-icon clip-bank-card-thumb-icon--tiktok"></i>'
               : '<i class="fa-solid fa-film clip-bank-card-thumb-icon"></i>';
           return `
-                <div role="button" tabindex="0" class="clip-bank-card" onclick="void window.openMediaEmbedPreview(${JSON.stringify(clip.url)})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();void window.openMediaEmbedPreview(${JSON.stringify(clip.url)});}">
+                <div role="button" tabindex="0" class="clip-bank-card" onclick='void window.openMediaEmbedPreview(${JSON.stringify(clip.url)})' onkeydown='if(event.key==="Enter"||event.key===" "){event.preventDefault();void window.openMediaEmbedPreview(${JSON.stringify(clip.url)});}'>
                   <div class="clip-bank-card-thumb">
                     <div class="${phClass}" aria-hidden="true">${phIcon}</div>
                     ${thumbImg}
