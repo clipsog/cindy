@@ -107,12 +107,8 @@ function isProductionLikeHost() {
 
 function requireProductionAuthEnv() {
   if (!isProductionLikeHost()) return;
-  if (!String(process.env.CINDY_LOGIN_SECRET || '').trim()) {
-    console.error('FATAL: Production requires CINDY_LOGIN_SECRET (Render → Environment → add variable → redeploy).');
-    process.exit(1);
-  }
   if (!String(process.env.DATABASE_URL || '').trim()) {
-    console.error('FATAL: Production requires DATABASE_URL for app state and user accounts.');
+    console.error('FATAL: Production requires DATABASE_URL for app state, accounts, and JWT secret storage.');
     process.exit(1);
   }
 }
@@ -122,7 +118,7 @@ app.set('trust proxy', 1);
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json({ limit: '50mb' }));
 
-const { mountAuth, isAuthEnabled } = require('./auth');
+const { mountAuth, isAuthEnabled, initJwtSecret } = require('./auth');
 mountAuth(app, { readState, writeState, getPgPool });
 
 app.get('/api/health', (_req, res) => {
@@ -140,18 +136,22 @@ async function start() {
   requireProductionAuthEnv();
   try {
     await ensurePostgresSchema();
+    await initJwtSecret(getPgPool);
   } catch (e) {
-    console.error('Postgres schema ensure failed:', e);
+    console.error('Postgres schema / auth init failed:', e);
     process.exit(1);
   }
 
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`CINDY platform: http://localhost:${PORT}/index.html`);
     console.log(usePostgres ? 'Storage: Supabase Postgres (DATABASE_URL)' : `Storage: file (${stateFile})`);
+    const envSecret = Boolean(String(process.env.CINDY_LOGIN_SECRET || '').trim());
     console.log(
       isAuthEnabled()
-        ? 'Auth: required (CINDY_LOGIN_SECRET set)'
-        : 'Auth: disabled locally (no CINDY_LOGIN_SECRET — set on production only)'
+        ? envSecret
+          ? 'Auth: required (JWT from CINDY_LOGIN_SECRET)'
+          : 'Auth: required (JWT auto-stored in Postgres; optional CINDY_LOGIN_SECRET to pin your own)'
+        : 'Auth: disabled (no DATABASE_URL and no CINDY_LOGIN_SECRET)'
     );
     if (keepAliveEnabled && keepAliveUrl) {
       const pingUrl = `${keepAliveUrl.replace(/\/$/, '')}/api/health`;

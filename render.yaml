@@ -1,5 +1,6 @@
 # Render: https://render.com/docs/blueprint-spec
 # Set DATABASE_URL in the dashboard (Supabase pooler URI). Do not commit secrets.
+# CINDY_LOGIN_SECRET is optional: if unset, the server stores a random JWT secret in Postgres once.
 services:
   - type: web
     name: cindy-platform

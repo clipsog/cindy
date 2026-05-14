@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
@@ -5,13 +6,55 @@ const { applyClipperWriteGuard } = require('./merge-clipper-payload');
 
 const COOKIE_NAME = 'cindy_auth';
 const BCRYPT_ROUNDS = 12;
+const JWT_SECRET_KEY = 'jwt_secret';
 
-function isAuthEnabled() {
-  return Boolean(String(process.env.CINDY_LOGIN_SECRET || '').trim());
+/** Env override, else row from DB after initJwtSecret(), else null (auth off). */
+let jwtSecretCached = null;
+
+async function initJwtSecret(getPgPool) {
+  const env = String(process.env.CINDY_LOGIN_SECRET || '').trim();
+  if (env) {
+    jwtSecretCached = env;
+    console.log('Auth: using CINDY_LOGIN_SECRET from environment.');
+    return;
+  }
+  const pool = typeof getPgPool === 'function' ? getPgPool() : null;
+  if (!pool) {
+    jwtSecretCached = null;
+    console.log('Auth: no DATABASE_URL and no CINDY_LOGIN_SECRET — sign-in disabled (local file mode).');
+    return;
+  }
+  const { rows: existing } = await pool.query('SELECT v FROM cindy_runtime_settings WHERE k = $1 LIMIT 1', [
+    JWT_SECRET_KEY,
+  ]);
+  if (existing.length) {
+    jwtSecretCached = existing[0].v;
+    console.log('Auth: JWT secret loaded from database (optional: set CINDY_LOGIN_SECRET to override).');
+    return;
+  }
+  const gen = crypto.randomBytes(48).toString('base64url');
+  await pool.query(
+    `INSERT INTO cindy_runtime_settings (k, v) VALUES ($1, $2)
+     ON CONFLICT (k) DO NOTHING`,
+    [JWT_SECRET_KEY, gen]
+  );
+  const { rows } = await pool.query('SELECT v FROM cindy_runtime_settings WHERE k = $1 LIMIT 1', [JWT_SECRET_KEY]);
+  jwtSecretCached = rows[0]?.v || gen;
+  console.log('Auth: generated and stored JWT secret in database (no CINDY_LOGIN_SECRET env required).');
 }
 
 function getJwtSecret() {
-  return String(process.env.CINDY_LOGIN_SECRET || '').trim();
+  const env = String(process.env.CINDY_LOGIN_SECRET || '').trim();
+  if (env) return env;
+  if (!jwtSecretCached) {
+    throw new Error('JWT secret not initialized (call initJwtSecret after DB schema is ready).');
+  }
+  return jwtSecretCached;
+}
+
+function isAuthEnabled() {
+  if (String(process.env.CINDY_LOGIN_SECRET || '').trim()) return true;
+  return Boolean(jwtSecretCached);
 }
 
 function normalizeEmail(raw) {
@@ -100,7 +143,7 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
       return res.json({
         authDisabled: true,
         authHint:
-          'The server has no CINDY_LOGIN_SECRET, so sign-in is skipped. Add that env var (and DATABASE_URL) on the host to show Register / Sign in.',
+          'Add DATABASE_URL (Postgres) so the app can store accounts and an auto JWT secret, or set CINDY_LOGIN_SECRET for file-only dev with JWT.',
         user: { id: 'dev', email: '', role: 'lead', displayName: 'Local workspace' },
       });
     }
@@ -253,4 +296,4 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
   });
 }
 
-module.exports = { mountAuth, COOKIE_NAME, isAuthEnabled };
+module.exports = { mountAuth, COOKIE_NAME, isAuthEnabled, initJwtSecret };

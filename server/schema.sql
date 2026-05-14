@@ -20,3 +20,10 @@ CREATE TABLE IF NOT EXISTS cindy_users (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS cindy_users_email_lower_idx ON cindy_users (lower(trim(email)));
+
+-- Optional: JWT signing secret when CINDY_LOGIN_SECRET env is unset (auto-created once per database).
+CREATE TABLE IF NOT EXISTS cindy_runtime_settings (
+  k TEXT PRIMARY KEY,
+  v TEXT NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
