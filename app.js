@@ -2448,8 +2448,6 @@ function setupNavigation() {
       navItems.forEach(nav => nav.classList.remove('active'));
       item.classList.add('active');
 
-      const tabId = item.getAttribute('data-tab');
-
       // Switch Tabs
       tabPanes.forEach(pane => {
         pane.classList.remove('active');
