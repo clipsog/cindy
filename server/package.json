@@ -4,7 +4,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node index.js",
-    "migrate:file-to-pg": "node scripts/migrate-file-to-pg.js"
+    "migrate:file-to-pg": "node scripts/migrate-file-to-pg.js",
+    "seed:demo-accounts": "node scripts/seed-demo-accounts.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

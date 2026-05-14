@@ -2065,3 +2065,123 @@ html.auth-remote-locked:not(.auth-remote-unlocked) #auth-login-overlay .modal-co
     border-color: rgba(204, 255, 0, 0.55);
     background: rgba(204, 255, 0, 0.12);
 }
+
+/* Cindy Zheng — sign-in / register */
+.auth-cz-overlay {
+    z-index: 10050;
+}
+
+.auth-cz-panel {
+    width: 100%;
+    max-width: 420px;
+    padding: 28px 26px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    background: linear-gradient(155deg, rgba(26, 24, 32, 0.96) 0%, rgba(12, 12, 16, 0.98) 55%, rgba(16, 14, 22, 0.96) 100%);
+    box-shadow:
+        0 0 0 1px rgba(255, 0, 234, 0.07),
+        0 28px 72px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.auth-cz-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.auth-cz-mark {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--text-main);
+    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(255, 0, 234, 0.2), rgba(0, 229, 255, 0.12));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 20px rgba(255, 0, 234, 0.12);
+}
+
+.auth-cz-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+    margin: 0;
+    line-height: 1.15;
+    background: linear-gradient(105deg, #fff 0%, #f0c4ff 45%, #7ee8ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.auth-cz-tagline {
+    margin: 4px 0 0;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+}
+
+.auth-cz-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.auth-cz-tabs .auth-tab-btn {
+    flex: 1;
+}
+
+.auth-cz-panel-title {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+}
+
+.auth-cz-panel-sub {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin: 0 0 20px;
+}
+
+.auth-cz-input {
+    width: 100%;
+}
+
+.auth-cz-error {
+    color: #f87171;
+    font-size: 0.85rem;
+    min-height: 1.3em;
+    margin: 0 0 10px;
+}
+
+.auth-cz-submit {
+    width: 100%;
+    margin-top: 4px;
+}
+
+.auth-cz-banner {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(248, 113, 113, 0.45);
+    background: rgba(248, 113, 113, 0.08);
+    color: var(--text-main);
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.auth-cz-tabs .auth-tab-btn.active {
+    border-color: rgba(255, 0, 234, 0.45);
+    background: rgba(255, 0, 234, 0.1);
+}

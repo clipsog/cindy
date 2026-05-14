@@ -87,6 +87,25 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 }
 
+/** Stored form: lowercase letters, digits, underscore; 3–32 chars. */
+function normalizeUsername(raw) {
+  return String(raw || '')
+    .trim()
+    .toLowerCase();
+}
+
+function isValidUsername(u) {
+  const s = normalizeUsername(u);
+  return /^[a-z0-9_]{3,32}$/.test(s);
+}
+
+/** Login field: lowercase trim; matches email or username in SQL. */
+function normalizeLoginId(raw) {
+  return String(raw || '')
+    .trim()
+    .toLowerCase();
+}
+
 function signUser(user) {
   return jwt.sign(
     {
@@ -94,6 +113,7 @@ function signUser(user) {
       role: user.role,
       name: user.displayName,
       email: user.email,
+      username: user.username,
     },
     getJwtSecret(),
     { expiresIn: '7d' }
@@ -102,7 +122,7 @@ function signUser(user) {
 
 function readUserFromReq(req) {
   if (!isAuthEnabled()) {
-    return { id: 'dev', email: 'local', role: 'lead', displayName: 'Dev (auth off)' };
+    return { id: 'dev', email: 'local', username: '', role: 'lead', displayName: 'Dev (auth off)' };
   }
   const token = req.cookies?.[COOKIE_NAME];
   if (!token) return null;
@@ -112,7 +132,8 @@ function readUserFromReq(req) {
       id: p.sub,
       email: p.email || '',
       role: p.role,
-      displayName: p.name || p.email || 'User',
+      username: p.username || '',
+      displayName: p.name || p.username || p.email || 'User',
     };
   } catch {
     return null;
@@ -144,7 +165,7 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
         authDisabled: true,
         authHint:
           'Add DATABASE_URL (Postgres) so the app can store accounts and an auto JWT secret, or set CINDY_LOGIN_SECRET for file-only dev with JWT.',
-        user: { id: 'dev', email: '', role: 'lead', displayName: 'Local workspace' },
+        user: { id: 'dev', email: '', username: '', role: 'lead', displayName: 'Local workspace' },
       });
     }
     const user = readUserFromReq(req);
@@ -160,8 +181,13 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
 
     const email = normalizeEmail(req.body?.email);
     const password = String(req.body?.password || '');
-    const displayName = String(req.body?.displayName || '').trim().slice(0, 120) || email.split('@')[0] || 'User';
+    const usernameRaw = String(req.body?.username || req.body?.displayName || '').trim();
+    const username = normalizeUsername(usernameRaw);
+    const displayName = (usernameRaw.slice(0, 120) || username || email.split('@')[0] || 'User').trim();
 
+    if (!isValidUsername(username)) {
+      return res.status(400).json({ error: 'invalid_username' });
+    }
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: 'invalid_email' });
     }
@@ -178,15 +204,16 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
 
       const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
       const { rows } = await pool.query(
-        `INSERT INTO cindy_users (email, display_name, password_hash, role)
-         VALUES ($1, $2, $3, $4)
-         RETURNING id, email, display_name, role`,
-        [email, displayName, passwordHash, role]
+        `INSERT INTO cindy_users (email, username, display_name, password_hash, role)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING id, email, username, display_name, role`,
+        [email, username, displayName, passwordHash, role]
       );
       const row = rows[0];
       const user = {
         id: row.id,
         email: row.email,
+        username: row.username,
         displayName: row.display_name,
         role: row.role,
       };
@@ -202,7 +229,11 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
       return res.json({ ok: true, user });
     } catch (e) {
       if (e && e.code === '23505') {
-        return res.status(409).json({ error: 'email_taken' });
+        const { rows: em } = await pool.query('SELECT 1 FROM cindy_users WHERE lower(trim(email)) = $1 LIMIT 1', [
+          email,
+        ]);
+        if (em.length) return res.status(409).json({ error: 'email_taken' });
+        return res.status(409).json({ error: 'username_taken' });
       }
       console.error(e);
       return res.status(500).json({ error: 'register_failed' });
@@ -216,16 +247,18 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
     const pool = await requireDb(res);
     if (!pool) return;
 
-    const email = normalizeEmail(req.body?.email);
+    const loginId = normalizeLoginId(req.body?.username || req.body?.email);
     const password = String(req.body?.password || '');
-    if (!email || !password) {
+    if (!loginId || !password) {
       return res.status(400).json({ error: 'missing_fields' });
     }
 
     try {
       const { rows } = await pool.query(
-        'SELECT id, email, display_name, password_hash, role FROM cindy_users WHERE lower(trim(email)) = $1 LIMIT 1',
-        [email]
+        `SELECT id, email, username, display_name, password_hash, role FROM cindy_users
+         WHERE lower(trim(email)) = $1 OR lower(trim(username)) = $1
+         LIMIT 1`,
+        [loginId]
       );
       const row = rows[0];
       if (!row) return res.status(401).json({ error: 'invalid_credentials' });
@@ -242,6 +275,7 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
       const user = {
         id: row.id,
         email: row.email,
+        username: row.username,
         displayName: row.display_name,
         role,
       };

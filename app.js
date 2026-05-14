@@ -569,9 +569,9 @@ let __saveDbTimer = null;
 let __lastSavedJson = '';
 const AUTO_SAVE_MS = 25000;
 
-/** @type {{ id?: string, email?: string, role: string, displayName: string } | null} */
+/** @type {{ id?: string, email?: string, username?: string, role: string, displayName: string } | null} */
 window.__authUser = null;
-/** True when server has no CINDY_LOGIN_SECRET (local dev). */
+/** True when server runs without required auth (local file mode / no DATABASE_URL). */
 window.__authDisabled = false;
 /** True when /api/me failed (wrong origin or server down). */
 window.__authOffline = false;
@@ -637,21 +637,22 @@ function setupAuthLoginForm() {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (loginErr) loginErr.textContent = '';
-    const email = String(loginForm.elements.email?.value || '').trim();
+    const loginId = String(loginForm.elements.username?.value || '').trim();
     const password = String(loginForm.elements.password?.value || '');
     try {
       const res = await fetch('/api/login', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username: loginId, password }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         if (loginErr) {
-          if (data.error === 'invalid_credentials') loginErr.textContent = 'Wrong email or password.';
+          if (data.error === 'invalid_credentials') loginErr.textContent = 'Wrong username or password.';
           else if (data.error === 'database_required_for_accounts') loginErr.textContent = 'Server needs a database for accounts.';
-          else if (data.error === 'auth_not_configured') loginErr.textContent = 'Server is missing CINDY_LOGIN_SECRET — add it on the host and redeploy.';
+          else if (data.error === 'auth_not_configured')
+            loginErr.textContent = 'Sign-in is not ready on this server yet (database / auth init).';
           else loginErr.textContent = 'Sign-in failed.';
         }
         return;
@@ -668,7 +669,7 @@ function setupAuthLoginForm() {
     e.preventDefault();
     if (registerErr) registerErr.textContent = '';
     const email = String(registerForm.elements.email?.value || '').trim();
-    const displayName = String(registerForm.elements.displayName?.value || '').trim();
+    const username = String(registerForm.elements.username?.value || '').trim();
     const password = String(registerForm.elements.password?.value || '');
     const password2 = String(registerForm.elements.password2?.value || '');
     if (password !== password2) {
@@ -680,16 +681,20 @@ function setupAuthLoginForm() {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, displayName }),
+        body: JSON.stringify({ email, password, username }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         if (registerErr) {
           if (data.error === 'email_taken') registerErr.textContent = 'That email is already registered.';
+          else if (data.error === 'username_taken') registerErr.textContent = 'That username is taken.';
+          else if (data.error === 'invalid_username')
+            registerErr.textContent = 'Username: 3–32 characters, letters, numbers, and underscore only.';
           else if (data.error === 'invalid_email') registerErr.textContent = 'Enter a valid email.';
           else if (data.error === 'invalid_password') registerErr.textContent = 'Use at least 8 characters.';
           else if (data.error === 'database_required_for_accounts') registerErr.textContent = 'Server needs a database for accounts.';
-          else if (data.error === 'auth_not_configured') registerErr.textContent = 'Server is missing CINDY_LOGIN_SECRET — add it on the host and redeploy.';
+          else if (data.error === 'auth_not_configured')
+            registerErr.textContent = 'Registration is not ready on this server yet (database / auth init).';
           else registerErr.textContent = 'Registration failed.';
         }
         return;
@@ -2382,7 +2387,7 @@ async function bootApplication() {
     if (window.__authServerAuthOffOnProd) {
       mis.style.display = 'block';
       mis.textContent =
-        'This URL is still served without sign-in secrets on the server. In Render (or your host), set CINDY_LOGIN_SECRET and DATABASE_URL, save, and redeploy. Until then, register/sign-in cannot succeed. After redeploy, reload this page.';
+        'This URL is still served without a database-backed session on the server. In Render (or your host), set DATABASE_URL for Postgres, save, and redeploy. Until then, register and sign-in cannot succeed. After redeploy, reload this page.';
     } else if (window.__authOffline) {
       mis.style.display = 'block';
       mis.textContent = window.__authHint || 'Cannot reach the app server from this page. Use the hosted URL or start the local server (e.g. port 3847).';
