@@ -275,6 +275,8 @@ const displayedCalendarDate = new Date(new Date().getFullYear(), new Date().getM
 const SEED_NARRATIVES = [];
 let narratives = cloneSeed(SEED_NARRATIVES);
 
+let segmentBankData = [];
+
 const SEED_REACH_OUT_CONTACTS = {
   __version: 3,
   artists: {
@@ -764,7 +766,7 @@ const NETWORK_PHOTO_BY_NAME = {
 };
 
 // --- Persistence: Express server saves JSON to server/data/state.json; localStorage backup if offline ---
-const LS_KEY = 'cindy-app-state-v1';
+const LS_KEY = 'cindy-app-state-v2';
 let __saveDbTimer = null;
 let __lastSavedJson = '';
 const AUTO_SAVE_MS = 25000;
@@ -789,6 +791,7 @@ function serializeAppState() {
     mediaAssets,
     networkData,
     reachOutContactsData,
+    segmentBankData,
   };
 }
 
@@ -806,10 +809,10 @@ function applyAppState(payload) {
   if (Array.isArray(payload.narratives)) narratives = payload.narratives;
   if (Array.isArray(payload.mediaAssets)) mediaAssets = payload.mediaAssets;
   if (Array.isArray(payload.networkData)) networkData = payload.networkData;
+  if (Array.isArray(payload.segmentBankData)) segmentBankData = payload.segmentBankData;
   if (payload.reachOutContactsData && typeof payload.reachOutContactsData === 'object') {
     reachOutContactsData = payload.reachOutContactsData;
   }
-  // normalizeReachOutContactsData();
 }
 
 /** If disk/local backup predates a new built-in arc, append it once. */
@@ -928,6 +931,7 @@ function refreshAllViews() {
   renderGoals();
   renderNetwork();
   renderReachOutContacts();
+  renderSegmentBankBoard();
 }
 
 function setupMediaSubtabs() {

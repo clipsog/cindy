@@ -243,6 +243,9 @@
                             <button class="type-btn" data-clippers-subtab="bank">
                                 <i class="fa-solid fa-box-archive"></i> Clip Bank
                             </button>
+                            <button class="type-btn" data-clippers-subtab="segments">
+                                <i class="fa-solid fa-list-check"></i> Segment Bank
+                            </button>
                         </div>
 
                         <div id="clippers-pane-management" class="clippers-subtab-pane active">
@@ -261,6 +264,19 @@
                                 <p style="color: var(--text-muted);">Search and repurpose posted clips by vibe tags and tagged people.</p>
                             </div>
                             <div id="clip-bank-board" style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <div id="clippers-pane-segments" class="clippers-subtab-pane" style="display:none;">
+                            <div class="glass-panel" style="padding: 20px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div>
+                                    <h3 style="margin-bottom: 6px;">Segment Bank</h3>
+                                    <p style="color: var(--text-muted);">Manage segments mapped to streams and standalone segments. Link directly to Clip Bank.</p>
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="addNewStandaloneSegment()"><i class="fa-solid fa-plus"></i> New Segment</button>
+                            </div>
+                            <div id="segment-bank-board-main" style="display:flex; flex-direction:column; gap:12px; margin-bottom:16px;">
                                 <!-- Rendered via JS -->
                             </div>
                         </div>
