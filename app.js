@@ -651,6 +651,7 @@ function setupAuthLoginForm() {
         if (loginErr) {
           if (data.error === 'invalid_credentials') loginErr.textContent = 'Wrong email or password.';
           else if (data.error === 'database_required_for_accounts') loginErr.textContent = 'Server needs a database for accounts.';
+          else if (data.error === 'auth_not_configured') loginErr.textContent = 'Server is missing CINDY_LOGIN_SECRET — add it on the host and redeploy.';
           else loginErr.textContent = 'Sign-in failed.';
         }
         return;
@@ -688,6 +689,7 @@ function setupAuthLoginForm() {
           else if (data.error === 'invalid_email') registerErr.textContent = 'Enter a valid email.';
           else if (data.error === 'invalid_password') registerErr.textContent = 'Use at least 8 characters.';
           else if (data.error === 'database_required_for_accounts') registerErr.textContent = 'Server needs a database for accounts.';
+          else if (data.error === 'auth_not_configured') registerErr.textContent = 'Server is missing CINDY_LOGIN_SECRET — add it on the host and redeploy.';
           else registerErr.textContent = 'Registration failed.';
         }
         return;
@@ -2350,11 +2352,44 @@ async function bootApplication() {
       user: { id: 'local', email: '', role: 'lead', displayName: 'Offline' },
     };
   }
-  window.__authDisabled = Boolean(me.authDisabled);
+  function isLocalAppHost() {
+    const h = window.location.hostname;
+    return h === 'localhost' || h === '127.0.0.1' || h === '[::1]' || h.endsWith('.local');
+  }
+  const serverAuthDisabled = Boolean(me.authDisabled);
   window.__authOffline = Boolean(me.offline);
   window.__authHint = typeof me.authHint === 'string' ? me.authHint : '';
-  window.__authUser = me.user || null;
+  window.__authServerAuthOffOnProd = !window.__authOffline && serverAuthDisabled && !isLocalAppHost();
+
+  if (window.__authOffline) {
+    window.__authDisabled = false;
+    window.__authUser = null;
+  } else if (serverAuthDisabled && isLocalAppHost()) {
+    window.__authDisabled = true;
+    window.__authUser = me.user || null;
+  } else if (window.__authServerAuthOffOnProd) {
+    window.__authDisabled = false;
+    window.__authUser = null;
+  } else {
+    window.__authDisabled = false;
+    window.__authUser = me.user || null;
+  }
+
   const overlay = document.getElementById('auth-login-overlay');
+  const mis = document.getElementById('auth-misconfig-banner');
+  if (mis) {
+    if (window.__authServerAuthOffOnProd) {
+      mis.style.display = 'block';
+      mis.textContent =
+        'This URL is still served without sign-in secrets on the server. In Render (or your host), set CINDY_LOGIN_SECRET and DATABASE_URL, save, and redeploy. Until then, register/sign-in cannot succeed. After redeploy, reload this page.';
+    } else if (window.__authOffline) {
+      mis.style.display = 'block';
+      mis.textContent = window.__authHint || 'Cannot reach the app server from this page. Use the hosted URL or start the local server (e.g. port 3847).';
+    } else {
+      mis.style.display = 'none';
+      mis.textContent = '';
+    }
+  }
   if (!window.__authDisabled && !window.__authUser) {
     overlay?.classList.add('active');
     return;

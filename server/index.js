@@ -96,6 +96,27 @@ async function ensurePostgresSchema() {
   await pool.query(ddl);
 }
 
+/** Hosted deploys must not run without sign-in (prevents public app state). */
+function isProductionLikeHost() {
+  if (String(process.env.CINDY_ALLOW_PUBLIC_ACCESS || '').toLowerCase() === 'true') return false;
+  if (String(process.env.NODE_ENV || '').toLowerCase() === 'production') return true;
+  if (String(process.env.RENDER || '').toLowerCase() === 'true') return true;
+  if (String(process.env.RENDER_EXTERNAL_URL || '').trim()) return true;
+  return false;
+}
+
+function requireProductionAuthEnv() {
+  if (!isProductionLikeHost()) return;
+  if (!String(process.env.CINDY_LOGIN_SECRET || '').trim()) {
+    console.error('FATAL: Production requires CINDY_LOGIN_SECRET (Render → Environment → add variable → redeploy).');
+    process.exit(1);
+  }
+  if (!String(process.env.DATABASE_URL || '').trim()) {
+    console.error('FATAL: Production requires DATABASE_URL for app state and user accounts.');
+    process.exit(1);
+  }
+}
+
 const app = express();
 app.set('trust proxy', 1);
 app.use(cors({ origin: true, credentials: true }));
@@ -116,6 +137,7 @@ app.get('/api/health', (_req, res) => {
 app.use(express.static(rootDir));
 
 async function start() {
+  requireProductionAuthEnv();
   try {
     await ensurePostgresSchema();
   } catch (e) {
@@ -128,8 +150,8 @@ async function start() {
     console.log(usePostgres ? 'Storage: Supabase Postgres (DATABASE_URL)' : `Storage: file (${stateFile})`);
     console.log(
       isAuthEnabled()
-        ? 'Auth: enabled (CINDY_LOGIN_SECRET + Postgres for cindy_users)'
-        : 'Auth: disabled (no CINDY_LOGIN_SECRET — set secret + DATABASE_URL to require sign-in)'
+        ? 'Auth: required (CINDY_LOGIN_SECRET set)'
+        : 'Auth: disabled locally (no CINDY_LOGIN_SECRET — set on production only)'
     );
     if (keepAliveEnabled && keepAliveUrl) {
       const pingUrl = `${keepAliveUrl.replace(/\/$/, '')}/api/health`;

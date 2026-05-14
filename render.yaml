@@ -14,6 +14,8 @@ services:
         sync: false
       - key: CINDY_LOGIN_SECRET
         sync: false
+      - key: CINDY_ALLOW_PUBLIC_ACCESS
+        sync: false
       - key: CINDY_LEAD_EMAILS
         sync: false
       - key: CINDY_COORDINATOR_EMAILS
