@@ -277,6 +277,38 @@ let narratives = cloneSeed(SEED_NARRATIVES);
 
 let segmentBankData = [];
 
+function normalizeSegmentBankEntry(raw) {
+  if (!raw || typeof raw !== 'object') return null;
+  const id =
+    raw.id != null && String(raw.id).trim()
+      ? String(raw.id)
+      : `standalone-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  const postedSrc = Array.isArray(raw.postedClips) ? raw.postedClips : [];
+  const postedClips = postedSrc.map((c) => ({
+    title: String(c?.title ?? ''),
+    url: String(c?.url ?? ''),
+    tags: Array.isArray(c?.tags)
+      ? c.tags.map((t) => String(t).trim()).filter(Boolean)
+      : String(c?.tags || '')
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean),
+    people: Array.isArray(c?.people)
+      ? c.people.map((p) => String(p).trim()).filter(Boolean)
+      : String(c?.people || '')
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean),
+  }));
+  const link = raw.segmentUrl ?? raw.segmentLink ?? raw.link ?? '';
+  return {
+    id,
+    title: String(raw.title ?? ''),
+    segmentUrl: String(link),
+    postedClips,
+  };
+}
+
 const SEED_REACH_OUT_CONTACTS = {
   __version: 3,
   artists: {
@@ -809,7 +841,9 @@ function applyAppState(payload) {
   if (Array.isArray(payload.narratives)) narratives = payload.narratives;
   if (Array.isArray(payload.mediaAssets)) mediaAssets = payload.mediaAssets;
   if (Array.isArray(payload.networkData)) networkData = payload.networkData;
-  if (Array.isArray(payload.segmentBankData)) segmentBankData = payload.segmentBankData;
+  if (Array.isArray(payload.segmentBankData)) {
+    segmentBankData = payload.segmentBankData.map(normalizeSegmentBankEntry).filter(Boolean);
+  }
   if (payload.reachOutContactsData && typeof payload.reachOutContactsData === 'object') {
     reachOutContactsData = payload.reachOutContactsData;
   }
@@ -930,16 +964,132 @@ function renderSegmentBankBoard() {
     return;
   }
   board.innerHTML = segmentBankData
-    .map((s) => {
-      const title = escAttr(s.title || 'Untitled segment');
-      return `<div class="glass-panel" style="padding:12px 14px;"><span style="font-weight:600;">${title}</span></div>`;
+    .map((raw) => {
+      const s = normalizeSegmentBankEntry(raw) || raw;
+      const sid = JSON.stringify(s.id);
+      const vod = s.segmentUrl || '';
+      const postedClips = Array.isArray(s.postedClips) ? s.postedClips : [];
+      return `
+        <div class="glass-panel" style="padding:14px 16px; min-width:0;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+            <div style="flex:1 1 220px; min-width:0;">
+              <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment name</label>
+              <input class="form-input" style="width:100%;" placeholder="Name this segment" value="${escAttr(s.title || '')}"
+                oninput="updateStandaloneSegmentBankField(${sid}, 'title', this.value)" />
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0; margin-top:18px;" title="Remove segment" onclick="removeStandaloneSegmentBankEntry(${sid})"><i class="fa-solid fa-trash"></i></button>
+          </div>
+          <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment link (VOD, timestamp, or context URL)</label>
+          <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center; margin-bottom:14px;">
+            <input type="url" class="form-input segment-bank-segment-url" style="width:100%; min-width:0;" placeholder="https://..." value="${escAttr(vod)}"
+              oninput="updateStandaloneSegmentBankField(${sid}, 'segmentUrl', this.value)" />
+            <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.glass-panel').querySelector('.segment-bank-segment-url').value)"><i class="fa-solid fa-play"></i></button>
+            <a href="${escAttr(vod || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link"
+              onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-segment-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <strong style="font-size:0.82rem;">Clips for this segment</strong>
+            <button type="button" class="btn btn-outline btn-sm" onclick="addStandaloneSegmentBankClip(${sid})"><i class="fa-solid fa-plus"></i> Add clip</button>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; min-width:0;">
+            ${postedClips
+              .map(
+                (clip, clipIndex) => `
+              <div class="posted-clip-row">
+                <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Clip title" value="${escAttr(clip.title || '')}"
+                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'title', this.value)" />
+                <input type="url" class="form-input posted-clip-url" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Clip URL" value="${escAttr(clip.url || '')}"
+                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'url', this.value)" />
+                <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="Tags (funny, wild)" value="${escAttr(Array.isArray(clip.tags) ? clip.tags.join(', ') : (clip.tags || ''))}"
+                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'tags', this.value)" />
+                <input class="form-input" style="min-width:0;width:100%;box-sizing:border-box;" placeholder="People (Iggy, Von Miller)" value="${escAttr(Array.isArray(clip.people) ? clip.people.join(', ') : (clip.people || ''))}"
+                  oninput="updateStandaloneSegmentBankClipField(${sid}, ${clipIndex}, 'people', this.value)" />
+                <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.posted-clip-row').querySelector('.posted-clip-url').value)"><i class="fa-solid fa-play"></i></button>
+                <a href="${escAttr(clip.url || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link" onclick="if(!(this.closest('.posted-clip-row').querySelector('.posted-clip-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('.posted-clip-row').querySelector('.posted-clip-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
+                <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="removeStandaloneSegmentBankClip(${sid}, ${clipIndex})"><i class="fa-solid fa-xmark"></i></button>
+              </div>`
+              )
+              .join('')}
+            ${postedClips.length === 0 ? `<div style="font-size:0.82rem; color:var(--text-muted);">No clips yet. Clips you add here also appear in <strong>Clip Bank</strong>.</div>` : ''}
+          </div>
+        </div>`;
     })
     .join('');
 }
 
 window.addNewStandaloneSegment = function () {
-  segmentBankData.push({ id: `standalone-${Date.now()}`, title: 'New segment' });
+  segmentBankData.push(
+    normalizeSegmentBankEntry({
+      id: `standalone-${Date.now()}`,
+      title: '',
+      segmentUrl: '',
+      postedClips: [],
+    })
+  );
   renderSegmentBankBoard();
+  scheduleSaveAppStateToDb();
+};
+
+function findSegmentBankIndexById(segmentId) {
+  return segmentBankData.findIndex((s) => s && s.id === segmentId);
+}
+
+window.updateStandaloneSegmentBankField = function (segmentId, field, value) {
+  const idx = findSegmentBankIndexById(segmentId);
+  if (idx < 0) return;
+  const seg = segmentBankData[idx];
+  if (field === 'title') seg.title = String(value ?? '');
+  if (field === 'segmentUrl') seg.segmentUrl = String(value ?? '');
+  scheduleSaveAppStateToDb();
+};
+
+window.addStandaloneSegmentBankClip = function (segmentId) {
+  const idx = findSegmentBankIndexById(segmentId);
+  if (idx < 0) return;
+  const seg = segmentBankData[idx];
+  if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
+  seg.postedClips.push({ title: '', url: '', tags: [], people: [] });
+  renderSegmentBankBoard();
+  renderClippersBoard();
+  scheduleSaveAppStateToDb();
+};
+
+window.removeStandaloneSegmentBankClip = function (segmentId, clipIndex) {
+  const idx = findSegmentBankIndexById(segmentId);
+  if (idx < 0) return;
+  const seg = segmentBankData[idx];
+  if (!seg || !Array.isArray(seg.postedClips)) return;
+  seg.postedClips.splice(clipIndex, 1);
+  renderSegmentBankBoard();
+  renderClippersBoard();
+  scheduleSaveAppStateToDb();
+};
+
+window.updateStandaloneSegmentBankClipField = function (segmentId, clipIndex, field, value) {
+  const idx = findSegmentBankIndexById(segmentId);
+  if (idx < 0) return;
+  const seg = segmentBankData[idx];
+  if (!seg || !Array.isArray(seg.postedClips)) return;
+  const clip = seg.postedClips[clipIndex];
+  if (!clip) return;
+  if (field === 'title' || field === 'url') {
+    clip[field] = value;
+  }
+  if (field === 'tags' || field === 'people') {
+    clip[field] = String(value || '')
+      .split(',')
+      .map((x) => x.trim())
+      .filter(Boolean);
+  }
+  scheduleSaveAppStateToDb();
+};
+
+window.removeStandaloneSegmentBankEntry = function (segmentId) {
+  const idx = findSegmentBankIndexById(segmentId);
+  if (idx < 0) return;
+  segmentBankData.splice(idx, 1);
+  renderSegmentBankBoard();
+  renderClippersBoard();
   scheduleSaveAppStateToDb();
 };
 
@@ -1757,6 +1907,27 @@ function getClipBankEntries(streams) {
           people,
           clipIndex,
         });
+      });
+    });
+  });
+  (Array.isArray(segmentBankData) ? segmentBankData : []).forEach((seg) => {
+    const bankSegTitle = String(seg.title || 'Untitled segment').trim() || 'Untitled segment';
+    const posted = Array.isArray(seg.postedClips) ? seg.postedClips : [];
+    posted.forEach((clip, clipIndex) => {
+      const tags = Array.isArray(clip.tags)
+        ? clip.tags.map((t) => String(t).trim()).filter(Boolean)
+        : String(clip.tags || '').split(',').map((t) => t.trim()).filter(Boolean);
+      const people = Array.isArray(clip.people)
+        ? clip.people.map((p) => String(p).trim()).filter(Boolean)
+        : String(clip.people || '').split(',').map((p) => p.trim()).filter(Boolean);
+      entries.push({
+        streamTitle: bankSegTitle,
+        segmentTitle: 'Segment Bank',
+        url: String(clip.url || ''),
+        title: String(clip.title || ''),
+        tags,
+        people,
+        clipIndex,
       });
     });
   });
