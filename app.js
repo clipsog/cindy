@@ -933,7 +933,11 @@ function renderSegmentBankBoard() {
   board.innerHTML = segmentBankData
     .map((raw) => {
       const s = normalizeSegmentBankEntry(raw) || raw;
+      const sid = String(s.id);
       const submitEnc = encodeURIComponent(sid);
+      const vod = s.segmentUrl || '';
+      const clipBank = s.clipBankUrl || '';
+      const ro = isClipperRole();
       const clips = Array.isArray(s.postedClips) ? s.postedClips : [];
       const clipsListHtml =
         clips.length > 0
