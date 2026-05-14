@@ -2044,6 +2044,46 @@ body.role-clipper #new-standalone-segment-btn {
     display: none !important;
 }
 
+/* Clipper: only Clipping (media → clippers); no other main tabs or Social / narrative lanes. */
+body.role-clipper .nav-item:not([data-tab="media"]) {
+    display: none !important;
+}
+
+body.role-clipper #media-subtab-selector {
+    display: none !important;
+}
+
+body.role-clipper #media-pane-social {
+    display: none !important;
+}
+
+body.role-clipper #media-pane-clippers {
+    display: block !important;
+}
+
+body.role-clipper .clipper-lead-only {
+    display: none !important;
+}
+
+body.role-clipper #notifications-btn {
+    display: none !important;
+}
+
+body.role-clipper .content-wrapper > .tab-pane:not(#tab-media) {
+    display: none !important;
+}
+
+body.role-clipper .content-wrapper > #tab-media.tab-pane {
+    display: block !important;
+}
+
+body.role-clipper .nav-item[data-tab="media"] {
+    background: var(--bg-panel-solid);
+    color: var(--primary);
+    border-color: var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
 /* Remote hosts: hide the whole shell until JS confirms an authenticated session (see <head> script). */
 html.auth-remote-locked:not(.auth-remote-unlocked) .app-container,
 html.auth-remote-locked:not(.auth-remote-unlocked) .ambient-glow,

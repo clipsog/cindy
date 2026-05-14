@@ -592,6 +592,8 @@ function canEditLeadContent() {
 function syncAuthChrome() {
   document.body.classList.toggle('role-clipper', isClipperRole());
   document.body.classList.toggle('role-editor', canEditLeadContent());
+  const profileCard = document.querySelector('.sidebar .user-profile');
+  if (profileCard) profileCard.style.pointerEvents = isClipperRole() ? 'none' : '';
   const nameEl = document.getElementById('sidebar-user-name');
   const roleEl = document.getElementById('sidebar-user-role');
   if (nameEl) nameEl.textContent = window.__authUser?.displayName || '—';
@@ -880,8 +882,9 @@ function renderSegmentBankBoard() {
   const board = document.getElementById('segment-bank-board-main');
   if (!board) return;
   if (!segmentBankData.length) {
-    board.innerHTML =
-      '<p style="color:var(--text-muted); font-size:0.9rem;">No standalone segments yet. Use <strong>New Segment</strong> to add one.</p>';
+    board.innerHTML = isClipperRole()
+      ? '<p style="color:var(--text-muted); font-size:0.9rem;">No standalone segments yet.</p>'
+      : '<p style="color:var(--text-muted); font-size:0.9rem;">No standalone segments yet. Use <strong>New Segment</strong> to add one.</p>';
     return;
   }
   board.innerHTML = segmentBankData
@@ -973,6 +976,7 @@ function refreshAllViews() {
   renderReachOutContacts();
   renderSegmentBankBoard();
   syncAuthChrome();
+  if (isClipperRole()) enterClipperRestrictedShell();
 }
 
 function setupMediaSubtabs() {
@@ -1819,6 +1823,7 @@ function renderClippersBoard() {
   const activeStream = visibleStreams.find((s) => getClipStreamKey(s) === activeClipStreamKey) || null;
   const activeSegments = activeStream && Array.isArray(activeStream.segments) ? activeStream.segments : [];
   const clipBankLocked = isClipperRole();
+  const vodAngleReadOnly = isClipperRole();
   const showClippersDetailOnly = Boolean(activeStream) && isMobileDetailDockLayout();
   const clippersBackBtn = showClippersDetailOnly
     ? `<button type="button" class="btn btn-outline btn-sm mobile-detail-back-btn" onclick="document.getElementById('tab-media')?.classList.remove('clippers-mgmt-detail-open')"><i class="fa-solid fa-arrow-left"></i> Back to list</button>`
@@ -1858,7 +1863,7 @@ function renderClippersBoard() {
               </div>
               <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center; margin-bottom:10px;">
                 <input class="form-input stream-full-vod-url" style="width:100%;" placeholder="Full stream VOD URL" value="${escAttr(activeStream.fullVodUrl || '')}"
-                  oninput="updateStreamClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, 'fullVodUrl', this.value)" />
+                  ${vodAngleReadOnly ? 'readonly' : `oninput="updateStreamClipField('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, 'fullVodUrl', this.value)"`} />
                 <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('div').querySelector('.stream-full-vod-url').value)"><i class="fa-solid fa-play"></i></button>
                 <a href="${escAttr(activeStream.fullVodUrl || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="if(!(this.closest('div').querySelector('.stream-full-vod-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('div').querySelector('.stream-full-vod-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
               </div>
@@ -1876,12 +1881,12 @@ function renderClippersBoard() {
                   <div style="font-size:0.82rem; color:var(--primary); margin-bottom:8px;">Segment ${segIndex + 1}: ${escAttr(seg.title || 'Untitled')}</div>
                   <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center; margin-bottom:8px;">
                     <input class="form-input segment-vod-url" style="width:100%;" placeholder="Segment VOD URL" value="${escAttr(vod)}"
-                      oninput="updateSegmentClipperFields('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, 'clipVodUrl', this.value)" />
+                      ${vodAngleReadOnly ? 'readonly' : `oninput="updateSegmentClipperFields('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, 'clipVodUrl', this.value)"`} />
                     <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('div').querySelector('.segment-vod-url').value)"><i class="fa-solid fa-play"></i></button>
                     <a href="${escAttr(vod || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" onclick="if(!(this.closest('div').querySelector('.segment-vod-url').value||'').trim()){event.preventDefault();return;} this.href=this.closest('div').querySelector('.segment-vod-url').value.trim();"><i class="fa-solid fa-up-right-from-square"></i></a>
                   </div>
                   <textarea class="form-input" style="width:100%; min-height:72px; resize:vertical; margin-bottom:8px;" placeholder="Desired angle for clippers"
-                    oninput="updateSegmentClipperFields('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, 'clipDesiredAngle', this.value)">${escAttr(angle)}</textarea>
+                    ${vodAngleReadOnly ? 'readonly' : `oninput="updateSegmentClipperFields('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex}, 'clipDesiredAngle', this.value)"`}>${escAttr(angle)}</textarea>
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
                     <strong style="font-size:0.82rem;">Posted Clips</strong>
                     ${clipBankLocked ? '' : `<button type="button" class="btn btn-outline btn-sm" onclick="addPostedClip('${activeStream.id}', ${activeStream.parentArc ? `'${activeStream.parentArc.id}'` : 'null'}, ${Number.isInteger(activeStream.linkedIndex) ? activeStream.linkedIndex : -1}, ${segIndex})"><i class="fa-solid fa-plus"></i> Add clip</button>`}
@@ -2040,6 +2045,7 @@ async function loadAppStateFromDb() {
 }
 
 async function saveAppStateToDb(options = {}) {
+  if (isClipperRole()) return true;
   const silent = Boolean(options.silent);
   const body = serializeAppState();
   const json = JSON.stringify(body);
@@ -2073,11 +2079,13 @@ async function saveAppStateToDb(options = {}) {
 }
 
 function scheduleSaveAppStateToDb() {
+  if (isClipperRole()) return;
   clearTimeout(__saveDbTimer);
   __saveDbTimer = setTimeout(() => void saveAppStateToDb({ silent: true }), 500);
 }
 
 async function autoSaveIfChanged() {
+  if (isClipperRole()) return;
   const json = JSON.stringify(serializeAppState());
   if (json === __lastSavedJson) return;
   await saveAppStateToDb({ silent: true });
@@ -2090,6 +2098,14 @@ function startAutoSave() {
     if (document.visibilityState === 'hidden') void autoSaveIfChanged();
   });
   window.addEventListener('beforeunload', () => {
+    if (isClipperRole()) {
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify(serializeAppState()));
+      } catch {
+        /* ignore */
+      }
+      return;
+    }
     const json = JSON.stringify(serializeAppState());
     try {
       localStorage.setItem(LS_KEY, json);
@@ -2152,18 +2168,30 @@ const pages = {
 };
 
 // Initialize App
+function enterClipperRestrictedShell() {
+  if (!isClipperRole()) return;
+  const mediaLabel = document.querySelector('.nav-item[data-tab="media"] span');
+  if (mediaLabel) mediaLabel.textContent = 'Clipping';
+  const mediaNav = document.querySelector('.nav-item[data-tab="media"]');
+  if (mediaNav) mediaNav.click();
+  requestAnimationFrame(() => {
+    const clipBtn = document.querySelector('#media-subtab-selector [data-media-subtab="clippers"]');
+    if (clipBtn) clipBtn.click();
+    const pt = document.getElementById('page-title');
+    const pd = document.getElementById('page-desc');
+    const ma = document.getElementById('main-action-btn');
+    if (pt) pt.textContent = 'Clipping';
+    if (pd) pd.textContent = 'Streams, clip bank, and segment bank — read-only for your role.';
+    if (ma) ma.style.display = 'none';
+  });
+}
+
 function startMainApplication() {
   if (__mainAppStarted) return;
   __mainAppStarted = true;
   document.documentElement.classList.add('auth-remote-unlocked');
-  syncAuthChrome();
-  // Boot UI immediately so navigation/tabs are always interactive.
-  // ensureCollegeTakeoverArc();
-  // ensureF1LinkedStreams();
-  // ensureSeedNetworkPeople();
-  // ensureNetworkPhotoDefaults();
-  // normalizeReachOutContactsData();
   setupNavigation();
+  syncAuthChrome();
   renderCalendar();
   renderStreams();
   renderArcs();
@@ -2175,6 +2203,7 @@ function startMainApplication() {
   renderReachOutContacts();
   setupMediaSubtabs();
   setupClippersSubtabs();
+  enterClipperRestrictedShell();
   setupNetworkSubtabs();
   setupCreativeDirectorTabs();
   setupAboutMeSectionTabs();
@@ -2410,8 +2439,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Navigation Logic
 function setupNavigation() {
-  navItems.forEach(item => {
+  navItems.forEach((item) => {
     item.addEventListener('click', () => {
+      const tabId = item.getAttribute('data-tab');
+      if (isClipperRole() && tabId !== 'media') return;
       clearMobileCardDetailScreens();
       // Update Active State
       navItems.forEach(nav => nav.classList.remove('active'));
@@ -2456,10 +2487,21 @@ function setupNavigation() {
       });
 
       // Update Header
-      const pageData = pages[tabId];
-      pageTitle.textContent = pageData.title;
-      pageDesc.textContent = pageData.desc;
-      mainActionBtn.innerHTML = `<i class="fa-solid ${pageData.btnIcon}"></i> ${pageData.btnText}`;
+      if (isClipperRole()) {
+        if (mainActionBtn) mainActionBtn.style.display = 'none';
+        if (tabId === 'media') {
+          pageTitle.textContent = 'Clipping';
+          pageDesc.textContent = 'Streams, clip bank, and segment bank — read-only for your role.';
+        }
+      } else {
+        if (mainActionBtn) {
+          mainActionBtn.style.display = '';
+          const pageData = pages[tabId];
+          pageTitle.textContent = pageData.title;
+          pageDesc.textContent = pageData.desc;
+          mainActionBtn.innerHTML = `<i class="fa-solid ${pageData.btnIcon}"></i> ${pageData.btnText}`;
+        }
+      }
     });
   });
 }
@@ -3126,6 +3168,7 @@ window.updateSegmentName = function (streamId, parentArcId, linkedIndex, segment
 };
 
 window.updateSegmentField = function (streamId, parentArcId, linkedIndex, segmentIndex, field, value) {
+  if (isClipperRole()) return;
   const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
   if (!stream || !Array.isArray(stream.segments)) return;
   const seg = stream.segments[segmentIndex];
@@ -3136,6 +3179,7 @@ window.updateSegmentField = function (streamId, parentArcId, linkedIndex, segmen
 };
 
 window.updateSegmentClipperFields = function (streamId, parentArcId, linkedIndex, segmentIndex, field, value) {
+  if (isClipperRole()) return;
   let stream = null;
   if (parentArcId && parentArcId !== 'null') {
     const parent = arcsData.find((a) => a.id === parentArcId);
@@ -3153,6 +3197,7 @@ window.updateSegmentClipperFields = function (streamId, parentArcId, linkedIndex
 };
 
 window.updateStreamClipField = function (streamId, parentArcId, linkedIndex, field, value) {
+  if (isClipperRole()) return;
   const stream = getClipStreamRecord(streamId, parentArcId, linkedIndex);
   if (!stream) return;
   if (field === 'fullVodUrl') stream.fullVodUrl = value;

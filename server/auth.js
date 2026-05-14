@@ -319,7 +319,10 @@ function mountAuth(app, { readState, writeState, getPgPool }) {
       let toWrite = payload;
       if (req.authUser.role === 'clipper') {
         const existing = await readState();
-        toWrite = applyClipperWriteGuard(payload, existing && typeof existing === 'object' ? existing : {});
+        if (!existing || typeof existing !== 'object' || !Array.isArray(existing.arcsData)) {
+          return res.status(409).json({ error: 'workspace_not_initialized' });
+        }
+        toWrite = applyClipperWriteGuard(payload, existing);
       }
       await writeState(toWrite);
       return res.json({ ok: true });
