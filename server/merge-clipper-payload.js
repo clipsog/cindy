@@ -44,6 +44,7 @@ function applyClipperWriteGuard(incoming, existing) {
     return {};
   }
   const out = JSON.parse(JSON.stringify(existing));
+  if (!Array.isArray(out.segmentBankData)) out.segmentBankData = [];
   mergeClipperStandaloneClipPosts(out, incoming);
   return out;
 }

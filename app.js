@@ -805,6 +805,8 @@ function applyAppState(payload) {
   if (Array.isArray(payload.networkData)) networkData = payload.networkData;
   if (Array.isArray(payload.segmentBankData)) {
     segmentBankData = payload.segmentBankData.map(normalizeSegmentBankEntry).filter(Boolean);
+  } else {
+    segmentBankData = [];
   }
   if (payload.reachOutContactsData && typeof payload.reachOutContactsData === 'object') {
     reachOutContactsData = payload.reachOutContactsData;
@@ -982,6 +984,7 @@ function renderSegmentBankBoard() {
             <input type="url" class="form-input ssc-url" placeholder="https://..." />
             <label class="info-label" style="display:block; margin:8px 0 4px;">Tags <span style="text-transform:none; color:var(--text-muted);">(optional)</span></label>
             <input type="text" class="form-input ssc-tags" placeholder="funny, viral" />
+            <p class="segment-submit-feedback" style="min-height:1.2em; font-size:0.82rem; margin-top:8px; color:var(--text-muted);"></p>
             <button type="button" class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="submitStandaloneSegmentClipFromRow(${JSON.stringify(sid)})"><i class="fa-solid fa-paper-plane"></i> Submit clip</button>
           </div>
         </div>`;
@@ -1030,34 +1033,57 @@ window.removeStandaloneSegmentBankEntry = function (segmentId) {
   scheduleSaveAppStateToDb();
 };
 
+function segmentSubmitFeedback(segmentId, text, isError) {
+  const root = document.querySelector(`[data-segment-submit-card="${encodeURIComponent(String(segmentId))}"]`);
+  const el = root?.querySelector('.segment-submit-feedback');
+  if (el) {
+    el.textContent = text || '';
+    el.style.color = isError ? '#f87171' : 'var(--text-muted)';
+  }
+  if (text) setDbStatus(text, isError ? 'err' : 'ok');
+}
+
+function formatClipSubmitSaveError(msg) {
+  const m = String(msg || '').trim();
+  if (m === 'workspace_not_initialized') {
+    return 'Workspace is not ready on the server yet. Ask a lead to open the app and save once, then try again.';
+  }
+  if (m === 'unauthorized') return 'Sign in again, then submit the clip.';
+  return m ? `Save failed: ${m}` : 'Save failed. Check your connection and try again.';
+}
+
 window.submitStandaloneSegmentClipFromRow = async function (segmentId) {
   const sid = String(segmentId);
   const enc = encodeURIComponent(sid);
   const root = document.querySelector(`[data-segment-submit-card="${enc}"]`);
   if (!root) return;
+  segmentSubmitFeedback(sid, '', false);
   const title = String(root.querySelector('.ssc-title')?.value || '').trim();
   const url = String(root.querySelector('.ssc-url')?.value || '').trim();
   const tagsRaw = String(root.querySelector('.ssc-tags')?.value || '').trim();
   if (!url) {
-    setDbStatus('Add a clip URL before submitting.', 'warn');
+    segmentSubmitFeedback(sid, 'Add a clip URL before submitting.', true);
     return;
   }
   if (!/^https?:\/\//i.test(url)) {
-    setDbStatus('Clip URL must start with http:// or https://', 'warn');
+    segmentSubmitFeedback(sid, 'Clip URL must start with http:// or https://', true);
     return;
   }
   const idx = findSegmentBankIndexById(sid);
-  if (idx < 0) return;
+  if (idx < 0) {
+    segmentSubmitFeedback(sid, 'This segment is no longer in the list. Reload the page.', true);
+    return;
+  }
   const seg = segmentBankData[idx];
   if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
   const lu = normClipUrl(url);
   if (seg.postedClips.some((c) => normClipUrl(c?.url) === lu)) {
-    setDbStatus('That URL is already in this segment’s clip bank.', 'warn');
+    segmentSubmitFeedback(sid, 'That URL is already in this segment’s clip bank.', true);
     return;
   }
   const clipBankFolder = String(seg.clipBankUrl || '').trim();
   if (clipBankFolder && normClipUrl(url) === normClipUrl(clipBankFolder)) {
-    setDbStatus('Use a clip link, not the same URL as the clip bank folder.', 'warn');
+    segmentSubmitFeedback(sid, 'Use a clip link, not the same URL as the clip bank folder.', true);
     return;
   }
   const tags = tagsRaw
@@ -1083,15 +1109,16 @@ window.submitStandaloneSegmentClipFromRow = async function (segmentId) {
   if (gIn) gIn.value = '';
   renderSegmentBankBoard();
   renderClippersBoard();
+  window.__lastPutStateError = '';
   const ok = await saveAppStateToDb({ silent: true, throwOnFail: true });
   if (!ok) {
     if (seg.postedClips.length > prevLen) seg.postedClips.pop();
     renderSegmentBankBoard();
     renderClippersBoard();
-    setDbStatus('Could not save clip to the server. Try again.', 'err');
+    segmentSubmitFeedback(sid, formatClipSubmitSaveError(window.__lastPutStateError), true);
     return;
   }
-  setDbStatus('Clip added to the clip bank.', 'ok');
+  segmentSubmitFeedback(sid, 'Clip saved — it appears in Clip Bank below.', false);
 };
 
 function refreshAllViews() {
@@ -2223,9 +2250,13 @@ async function saveAppStateToDb(options = {}) {
     if (!silent) setDbStatus(`Saved to disk · ${new Date().toLocaleTimeString()}`, 'ok');
     else setDbStatus(`Auto-saved · ${new Date().toLocaleTimeString()}`, 'ok');
     return true;
-  } catch {
+  } catch (e) {
     __lastSavedJson = json;
-    if (throwOnFail) return false;
+    const errMsg = e && e.message ? String(e.message) : 'Network or server error';
+    if (throwOnFail) {
+      window.__lastPutStateError = errMsg;
+      return false;
+    }
     if (!silent) {
       setDbStatus(`Saved in this browser only (use http://localhost:3847 for disk file)`, 'warn');
     } else {
