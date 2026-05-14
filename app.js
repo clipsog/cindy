@@ -1990,6 +1990,8 @@ function renderClippersBoard() {
   if (!board || !bankBoard) return;
   const streams = getUnifiedStreams();
   let showClippersDetailOnly = false;
+  const clipBankLocked = isClipperRole();
+  const vodAngleReadOnly = isClipperRole();
   if (streams.length === 0) {
     board.innerHTML = `<div class="glass-panel" style="padding:16px; color:var(--text-muted);">No streams yet. Add streams under <strong>Streams</strong> to manage full VOD and per-stream posted clips. Clips you submit from <strong>Segment Bank</strong> still appear in <strong>Clip Bank</strong> below.</div>`;
   } else {
@@ -2005,8 +2007,6 @@ function renderClippersBoard() {
   if (!visibleKeys.has(activeClipStreamKey)) activeClipStreamKey = '';
   const activeStream = visibleStreams.find((s) => getClipStreamKey(s) === activeClipStreamKey) || null;
   const activeSegments = activeStream && Array.isArray(activeStream.segments) ? activeStream.segments : [];
-  const clipBankLocked = isClipperRole();
-  const vodAngleReadOnly = isClipperRole();
   showClippersDetailOnly = Boolean(activeStream) && isMobileDetailDockLayout();
   const clippersBackBtn = showClippersDetailOnly
     ? `<button type="button" class="btn btn-outline btn-sm mobile-detail-back-btn" onclick="document.getElementById('tab-media')?.classList.remove('clippers-mgmt-detail-open')"><i class="fa-solid fa-arrow-left"></i> Back to list</button>`
