@@ -940,16 +940,6 @@ function renderSegmentBankBoard() {
       const vod = s.segmentUrl || '';
       const clipBank = s.clipBankUrl || '';
       const ro = isClipperRole();
-      const clips = Array.isArray(s.postedClips) ? s.postedClips : [];
-      const clipsListHtml =
-        clips.length > 0
-          ? `<div style="margin-top:14px;"><div class="info-label" style="display:block; margin-bottom:6px;">Clips in bank (${clips.length})</div><ul style="margin:0; padding-left:18px; color:var(--text-main); font-size:0.88rem; line-height:1.45;">${clips
-              .map(
-                (c) =>
-                  `<li style="margin-bottom:4px;"><a href="${escAttr(c.url)}" target="_blank" rel="noopener noreferrer">${escAttr(String(c.title || '').trim() || c.url)}</a></li>`
-              )
-              .join('')}</ul></div>`
-          : '';
       return `
         <div class="glass-panel" style="padding:14px 16px; min-width:0;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
@@ -966,18 +956,17 @@ function renderSegmentBankBoard() {
             <a href="${escAttr(vod || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link"
               onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-segment-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
           </div>
-          <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Clip bank link (folder, e.g. Google Drive)</label>
+          <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Folder link (optional, e.g. Google Drive)</label>
           <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center;">
             <input type="url" class="form-input segment-bank-clip-bank-url" style="width:100%; min-width:0;" placeholder="https://drive.google.com/..." value="${escAttr(clipBank)}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${JSON.stringify(sid)}, "clipBankUrl", this.value)'`} />
             <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app (if embeddable)" onclick="void window.openMediaEmbedPreview(this.closest('.glass-panel').querySelector('.segment-bank-clip-bank-url').value)"><i class="fa-solid fa-play"></i></button>
-            <a href="${escAttr(clipBank || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open clip bank"
+            <a href="${escAttr(clipBank || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open folder"
               onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-clip-bank-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
           </div>
           ${ro ? '<p style="margin:10px 0 0; font-size:0.82rem; color:var(--text-muted);">Segment details are view-only for your role. You can still submit clips below.</p>' : ''}
-          ${clipsListHtml}
           <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border-color);" data-segment-submit-card="${submitEnc}">
             <div class="info-label" style="display:block; margin-bottom:6px;">Submit a clip</div>
-            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 10px; line-height:1.45;">Paste a public clip URL (YouTube, TikTok, X, etc.). It appears in the Clip Bank for this segment for the whole team.</p>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 10px; line-height:1.45;">Paste a public clip URL (YouTube, TikTok, X, etc.). Submitted clips only show under the <strong>Clip Bank</strong> tab.</p>
             <label class="info-label" style="display:block; margin-bottom:4px;">Clip title</label>
             <input type="text" class="form-input ssc-title" placeholder="e.g. Highlight — blind date" autocomplete="off" />
             <label class="info-label" style="display:block; margin:8px 0 4px;">Clip URL</label>
@@ -1078,12 +1067,12 @@ window.submitStandaloneSegmentClipFromRow = async function (segmentId) {
   if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
   const lu = normClipUrl(url);
   if (seg.postedClips.some((c) => normClipUrl(c?.url) === lu)) {
-    segmentSubmitFeedback(sid, 'That URL is already in this segment’s clip bank.', true);
+    segmentSubmitFeedback(sid, 'That URL is already submitted for this segment.', true);
     return;
   }
   const clipBankFolder = String(seg.clipBankUrl || '').trim();
   if (clipBankFolder && normClipUrl(url) === normClipUrl(clipBankFolder)) {
-    segmentSubmitFeedback(sid, 'Use a clip link, not the same URL as the clip bank folder.', true);
+    segmentSubmitFeedback(sid, 'Use a clip link, not the same URL as the folder link above.', true);
     return;
   }
   const tags = tagsRaw
@@ -1118,7 +1107,7 @@ window.submitStandaloneSegmentClipFromRow = async function (segmentId) {
     segmentSubmitFeedback(sid, formatClipSubmitSaveError(window.__lastPutStateError), true);
     return;
   }
-  segmentSubmitFeedback(sid, 'Clip saved — it appears in Clip Bank below.', false);
+  segmentSubmitFeedback(sid, 'Clip saved — open the Clip Bank tab to see it.', false);
 };
 
 function refreshAllViews() {
@@ -1973,9 +1962,9 @@ function getClipBankEntries(streams) {
     if (!folder) return;
     entries.push({
       streamTitle: bankSegTitle,
-      segmentTitle: 'Clip bank (folder)',
+      segmentTitle: 'Folder',
       url: folder,
-      title: 'Open clip bank',
+      title: 'Open folder',
       tags: [],
       people: [],
       clipIndex: 0,
@@ -1993,7 +1982,7 @@ function renderClippersBoard() {
   const clipBankLocked = isClipperRole();
   const vodAngleReadOnly = isClipperRole();
   if (streams.length === 0) {
-    board.innerHTML = `<div class="glass-panel" style="padding:16px; color:var(--text-muted);">No streams yet. Add streams under <strong>Streams</strong> to manage full VOD and per-stream posted clips. Clips you submit from <strong>Segment Bank</strong> still appear in <strong>Clip Bank</strong> below.</div>`;
+    board.innerHTML = `<div class="glass-panel" style="padding:16px; color:var(--text-muted);">No streams yet. Add streams under <strong>Streams</strong> to manage full VOD and per-stream posted clips. Clips you submit from <strong>Segment Bank</strong> still show in the <strong>Clip Bank</strong> tab.</div>`;
   } else {
   const groupedStreams = { past: [], current: [], future: [] };
   streams.forEach((stream) => {
