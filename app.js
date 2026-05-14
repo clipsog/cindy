@@ -2150,6 +2150,7 @@ const pages = {
 function startMainApplication() {
   if (__mainAppStarted) return;
   __mainAppStarted = true;
+  document.documentElement.classList.add('auth-remote-unlocked');
   syncAuthChrome();
   // Boot UI immediately so navigation/tabs are always interactive.
   // ensureCollegeTakeoverArc();

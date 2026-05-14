@@ -2044,6 +2044,23 @@ body.role-clipper #new-standalone-segment-btn {
     display: none !important;
 }
 
+/* Remote hosts: hide the whole shell until JS confirms an authenticated session (see <head> script). */
+html.auth-remote-locked:not(.auth-remote-unlocked) .app-container,
+html.auth-remote-locked:not(.auth-remote-unlocked) .ambient-glow,
+html.auth-remote-locked:not(.auth-remote-unlocked) .noise-overlay {
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+html.auth-remote-locked:not(.auth-remote-unlocked) #auth-login-overlay {
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
+
+html.auth-remote-locked:not(.auth-remote-unlocked) #auth-login-overlay .modal-content {
+    transform: translateY(0) !important;
+}
+
 .auth-tab-row .auth-tab-btn.active {
     border-color: rgba(204, 255, 0, 0.55);
     background: rgba(204, 255, 0, 0.12);
