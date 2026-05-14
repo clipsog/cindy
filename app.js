@@ -277,6 +277,36 @@ let narratives = cloneSeed(SEED_NARRATIVES);
 
 let segmentBankData = [];
 
+function normClipUrl(u) {
+  return String(u || '').trim().toLowerCase();
+}
+
+function normalizeStandalonePostedClip(c) {
+  if (!c || typeof c !== 'object') return null;
+  const url = String(c.url || '').trim().slice(0, 2000);
+  if (!url || !/^https?:\/\//i.test(url)) return null;
+  const tags = Array.isArray(c.tags)
+    ? c.tags.map((t) => String(t).trim()).filter(Boolean)
+    : String(c.tags || '')
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean);
+  const people = Array.isArray(c.people)
+    ? c.people.map((p) => String(p).trim()).filter(Boolean)
+    : String(c.people || '')
+      .split(',')
+      .map((p) => p.trim())
+      .filter(Boolean);
+  const row = {
+    title: String(c.title || '').trim().slice(0, 200),
+    url,
+    tags,
+    people,
+  };
+  if (c.submittedAt) row.submittedAt = String(c.submittedAt);
+  return row;
+}
+
 function normalizeSegmentBankEntry(raw) {
   if (!raw || typeof raw !== 'object') return null;
   const id =
@@ -288,11 +318,24 @@ function normalizeSegmentBankEntry(raw) {
   let clipBankUrl = String(raw.clipBankUrl ?? raw.clipBankLink ?? '').trim();
   if (!clipBankUrl && firstLegacyClipUrl) clipBankUrl = firstLegacyClipUrl;
   const link = raw.segmentUrl ?? raw.segmentLink ?? raw.link ?? '';
+  const clipBankNorm = normClipUrl(clipBankUrl);
+  const postedClips = [];
+  const seen = new Set();
+  for (const c of postedSrc) {
+    const n = normalizeStandalonePostedClip(c);
+    if (!n) continue;
+    if (normClipUrl(n.url) === clipBankNorm) continue;
+    const lu = normClipUrl(n.url);
+    if (seen.has(lu)) continue;
+    seen.add(lu);
+    postedClips.push(n);
+  }
   return {
     id,
     title: String(raw.title ?? ''),
     segmentUrl: String(link),
     clipBankUrl,
+    postedClips,
   };
 }
 
@@ -890,34 +933,53 @@ function renderSegmentBankBoard() {
   board.innerHTML = segmentBankData
     .map((raw) => {
       const s = normalizeSegmentBankEntry(raw) || raw;
-      const sid = JSON.stringify(s.id);
-      const vod = s.segmentUrl || '';
-      const clipBank = s.clipBankUrl || '';
-      const ro = isClipperRole();
+      const submitEnc = encodeURIComponent(sid);
+      const clips = Array.isArray(s.postedClips) ? s.postedClips : [];
+      const clipsListHtml =
+        clips.length > 0
+          ? `<div style="margin-top:14px;"><div class="info-label" style="display:block; margin-bottom:6px;">Clips in bank (${clips.length})</div><ul style="margin:0; padding-left:18px; color:var(--text-main); font-size:0.88rem; line-height:1.45;">${clips
+              .map(
+                (c) =>
+                  `<li style="margin-bottom:4px;"><a href="${escAttr(c.url)}" target="_blank" rel="noopener noreferrer">${escAttr(String(c.title || '').trim() || c.url)}</a></li>`
+              )
+              .join('')}</ul></div>`
+          : '';
       return `
         <div class="glass-panel" style="padding:14px 16px; min-width:0;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
             <div style="flex:1 1 220px; min-width:0;">
               <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment name</label>
-              <input class="form-input" style="width:100%;" placeholder="Name this segment" value="${escAttr(s.title || '')}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${sid}, "title", this.value)'`} />
+              <input class="form-input" style="width:100%;" placeholder="Name this segment" value="${escAttr(s.title || '')}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${JSON.stringify(sid)}, "title", this.value)'`} />
             </div>
-            ${ro ? '' : `<button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0; margin-top:18px;" title="Remove segment" onclick='removeStandaloneSegmentBankEntry(${sid})'><i class="fa-solid fa-trash"></i></button>`}
+            ${ro ? '' : `<button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0; margin-top:18px;" title="Remove segment" onclick='removeStandaloneSegmentBankEntry(${JSON.stringify(sid)})'><i class="fa-solid fa-trash"></i></button>`}
           </div>
           <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Segment link (VOD, timestamp, or context URL)</label>
           <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center; margin-bottom:14px;">
-            <input type="url" class="form-input segment-bank-segment-url" style="width:100%; min-width:0;" placeholder="https://..." value="${escAttr(vod)}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${sid}, "segmentUrl", this.value)'`} />
+            <input type="url" class="form-input segment-bank-segment-url" style="width:100%; min-width:0;" placeholder="https://..." value="${escAttr(vod)}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${JSON.stringify(sid)}, "segmentUrl", this.value)'`} />
             <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app" onclick="void window.openMediaEmbedPreview(this.closest('.glass-panel').querySelector('.segment-bank-segment-url').value)"><i class="fa-solid fa-play"></i></button>
             <a href="${escAttr(vod || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open link"
               onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-segment-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
           </div>
           <label class="info-label" style="display:block; margin-bottom:4px; font-size:0.75rem; color:var(--text-muted);">Clip bank link (folder, e.g. Google Drive)</label>
           <div style="display:grid; grid-template-columns:minmax(0,1fr) auto auto; gap:8px; align-items:center;">
-            <input type="url" class="form-input segment-bank-clip-bank-url" style="width:100%; min-width:0;" placeholder="https://drive.google.com/..." value="${escAttr(clipBank)}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${sid}, "clipBankUrl", this.value)'`} />
+            <input type="url" class="form-input segment-bank-clip-bank-url" style="width:100%; min-width:0;" placeholder="https://drive.google.com/..." value="${escAttr(clipBank)}" ${ro ? 'readonly' : `oninput='updateStandaloneSegmentBankField(${JSON.stringify(sid)}, "clipBankUrl", this.value)'`} />
             <button type="button" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Play in app (if embeddable)" onclick="void window.openMediaEmbedPreview(this.closest('.glass-panel').querySelector('.segment-bank-clip-bank-url').value)"><i class="fa-solid fa-play"></i></button>
             <a href="${escAttr(clipBank || '#')}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="flex-shrink:0;" title="Open clip bank"
               onclick="const row=this.closest('div'); const v=(row?.querySelector('.segment-bank-clip-bank-url')?.value||'').trim(); if(!v){event.preventDefault();return;} this.href=v;"><i class="fa-solid fa-up-right-from-square"></i></a>
           </div>
-          ${ro ? '<p style="margin:10px 0 0; font-size:0.82rem; color:var(--text-muted);">View only (clipper role).</p>' : ''}
+          ${ro ? '<p style="margin:10px 0 0; font-size:0.82rem; color:var(--text-muted);">Segment details are view-only for your role. You can still submit clips below.</p>' : ''}
+          ${clipsListHtml}
+          <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border-color);" data-segment-submit-card="${submitEnc}">
+            <div class="info-label" style="display:block; margin-bottom:6px;">Submit a clip</div>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin:0 0 10px; line-height:1.45;">Paste a public clip URL (YouTube, TikTok, X, etc.). It appears in the Clip Bank for this segment for the whole team.</p>
+            <label class="info-label" style="display:block; margin-bottom:4px;">Clip title</label>
+            <input type="text" class="form-input ssc-title" placeholder="e.g. Highlight — blind date" autocomplete="off" />
+            <label class="info-label" style="display:block; margin:8px 0 4px;">Clip URL</label>
+            <input type="url" class="form-input ssc-url" placeholder="https://..." />
+            <label class="info-label" style="display:block; margin:8px 0 4px;">Tags <span style="text-transform:none; color:var(--text-muted);">(optional)</span></label>
+            <input type="text" class="form-input ssc-tags" placeholder="funny, viral" />
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top:12px;" onclick="submitStandaloneSegmentClipFromRow(${JSON.stringify(sid)})"><i class="fa-solid fa-paper-plane"></i> Submit clip</button>
+          </div>
         </div>`;
     })
     .join('');
@@ -962,6 +1024,70 @@ window.removeStandaloneSegmentBankEntry = function (segmentId) {
   renderSegmentBankBoard();
   renderClippersBoard();
   scheduleSaveAppStateToDb();
+};
+
+window.submitStandaloneSegmentClipFromRow = async function (segmentId) {
+  const sid = String(segmentId);
+  const enc = encodeURIComponent(sid);
+  const root = document.querySelector(`[data-segment-submit-card="${enc}"]`);
+  if (!root) return;
+  const title = String(root.querySelector('.ssc-title')?.value || '').trim();
+  const url = String(root.querySelector('.ssc-url')?.value || '').trim();
+  const tagsRaw = String(root.querySelector('.ssc-tags')?.value || '').trim();
+  if (!url) {
+    setDbStatus('Add a clip URL before submitting.', 'warn');
+    return;
+  }
+  if (!/^https?:\/\//i.test(url)) {
+    setDbStatus('Clip URL must start with http:// or https://', 'warn');
+    return;
+  }
+  const idx = findSegmentBankIndexById(sid);
+  if (idx < 0) return;
+  const seg = segmentBankData[idx];
+  if (!Array.isArray(seg.postedClips)) seg.postedClips = [];
+  const lu = normClipUrl(url);
+  if (seg.postedClips.some((c) => normClipUrl(c?.url) === lu)) {
+    setDbStatus('That URL is already in this segment’s clip bank.', 'warn');
+    return;
+  }
+  const clipBankFolder = String(seg.clipBankUrl || '').trim();
+  if (clipBankFolder && normClipUrl(url) === normClipUrl(clipBankFolder)) {
+    setDbStatus('Use a clip link, not the same URL as the clip bank folder.', 'warn');
+    return;
+  }
+  const tags = tagsRaw
+    ? tagsRaw
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean)
+    : [];
+  const clip = {
+    title: title.slice(0, 200) || 'Clip',
+    url: url.slice(0, 2000),
+    tags,
+    people: [],
+    submittedAt: new Date().toISOString(),
+  };
+  const prevLen = seg.postedClips.length;
+  seg.postedClips.push(clip);
+  const tIn = root.querySelector('.ssc-title');
+  const uIn = root.querySelector('.ssc-url');
+  const gIn = root.querySelector('.ssc-tags');
+  if (tIn) tIn.value = '';
+  if (uIn) uIn.value = '';
+  if (gIn) gIn.value = '';
+  renderSegmentBankBoard();
+  renderClippersBoard();
+  const ok = await saveAppStateToDb({ silent: true, throwOnFail: true });
+  if (!ok) {
+    if (seg.postedClips.length > prevLen) seg.postedClips.pop();
+    renderSegmentBankBoard();
+    renderClippersBoard();
+    setDbStatus('Could not save clip to the server. Try again.', 'err');
+    return;
+  }
+  setDbStatus('Clip added to the clip bank.', 'ok');
 };
 
 function refreshAllViews() {
@@ -1786,6 +1912,32 @@ function getClipBankEntries(streams) {
   (Array.isArray(segmentBankData) ? segmentBankData : []).forEach((seg) => {
     const bankSegTitle = String(seg.title || 'Untitled segment').trim() || 'Untitled segment';
     const folder = String(seg.clipBankUrl || '').trim();
+    const posted = Array.isArray(seg.postedClips) ? seg.postedClips : [];
+    posted.forEach((clip) => {
+      const url = String(clip?.url || '').trim();
+      if (!url) return;
+      const tags = Array.isArray(clip.tags)
+        ? clip.tags.map((t) => String(t).trim()).filter(Boolean)
+        : String(clip.tags || '')
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean);
+      const people = Array.isArray(clip.people)
+        ? clip.people.map((p) => String(p).trim()).filter(Boolean)
+        : String(clip.people || '')
+          .split(',')
+          .map((p) => p.trim())
+          .filter(Boolean);
+      entries.push({
+        streamTitle: bankSegTitle,
+        segmentTitle: 'Segment bank',
+        url,
+        title: String(clip.title || '').trim() || 'Clip',
+        tags,
+        people,
+        clipIndex: 0,
+      });
+    });
     if (!folder) return;
     entries.push({
       streamTitle: bankSegTitle,
@@ -1949,7 +2101,7 @@ function renderClippersBoard() {
 
   bankBoard.innerHTML = `
     <div class="glass-panel" style="padding:16px;">
-      ${clipBankLocked ? '<p style="margin:0 0 12px; font-size:0.82rem; color:var(--text-muted);">Clip Bank is view-only for your role. You can search and open clips.</p>' : ''}
+      ${clipBankLocked ? '<p style="margin:0 0 12px; font-size:0.82rem; color:var(--text-muted);">Search and open clips below. Submit new links from <strong>Segment Bank</strong> — they appear here automatically.</p>' : ''}
       <div class="clip-bank-filters-grid">
         <input class="form-input" placeholder="Search by stream, tag, person..." value="${escAttr(clipBankFilters.text)}" oninput="setClipBankFilter('text', this.value)" />
         <select class="form-input" style="appearance:auto; background: rgba(0,0,0,0.5);" onchange="setClipBankFilter('tag', this.value)">
@@ -2045,8 +2197,8 @@ async function loadAppStateFromDb() {
 }
 
 async function saveAppStateToDb(options = {}) {
-  if (isClipperRole()) return true;
   const silent = Boolean(options.silent);
+  const throwOnFail = Boolean(options.throwOnFail);
   const body = serializeAppState();
   const json = JSON.stringify(body);
   try {
@@ -2069,6 +2221,7 @@ async function saveAppStateToDb(options = {}) {
     return true;
   } catch {
     __lastSavedJson = json;
+    if (throwOnFail) return false;
     if (!silent) {
       setDbStatus(`Saved in this browser only (use http://localhost:3847 for disk file)`, 'warn');
     } else {
